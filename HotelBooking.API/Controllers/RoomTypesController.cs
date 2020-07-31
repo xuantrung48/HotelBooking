@@ -46,6 +46,12 @@ namespace HotelBooking.API.Controllers
         {
             return await roomTypeService.Save(roomType);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         [Route("api/roomtypes/delete/{id}")]
         public async Task<ActionResult> Remove(int id)
