@@ -40,6 +40,11 @@ namespace HotelBooking.API.Controllers
         {
             return await roomTypeService.Get(id);
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="roomType"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("api/roomtypes/save")]
         public async Task<ActionResult> Save(RoomType roomType)
