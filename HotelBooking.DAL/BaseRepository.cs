@@ -8,7 +8,7 @@ namespace HotelBooking.DAL
         protected IDbConnection conn;
         public BaseRepository()
         {
-            var connectionString = "Data Source=DESKTOP-5V9HDF2\\SQLEXPRESS01;Initial Catalog=Hotel2;Integrated Security=True";
+            var connectionString = "workstation id=CoCoHomeStayDb.mssql.somee.com;packet size=4096;user id=quangnguyencg1_SQLLogin_1;pwd=r18z5w2tqk;data source=CoCoHomeStayDb.mssql.somee.com;persist security info=False;initial catalog=CoCoHomeStayDb";
             conn = new SqlConnection(connectionString);
         }
     }
