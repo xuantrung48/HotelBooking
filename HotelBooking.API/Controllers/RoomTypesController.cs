@@ -7,6 +7,9 @@ using ActionResult = HotelBooking.Domain.Response.ActionResult;
 
 namespace HotelBooking.API.Controllers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [ApiController]
     public class RoomTypesController : ControllerBase
     {
