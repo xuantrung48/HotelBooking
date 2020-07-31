@@ -18,15 +18,15 @@ namespace HotelBooking.API.Controllers
 
         [HttpGet]
         [Route("api/roomtypes/getall")]
-        public async Task<IEnumerable<RoomType>> Get()
+        public async Task<IEnumerable<RoomType>> GetAll()
         {
-            return await roomTypeService.Get();
+            return await roomTypeService.GetAll();
         }
         [HttpGet]
         [Route("api/roomtypes/getbyid/{id}")]
-        public async Task<RoomType> Get(int id)
+        public async Task<RoomType> GetById(int id)
         {
-            return await roomTypeService.Get(id);
+            return await roomTypeService.GetById(id);
         }
         [HttpPost]
         [Route("api/roomtypes/save")]

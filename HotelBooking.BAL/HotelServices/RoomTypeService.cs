@@ -14,14 +14,14 @@ namespace HotelBooking.BAL.HotelServices
         {
             this.roomTypeRepository = roomTypeRepository;
         }
-        public async Task<RoomType> Get(int id)
+        public async Task<RoomType> GetById(int id)
         {
-            return await roomTypeRepository.Get(id);
+            return await roomTypeRepository.GetById(id);
         }
 
-        public async Task<IEnumerable<RoomType>> Get()
+        public async Task<IEnumerable<RoomType>> GetAll()
         {
-            return await roomTypeRepository.Get();
+            return await roomTypeRepository.GetAll();
         }
 
         public async Task<ActionResult> Delete(int id)

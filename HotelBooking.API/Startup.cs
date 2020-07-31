@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using HotelBooking.BAL;
 using HotelBooking.BAL.Bookings;
 using HotelBooking.BAL.HotelServices;
@@ -16,11 +12,9 @@ using HotelBooking.DAL.Interface.Bookings;
 using HotelBooking.DAL.Interface.HotelServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace HotelBooking.API
 {
@@ -51,6 +45,9 @@ namespace HotelBooking.API
             services.AddTransient<IRoomTypeRepository, RoomTypeRepository>();
             services.AddTransient<IServiceRepository, ServiceRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IPromotionRepository, PromotionRepository>();
+            services.AddTransient<IPromotionService, PromotionService>();
+            services.AddTransient<IBookingServiceDetailsService, BookingServiceDetailsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

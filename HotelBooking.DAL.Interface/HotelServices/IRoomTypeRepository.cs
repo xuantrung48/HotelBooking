@@ -7,8 +7,8 @@ namespace HotelBooking.DAL.Interface.HotelServices
 {
     public interface IRoomTypeRepository
     {
-        Task<IEnumerable<RoomType>> Get();
-        Task<RoomType> Get(int id);
+        Task<IEnumerable<RoomType>> GetAll();
+        Task<RoomType> GetById(int id);
         Task<ActionResult> Save(RoomType roomType);
         Task<ActionResult> Delete(int id);
     }
