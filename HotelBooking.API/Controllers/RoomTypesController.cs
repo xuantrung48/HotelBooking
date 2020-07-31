@@ -17,13 +17,13 @@ namespace HotelBooking.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/roomtypes/get")]
+        [Route("api/roomtypes/getall")]
         public async Task<IEnumerable<RoomType>> Get()
         {
             return await roomTypeService.Get();
         }
         [HttpGet]
-        [Route("api/roomtypes/get/{id}")]
+        [Route("api/roomtypes/getbyid/{id}")]
         public async Task<RoomType> Get(int id)
         {
             return await roomTypeService.Get(id);
