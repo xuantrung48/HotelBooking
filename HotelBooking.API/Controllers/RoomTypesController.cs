@@ -19,12 +19,21 @@ namespace HotelBooking.API.Controllers
             this.roomTypeService = roomTypeService;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/roomtypes/get")]
         public async Task<IEnumerable<RoomType>> Get()
         {
             return await roomTypeService.Get();
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("api/roomtypes/get/{id}")]
         public async Task<RoomType> Get(int id)
