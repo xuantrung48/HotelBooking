@@ -15,19 +15,19 @@ namespace HotelBooking.DAL.HotelServices
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@ServiceId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<Service>(cnn: conn, sql: "GetService", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryFirstOrDefaultAsync<Service>(cnn: conn, sql: "Service_GetByServiceId", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         public async Task<IEnumerable<Service>> Get()
         {
-            return await SqlMapper.QueryAsync<Service>(conn, "GetServices", commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryAsync<Service>(conn, "Service_GetAll", commandType: CommandType.StoredProcedure);
         }
 
         public async Task<ActionResult> Delete(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@ServiceId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "DeleteService", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "Service_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         public async Task<ActionResult> Save(Service service)
@@ -38,7 +38,7 @@ namespace HotelBooking.DAL.HotelServices
                 parameters.Add("@ServiceId", service.ServiceId);
                 parameters.Add("@ServiceName", service.ServiceName);
                 parameters.Add("@Price", service.Price);
-                return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "SaveService", param: parameters, commandType: CommandType.StoredProcedure);
+                return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "Service_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)
             {
@@ -48,6 +48,13 @@ namespace HotelBooking.DAL.HotelServices
                     Message = "Có lỗi xảy ra, xin thử lại!"
                 };
             }
+        }
+
+        public async Task<IEnumerable<Service>> Search(string keyWord)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@keyWord", keyWord);
+            return await SqlMapper.QueryAsync<Service>(cnn: conn, sql: "Service_Search", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }

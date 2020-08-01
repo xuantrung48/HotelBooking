@@ -33,5 +33,10 @@ namespace HotelBooking.BAL.HotelServices
         {
             return await serviceRepository.Save(service);
         }
+
+        public async Task<IEnumerable<Service>> Search(string keyWord)
+        {
+            return await serviceRepository.Search(keyWord);
+        }
     }
 }

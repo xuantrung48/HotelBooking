@@ -14,19 +14,19 @@ namespace HotelBooking.DAL
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@CustomerId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<Customer>(cnn: conn, sql: "GetCustomer", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryFirstOrDefaultAsync<Customer>(cnn: conn, sql: "Customer_GetByCustomerId", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         public async Task<IEnumerable<Customer>> Get()
         {
-            return await SqlMapper.QueryAsync<Customer>(conn, "GetCustomers", commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryAsync<Customer>(conn, "Customer_GetAll", commandType: CommandType.StoredProcedure);
         }
 
         public async Task<ActionResult> Delete(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@CustomerId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "DeleteCustomer", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "Customer_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         public async Task<ActionResult> Save(Customer customer)
@@ -38,7 +38,7 @@ namespace HotelBooking.DAL
                 parameters.Add("@Name", customer.Name);
                 parameters.Add("@PhoneNumber", customer.PhoneNumber);
                 parameters.Add("@Email", customer.Email);
-                return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "SaveCustomer", param: parameters, commandType: CommandType.StoredProcedure);
+                return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "Customer_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)
             {
