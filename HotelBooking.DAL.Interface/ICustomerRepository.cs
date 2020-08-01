@@ -10,5 +10,6 @@ namespace HotelBooking.DAL.Interface
         Task<Customer> Get(int id);
         Task<ActionResult> Save(Customer customer);
         Task<ActionResult> Delete(int id);
+
     }
 }
