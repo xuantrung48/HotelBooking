@@ -1,7 +1,5 @@
 ﻿using HotelBooking.BAL.Interface;
-using HotelBooking.BAL.Interface.HotelServices;
 using HotelBooking.Domain.Response;
-using HotelBooking.Domain.Response.HotelServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,10 +11,10 @@ namespace HotelBooking.API.Controllers
     /// 
     /// </summary>
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CustomersController : ControllerBase
     {
         private readonly ICustomerSevice customerSevice;
-        public CustomerController(ICustomerSevice customerSevice)
+        public CustomersController(ICustomerSevice customerSevice)
         {
             this.customerSevice = customerSevice;
         }

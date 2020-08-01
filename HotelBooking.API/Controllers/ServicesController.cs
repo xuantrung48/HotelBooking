@@ -11,10 +11,10 @@ namespace HotelBooking.API.Controllers
     /// 
     /// </summary>
     [ApiController]
-    public class ServiceController : ControllerBase
+    public class ServicesController : ControllerBase
     {
         private readonly IServiceService serviceService;
-        public ServiceController(IServiceService serviceService)
+        public ServicesController(IServiceService serviceService)
         {
             this.serviceService = serviceService;
         }
