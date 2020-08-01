@@ -1,9 +1,8 @@
-﻿using HotelBooking.BAL.Interface;
-using HotelBooking.DAL.Interface;
+﻿using HotelBooking.BAL.Interface.Promotions;
+using HotelBooking.DAL.Interface.Promotions;
 using HotelBooking.Domain.Response;
-using System;
+using HotelBooking.Domain.Response.Promotions;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelBooking.BAL
@@ -14,10 +13,6 @@ namespace HotelBooking.BAL
         public PromotionService(IPromotionRepository promotionRepository)
         {
             this.promotionRepository = promotionRepository;
-        }
-        public async Task<Promotion> GetByRoomTypeId(int id)
-        {
-            return await promotionRepository.GetByRoomTypeId(id);
         }
 
         public async Task<IEnumerable<Promotion>> GetAll()

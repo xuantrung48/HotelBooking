@@ -1,22 +1,16 @@
 ﻿using Dapper;
-using HotelBooking.DAL.Interface;
+using HotelBooking.DAL.Interface.Promotions;
 using HotelBooking.Domain.Response;
+using HotelBooking.Domain.Response.Promotions;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace HotelBooking.DAL
+namespace HotelBooking.DAL.Promotions
 {
     public class PromotionRepository : BaseRepository, IPromotionRepository
     {
-        public async Task<Promotion> GetByRoomTypeId(int id)
-        {
-            DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@RoomTypeId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<Promotion>(cnn: conn, sql: "Promotion_GetbyRoomTypeId", param: parameters, commandType: CommandType.StoredProcedure);
-        }
 
         public async Task<IEnumerable<Promotion>> GetAll()
         {

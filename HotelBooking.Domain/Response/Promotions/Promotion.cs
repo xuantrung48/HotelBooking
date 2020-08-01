@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HotelBooking.Domain.Response
+namespace HotelBooking.Domain.Response.Promotions
 {
     public class Promotion
     {

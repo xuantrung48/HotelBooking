@@ -4,12 +4,16 @@ using HotelBooking.BAL.HotelServices;
 using HotelBooking.BAL.Interface;
 using HotelBooking.BAL.Interface.Bookings;
 using HotelBooking.BAL.Interface.HotelServices;
+using HotelBooking.BAL.Interface.Promotions;
+using HotelBooking.BAL.Promotions;
 using HotelBooking.DAL;
 using HotelBooking.DAL.Bookings;
 using HotelBooking.DAL.HotelServices;
 using HotelBooking.DAL.Interface;
 using HotelBooking.DAL.Interface.Bookings;
 using HotelBooking.DAL.Interface.HotelServices;
+using HotelBooking.DAL.Interface.Promotions;
+using HotelBooking.DAL.Promotions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -47,6 +51,8 @@ namespace HotelBooking.API
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IPromotionRepository, PromotionRepository>();
             services.AddTransient<IPromotionService, PromotionService>();
+            services.AddTransient<IPromotionApplyRepository, PromotionApplyRepository>();
+            services.AddTransient<IPromotionApplyService, PromotionApplyService>();
             services.AddTransient<IBookingServiceDetailsService, BookingServiceDetailsService>();
         }
 

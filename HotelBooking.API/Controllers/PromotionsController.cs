@@ -1,5 +1,5 @@
-﻿using HotelBooking.BAL.Interface;
-using HotelBooking.Domain.Response;
+﻿using HotelBooking.BAL.Interface.Promotions;
+using HotelBooking.Domain.Response.Promotions;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,12 +20,6 @@ namespace HotelBooking.API.Controllers
         public async Task<IEnumerable<Promotion>> GetAll()
         {
             return await promotionService.GetAll();
-        }
-        [HttpGet]
-        [Route("api/promotions/getbyroomtypeid/{id}")]
-        public async Task<Promotion> GetById(int id)
-        {
-            return await promotionService.GetByRoomTypeId(id);
         }
         [HttpPost]
         [Route("api/promotions/save")]
