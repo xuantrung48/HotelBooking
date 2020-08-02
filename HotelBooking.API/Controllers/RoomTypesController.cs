@@ -7,9 +7,6 @@ using ActionResult = HotelBooking.Domain.Response.ActionResult;
 
 namespace HotelBooking.API.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [ApiController]
     public class RoomTypesController : ControllerBase
     {
@@ -19,32 +16,18 @@ namespace HotelBooking.API.Controllers
             this.roomTypeService = roomTypeService;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
-        [Route("api/roomtypes/get")]
-        public async Task<IEnumerable<RoomType>> Get()
+        [Route("api/roomtypes/getall")]
+        public async Task<IEnumerable<RoomType>> GetAll()
         {
-            return await roomTypeService.Get();
+            return await roomTypeService.GetAll();
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpGet]
-        [Route("api/roomtypes/get/{id}")]
-        public async Task<RoomType> Get(int id)
+        [Route("api/roomtypes/getbyid/{id}")]
+        public async Task<RoomType> GetById(int id)
         {
-            return await roomTypeService.Get(id);
+            return await roomTypeService.GetById(id);
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="roomType"></param>
-        /// <returns></returns>
         [HttpPost]
         [Route("api/roomtypes/save")]
         public async Task<ActionResult> Save(RoomType roomType)
@@ -52,11 +35,6 @@ namespace HotelBooking.API.Controllers
             return await roomTypeService.Save(roomType);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpDelete]
         [Route("api/roomtypes/delete/{id}")]
         public async Task<ActionResult> Remove(int id)

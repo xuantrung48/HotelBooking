@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HotelBooking.BAL.Interface2\HotelBooking.BAL.Interface.csproj" />
+    <ProjectReference Include="..\HotelBooking.DAL.Interface2\HotelBooking.DAL.Interface.csproj" />
+    <ProjectReference Include="..\HotelBooking.Domain2\HotelBooking.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

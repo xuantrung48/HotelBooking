@@ -1,26 +1,24 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using HotelBooking.BAL;
 using HotelBooking.BAL.Bookings;
 using HotelBooking.BAL.HotelServices;
 using HotelBooking.BAL.Interface;
 using HotelBooking.BAL.Interface.Bookings;
 using HotelBooking.BAL.Interface.HotelServices;
+using HotelBooking.BAL.Interface.Promotions;
+using HotelBooking.BAL.Promotions;
 using HotelBooking.DAL;
 using HotelBooking.DAL.Bookings;
 using HotelBooking.DAL.HotelServices;
 using HotelBooking.DAL.Interface;
 using HotelBooking.DAL.Interface.Bookings;
 using HotelBooking.DAL.Interface.HotelServices;
+using HotelBooking.DAL.Interface.Promotions;
+using HotelBooking.DAL.Promotions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace HotelBooking.API
 {
@@ -40,7 +38,7 @@ namespace HotelBooking.API
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddTransient<IBookingRoomDetailsService, BookingRoomDetailsService> ();
-            /*services.AddTransient<IBookingService, BookingService>();*/
+            services.AddTransient<IBookingService, BookingService>();
             services.AddTransient<IBookingServiceDetailsService, BookingServiceDetailsService>();
             services.AddTransient<IRoomTypeService, RoomTypeService>();
             services.AddTransient<IServiceService, ServiceService>();
@@ -51,6 +49,11 @@ namespace HotelBooking.API
             services.AddTransient<IRoomTypeRepository, RoomTypeRepository>();
             services.AddTransient<IServiceRepository, ServiceRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IPromotionRepository, PromotionRepository>();
+            services.AddTransient<IPromotionService, PromotionService>();
+            services.AddTransient<IPromotionApplyRepository, PromotionApplyRepository>();
+            services.AddTransient<IPromotionApplyService, PromotionApplyService>();
+            //services.AddTransient<IBookingServiceDetailsService, BookingServiceDetailsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
