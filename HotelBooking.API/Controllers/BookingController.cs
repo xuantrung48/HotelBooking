@@ -1,9 +1,6 @@
-﻿using HotelBooking.BAL.Interface;
-using HotelBooking.BAL.Interface.Bookings;
-using HotelBooking.Domain.Response;
+﻿using HotelBooking.BAL.Interface.Bookings;
 using HotelBooking.Domain.Response.Bookings;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ActionResult = HotelBooking.Domain.Response.ActionResult;
