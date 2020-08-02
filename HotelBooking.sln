@@ -7,15 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelBooking.API", "HotelBo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelBooking.WEB", "HotelBooking.WEB\HotelBooking.WEB.csproj", "{9FFF7030-B23C-4755-AFF2-11BA04574FF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.Domain", "HotelBooking.Domain2\HotelBooking.Domain.csproj", "{95D08D4B-BB27-47C5-9E73-94D458851B74}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.Domain", "HotelBooking.Domain\HotelBooking.Domain.csproj", "{95D08D4B-BB27-47C5-9E73-94D458851B74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.DAL.Interface", "HotelBooking.DAL.Interface2\HotelBooking.DAL.Interface.csproj", "{4C7C9858-8A8C-47CC-B856-413962713DA1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.DAL.Interface", "HotelBooking.DAL.Interface\HotelBooking.DAL.Interface.csproj", "{4C7C9858-8A8C-47CC-B856-413962713DA1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.DAL", "HotelBooking.DAL2\HotelBooking.DAL.csproj", "{6A707DF2-130B-4FC4-A83F-C3251838E01E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.DAL", "HotelBooking.DAL\HotelBooking.DAL.csproj", "{6A707DF2-130B-4FC4-A83F-C3251838E01E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.BAL.Interface", "HotelBooking.BAL.Interface2\HotelBooking.BAL.Interface.csproj", "{982E2736-C268-42B7-A3A0-072FB22479E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.BAL.Interface", "HotelBooking.BAL.Interface\HotelBooking.BAL.Interface.csproj", "{982E2736-C268-42B7-A3A0-072FB22479E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.BAL", "HotelBooking.BAL2\HotelBooking.BAL.csproj", "{F690C688-0D4D-45CC-94E9-E62B63312410}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelBooking.BAL", "HotelBooking.BAL\HotelBooking.BAL.csproj", "{F690C688-0D4D-45CC-94E9-E62B63312410}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
