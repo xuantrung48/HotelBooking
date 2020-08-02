@@ -1,10 +1,7 @@
 ﻿using HotelBooking.BAL.Interface.Promotions;
-using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Promotions;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using ActionResult = HotelBooking.Domain.Response.ActionResult;
 
