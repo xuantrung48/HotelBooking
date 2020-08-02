@@ -11,23 +11,23 @@ namespace HotelBooking.DAL.Bookings
 {
     public class BookingRoomDetailsRepository : BaseRepository, IBookingRoomDetailsRepository
     {
-        public async Task<BookingRoomDetails> Get(int id)
+        public async Task<IEnumerable<BookingRoomDetails>> Get(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<BookingRoomDetails>(cnn: conn, sql: "GetBookingRoomDetails", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryAsync<BookingRoomDetails>(cnn: conn, sql: "BookingRoomDetails_GetByBookingId", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<IEnumerable<BookingRoomDetails>> Get()
-        {
-            return await SqlMapper.QueryAsync<BookingRoomDetails>(conn, "GetBookingsRoomDetails", commandType: CommandType.StoredProcedure);
-        }
+        //public async Task<IEnumerable<BookingRoomDetails>> Get()
+        //{
+        //    return await SqlMapper.QueryAsync<BookingRoomDetails>(conn, "GetBookingsRoomDetails", commandType: CommandType.StoredProcedure);
+        //}
 
         public async Task<ActionResult> Delete(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingRoomDetailsId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "DeleteBookingRoomDetails", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "BookingRoomDetails_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         public async Task<ActionResult> Save(BookingRoomDetails bookingRoomDetails)
@@ -35,12 +35,12 @@ namespace HotelBooking.DAL.Bookings
             try
             {
                 DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@BookingRoomDetailsId", bookingRoomDetails.BookingRoomDetailsId);
                 parameters.Add("@BookingId", bookingRoomDetails.BookingId);
                 parameters.Add("@RoomTypeId", bookingRoomDetails.RoomTypeId);
                 parameters.Add("@CheckInDate", bookingRoomDetails.CheckInDate);
                 parameters.Add("@CheckOutDate", bookingRoomDetails.CheckOutDate);
-                parameters.Add("@RoomPrice", bookingRoomDetails.RoomPrice);
-                return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "SaveBookingRoomDetails", param: parameters, commandType: CommandType.StoredProcedure);
+                return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "BookingRoomDetails_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)
             {
