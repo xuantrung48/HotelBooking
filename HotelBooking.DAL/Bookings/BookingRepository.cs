@@ -15,19 +15,19 @@ namespace HotelBooking.DAL.Bookings
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<Booking>(cnn: conn, sql: "GetBooking", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryFirstOrDefaultAsync<Booking>(cnn: conn, sql: "Booking_GetByBookingId", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         public async Task<IEnumerable<Booking>> Get()
         {
-            return await SqlMapper.QueryAsync<Booking>(conn, "GetBookings", commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryAsync<Booking>(cnn: conn, sql: "Booking_GetAll", commandType: CommandType.StoredProcedure);
         }
 
         public async Task<ActionResult> Delete(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "DeleteBooking", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "Booking_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         public async Task<ActionResult> Save(Booking booking)
@@ -38,14 +38,15 @@ namespace HotelBooking.DAL.Bookings
                 parameters.Add("@BookingId", booking.BookingId);
                 parameters.Add("@CustomerId", booking.CustomerId);
                 parameters.Add("@CreateDate", booking.CreateDate);
-                return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "SaveBooking", param: parameters, commandType: CommandType.StoredProcedure);
+                return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "Booking_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return new ActionResult()
                 {
                     Id = 0,
-                    Message = "Có lỗi xảy ra, xin thử lại!"
+                    Message = e.Message
+                    //Message = "Có lỗi xảy ra, xin thử lại!"
                 };
             }
         }

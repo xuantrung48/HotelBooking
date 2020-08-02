@@ -38,7 +38,7 @@ namespace HotelBooking.API
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddTransient<IBookingRoomDetailsService, BookingRoomDetailsService> ();
-            /*services.AddTransient<IBookingService, BookingService>();*/
+            services.AddTransient<IBookingService, BookingService>();
             services.AddTransient<IBookingServiceDetailsService, BookingServiceDetailsService>();
             services.AddTransient<IRoomTypeService, RoomTypeService>();
             services.AddTransient<IServiceService, ServiceService>();

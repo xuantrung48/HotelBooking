@@ -4,6 +4,7 @@ namespace HotelBooking.Domain.Response.Bookings
 {
     public class BookingRoomDetails
     {
+        public int BookingRoomDetailsId { get; set; }
         public int BookingId { get; set; }
         public int RoomTypeId { get; set; }
         public DateTime CheckInDate { get; set; }
