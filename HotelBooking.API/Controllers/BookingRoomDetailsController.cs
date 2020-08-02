@@ -1,6 +1,4 @@
-﻿using HotelBooking.BAL.Interface;
-using HotelBooking.BAL.Interface.Bookings;
-using HotelBooking.Domain.Response;
+﻿using HotelBooking.BAL.Interface.Bookings;
 using HotelBooking.Domain.Response.Bookings;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;

@@ -1,5 +1,4 @@
-﻿using HotelBooking.DAL.Interface.HotelServices;
-using HotelBooking.Domain.Response;
+﻿using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
 using System.Collections.Generic;
 using System.Threading.Tasks;

@@ -11,7 +11,9 @@
   <ItemGroup>
     <ProjectReference Include="..\HotelBooking.BAL.Interface\HotelBooking.BAL.Interface.csproj" />
     <ProjectReference Include="..\HotelBooking.BAL\HotelBooking.BAL.csproj" />
+    <ProjectReference Include="..\HotelBooking.DAL.Interface\HotelBooking.DAL.Interface.csproj" />
     <ProjectReference Include="..\HotelBooking.DAL\HotelBooking.DAL.csproj" />
+    <ProjectReference Include="..\HotelBooking.Domain\HotelBooking.Domain.csproj" />
   </ItemGroup>
 
 
