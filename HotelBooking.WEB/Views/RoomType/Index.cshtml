@@ -1,7 +1,77 @@
 ﻿@{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Quản lý loại phòng";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+
+<table class="table table-borderless table-striped table-earning">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>loại phòng</th>
+            <th class="text-right">giá</th>
+            <th class="text-right">sức chứa</th>
+            <th class="text-right">số lượng</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody id="datasTable">
+    </tbody>
+</table>
+
+
+<!-- Modal -->
+<div id="addEditModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <form>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title"></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <input hidden id="RoomTypeId" name="RoomTypeId">
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Tên loại phòng:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="Name" name="Name" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Giá phòng (₫):</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="Price" name="Price" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Sức chứa:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="Capacity" name="Capacity" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Số lượng phòng:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="Quantity" name="Quantity" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:;" class="btn btn-primary" onclick="roomType.save()">Lưu</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
