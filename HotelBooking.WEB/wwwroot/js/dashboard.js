@@ -2,15 +2,15 @@
 
 $(document).ready(function () {
     roomType.init();
-});
+})
 
 digitGrouping = function (price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-};
+}
 
 roomType.init = function () {
     roomType.drawTable();
-};
+}
 
 roomType.drawTable = function () {
     $.ajax({
@@ -50,7 +50,47 @@ roomType.drawTable = function () {
             });
         }
     });
-};
+}
+
+roomType.get = function (id) {
+    $.ajax({
+        url: `/RoomType/Get/${id}`,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            console.log(data);
+            $('.modal-title').text("Đổi thông tin loại phòng");
+            $('#Name').val(data.result.name);
+            $('#RoomTypeId').val(data.result.roomTypeId);
+            $('#Price').val(data.result.price);
+            $('#Capacity').val(data.result.capacity);
+            $('#Quantity').val(data.result.quantity);
+            $('#addEditModal').modal('show');
+        }
+    });
+}
+
+roomType.save = function () {
+    var roomTypeObj = {};
+    roomTypeObj.Name = $('#Name').val();
+    roomTypeObj.RoomTypeId = parseInt($('#RoomTypeId').val());
+    roomTypeObj.Price = parseInt($('#Price').val());
+    roomTypeObj.Capacity = parseFloat($('#Capacity').val());
+    roomTypeObj.Quantity = parseInt($('#Quantity').val());
+    console.log(roomTypeObj);
+    $.ajax({
+        url: `/RoomType/Save/`,
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(roomTypeObj),
+        success: function (data) {
+            $('#addEditModal').modal('hide');
+            bootbox.alert(data.result.message);
+            roomType.drawTable();
+        }
+    });
+}
 
 roomType.delete = function (id, name) {
     bootbox.confirm({
@@ -78,4 +118,4 @@ roomType.delete = function (id, name) {
             }
         }
     });
-};
+}
