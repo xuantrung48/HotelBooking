@@ -37,7 +37,7 @@ namespace HotelBooking.DAL.HotelServices
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@RoomTypeId", roomType.RoomTypeId);
                 parameters.Add("@Name", roomType.Name);
-                parameters.Add("@DefaultPrice", roomType.Price);
+                parameters.Add("@DefaultPrice", roomType.DefaultPrice);
                 parameters.Add("@Capacity", roomType.Capacity);
                 parameters.Add("@Quantity", roomType.Quantity);
                 return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "RoomType_Save", param: parameters, commandType: CommandType.StoredProcedure);
