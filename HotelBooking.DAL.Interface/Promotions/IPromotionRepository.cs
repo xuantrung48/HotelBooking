@@ -9,6 +9,7 @@ namespace HotelBooking.DAL.Interface.Promotions
     {
         Task<IEnumerable<Promotion>> GetAll();
         Task<ActionResult> Save(Promotion promotion);
+        Task<Promotion> GetById(int id);
         Task<ActionResult> Delete(int id);
     }
 }

@@ -14,6 +14,10 @@ namespace HotelBooking.BAL
         {
             this.promotionRepository = promotionRepository;
         }
+        public async Task<Promotion> GetById(int id)
+        {
+            return await promotionRepository.GetById(id);
+        }
 
         public async Task<IEnumerable<Promotion>> GetAll()
         {
