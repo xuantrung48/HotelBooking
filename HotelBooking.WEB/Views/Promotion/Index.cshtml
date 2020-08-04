@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Quản lý loại phòng";
+    ViewData["Title"] = "Quản lý chương trình khuyến mãi";
 }
 
 <div class="text-center mb-3">
@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-12 mb-3">
         <a href="javascript:void(0);" class="btn btn-info"
-           onclick="roomType.add()"><i class="fas fa-plus"></i> Thêm loại phòng</a>
+           onclick="promotion.add()"><i class="fas fa-plus"></i> Thêm khuyến mãi</a>
     </div>
 </div>
 
@@ -17,14 +17,14 @@
     <thead>
         <tr>
             <th>id</th>
-            <th>loại phòng</th>
-            <th class="text-right">giá (₫)</th>
-            <th class="text-right">sức chứa</th>
-            <th class="text-right">số lượng</th>
+            <th>tên chương trình</th>
+            <th>ngày bắt đầu</th>
+            <th>ngày kết thúc</th>
+            <th>mức giảm giá</th>
             <th>Hành động</th>
         </tr>
     </thead>
-    <tbody id="roomTypesTable">
+    <tbody id="promotionsTable">
     </tbody>
 </table>
 
@@ -39,61 +39,49 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input type="number" id="RoomTypeId" name="RoomTypeId" class="form-control" hidden>
+                <input type="number" id="PromotionId" name="PromotionId" class="form-control" hidden>
                 <div class="row form-group">
                     <div class="col-3">
-                        <label>Tên loại phòng:</label>
+                        <label>Tên chương trình:</label>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="Name" name="Name" class="form-control" data-rule-required="true">
+                        <input type="text" id="PromotionName" name="PromotionName" class="form-control" data-rule-required="true">
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col-3">
-                        <label>Giá phòng (₫):</label>
+                        <label>Ngày bắt đầu:</label>
                     </div>
                     <div class="col-9">
-                        <input type="number" id="DefaultPrice" name="DefaultPrice" class="form-control" data-rule-required="true">
+                        <input type="date" id="StartDate" name="StartDate" class="form-control" data-rule-required="true">
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col-3">
-                        <label>Sức chứa:</label>
+                        <label>Ngày kết thúc:</label>
                     </div>
                     <div class="col-9">
-                        <div class="row">
-                            <div class="col-3">
-                                <input type="number" id="adult" name="adult" class="form-control" />
-                            </div>
-                            <div class="col-3">
-                                x <i class="fas fa-male" style="font-size: 1.5em"></i>
-                            </div>
-                            <div class="col-6">
-                                <label class="form-check-label ">
-                                    <input type="checkbox" id="child" name="child" value="0.5" class="form-check-input">
-                                    <i class="fas fa-child"></i>
-                                </label>
-                            </div>
-                        </div>
+                        <input type="date" id="EndDate" name="EndDate" class="form-control" data-rule-required="true">
                     </div>
                 </div>
                 <div class="row form-group">
                     <div class="col-3">
-                        <label>Số lượng phòng:</label>
+                        <label>Mức giảm giá (%):</label>
                     </div>
                     <div class="col-9">
-                        <input type="number" id="Quantity" name="Quantity" class="form-control" data-rule-required="true">
+                        <input type="number" id="DiscountRates" name="DiscountRates" class="form-control" data-rule-required="true" min="1" max="100">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="javascript:;" class="btn btn-primary" onclick="roomType.save()">Lưu</a>
+                <a href="javascript:;" class="btn btn-primary" onclick="promotion.save()">Lưu</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
             </div>
         </div>
     </div>
 </div>
 <!-- end modal medium -->
+
 @section scripts{
-    <script src="~/js/dashboard/roomtype.js" asp-append-version="true"></script>
+    <script src="~/js/dashboard/promotion.js" asp-append-version="true"></script>
 }

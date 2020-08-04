@@ -11,6 +11,12 @@ namespace HotelBooking.DAL.Promotions
 {
     public class PromotionRepository : BaseRepository, IPromotionRepository
     {
+        public async Task<Promotion> GetById(int id)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@PromotionId", id);
+            return await SqlMapper.QueryFirstOrDefaultAsync<Promotion>(cnn: conn, sql: "Promotion_GetById", param: parameters, commandType: CommandType.StoredProcedure);
+        }
 
         public async Task<IEnumerable<Promotion>> GetAll()
         {
@@ -30,7 +36,7 @@ namespace HotelBooking.DAL.Promotions
             {
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@PromotionId", promotion.PromotionId);
-                parameters.Add("@RoomTypeId", promotion.RoomTypeId);
+                parameters.Add("@PromotionName", promotion.PromotionName);
                 parameters.Add("@StartDate", promotion.StartDate);
                 parameters.Add("@EndDate", promotion.EndDate);
                 parameters.Add("@DiscountRates", promotion.DiscountRates);

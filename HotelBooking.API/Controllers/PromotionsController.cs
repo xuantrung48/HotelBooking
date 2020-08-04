@@ -14,7 +14,12 @@ namespace HotelBooking.API.Controllers
         {
             this.promotionService = promotionService;
         }
-
+        [HttpGet]
+        [Route("api/promotions/getbyid/{id}")]
+        public async Task<Promotion> GetById(int id)
+        {
+            return await promotionService.GetById(id);
+        }
         [HttpGet]
         [Route("api/promotions/getall")]
         public async Task<IEnumerable<Promotion>> GetAll()

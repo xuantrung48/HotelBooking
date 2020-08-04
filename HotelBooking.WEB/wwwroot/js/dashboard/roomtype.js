@@ -13,7 +13,7 @@ roomType.init = function () {
 }
 
 roomType.drawTable = function () {
-    $('#datasTable').empty();
+    $('#roomTypesTable').empty();
     $.ajax({
         url: "/RoomType/GetAll",
         method: "GET",
@@ -28,7 +28,7 @@ roomType.drawTable = function () {
                     people += `(${v.capacity - 0.5} x <i class="fas fa-male" style="font-size: 1.5em"></i>) `;
                     people += '+ <i class="fas fa-child"></i>';
                 }
-                $('#datasTable').append(
+                $('#roomTypesTable').append(
                     `<tr>
                         <td>${v.roomTypeId}</td>
                         <td>${v.name}</td>
@@ -82,7 +82,6 @@ roomType.save = function () {
     roomTypeObj.DefaultPrice = parseInt($('#DefaultPrice').val());
     roomTypeObj.Capacity = parseFloat($('#adult').val()) + parseFloat($('#child').val());
     roomTypeObj.Quantity = parseInt($('#Quantity').val());
-    console.log(roomTypeObj);
     $.ajax({
         url: `/RoomType/Save/`,
         method: "POST",

@@ -7,6 +7,7 @@ namespace HotelBooking.BAL.Interface.Promotions
 {
     public interface IPromotionService
     {
+        Task<Promotion> GetById(int id);
         Task<IEnumerable<Promotion>> GetAll();
         Task<ActionResult> Save(Promotion promotion);
         Task<ActionResult> Delete(int id);
