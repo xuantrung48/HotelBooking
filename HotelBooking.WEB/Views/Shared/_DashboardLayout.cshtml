@@ -59,7 +59,12 @@
                     <ul class="navbar-mobile__list list-unstyled">
                         <li>
                             <a asp-controller="RoomType" asp-action="Index">
-                                <i class="fas fa-bed"></i>Rooms
+                                <i class="fas fa-bed"></i>Loại phòng
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Promotion" asp-action="Index">
+                                <i class="fas fa-tags"></i>Khuyến mãi
                             </a>
                         </li>
                     </ul>
@@ -79,7 +84,12 @@
                     <ul class="list-unstyled navbar__list">
                         <li>
                             <a asp-controller="RoomType" asp-action="Index">
-                                <i class="fas fa-bed"></i>Rooms
+                                <i class="fas fa-bed"></i>Loại phòng
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Promotion" asp-action="Index">
+                                <i class="fas fa-tags"></i>Khuyến mãi
                             </a>
                         </li>
                     </ul>
@@ -299,8 +309,7 @@
     <script src="~/lib/bootbox/bootbox.min.js"></script>
     <!-- Main JS-->
     <script src="~/cooladminlib/js/main.js"></script>
-    <script src="~/js/dashboard.js"></script>
-
+    @RenderSection("scripts", false)
 </body>
 
 </html>
