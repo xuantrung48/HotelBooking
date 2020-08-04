@@ -33,7 +33,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel"></h5>
+                <h3 class="modal-title" id="mediumModalLabel"></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -61,7 +61,21 @@
                         <label>Sức chứa:</label>
                     </div>
                     <div class="col-9">
-                        <input type="number" id="Capacity" name="Capacity" class="form-control" data-rule-required="true">
+                        <div class="row">
+                            <div class="col-3">
+                                <input type="number" id="adult" name="adult" class="form-control"/>
+                            </div>
+                            <div class="col-3">
+                                x <i class="fas fa-male" style="font-size: 1.5em"></i>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-check-label ">
+                                    <input type="checkbox" id="child" name="child" value="0.5" class="form-check-input">
+                                    <i class="fas fa-child"></i>
+                                </label>
+                            </div>
+                        </div>
+                        @*<input type="number" id="Capacity" name="Capacity" class="form-control" data-rule-required="true">*@
                     </div>
                 </div>
                 <div class="row form-group">
