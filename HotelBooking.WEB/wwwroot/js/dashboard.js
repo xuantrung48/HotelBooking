@@ -22,15 +22,11 @@ roomType.drawTable = function () {
             $.each(data.result, function (i, v) {
                 let people = '';
                 if (v.capacity % 1 == 0) {
-                    for (let i = 0; i < v.capacity; i++) {
-                        people += '<i class="fas fa-male" style="font-size: 1.5em"></i> ';
-                    };
+                    people += `(${v.capacity} x <i class="fas fa-male" style="font-size: 1.5em"></i>) `;
                 }
                 else {
-                    for (let i = 0; i < v.capacity - 0.5; i++) {
-                        people += '<i class="fas fa-male" style="font-size: 1.5em"></i> ';
-                    };
-                    people += '<i class="fas fa-child"></i>';
+                    people += `(${v.capacity - 0.5} x <i class="fas fa-male" style="font-size: 1.5em"></i>) `;
+                    people += '+ <i class="fas fa-child"></i>';
                 }
                 $('#datasTable').append(
                     `<tr>
@@ -63,6 +59,14 @@ roomType.get = function (id) {
             $('#Name').val(data.result.name);
             $('#RoomTypeId').val(data.result.roomTypeId);
             $('#DefaultPrice').val(data.result.defaultPrice);
+            if (data.result.capacity % 1 == 0) {
+                $('#adult').val(data.result.capacity);
+                $('#child').val('0');
+            } else {
+                $('#adult').val(data.result.capacity - 0.5);
+                $('#child').val('0.5');
+                $('#child').attr('checked', 'checked');
+            }
             $('#Capacity').val(data.result.capacity);
             $('#Quantity').val(data.result.quantity);
             $('#mediumModal').appendTo("body");
@@ -76,7 +80,7 @@ roomType.save = function () {
     roomTypeObj.Name = $('#Name').val();
     roomTypeObj.RoomTypeId = parseInt($('#RoomTypeId').val());
     roomTypeObj.DefaultPrice = parseInt($('#DefaultPrice').val());
-    roomTypeObj.Capacity = parseFloat($('#Capacity').val());
+    roomTypeObj.Capacity = parseFloat($('#adult').val()) + parseFloat($('#child').val());
     roomTypeObj.Quantity = parseInt($('#Quantity').val());
     console.log(roomTypeObj);
     $.ajax({
@@ -132,6 +136,16 @@ roomType.reset = function () {
     $('#Name').val('');
     $('#RoomTypeId').val(0);
     $('#DefaultPrice').val('');
-    $('#Capacity').val('');
+    $('#adult').val('');
+    $('#child').val('0');
+    $('#child').removeAttr('checked');
     $('#Quantity').val('');
 }
+
+$('#child').click(function () {
+    if ($('#child').is(":checked")) {
+        $('#child').val('0.5');
+    } else {
+        $('#child').val('0');
+    }
+})
