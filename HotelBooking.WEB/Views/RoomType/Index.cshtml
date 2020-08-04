@@ -3,7 +3,7 @@
 }
 
 <div class="text-center mb-3">
-    <h1 class="display-4">@ViewData["Title"]</h1>
+    <h2>@ViewData["Title"]</h2>
 </div>
 
 <div class="row">
@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<table class="table table-borderless table-striped table-earning">
+<table class="table table-borderless table-striped table-earning table-responsive">
     <thead>
         <tr>
             <th>id</th>
@@ -24,7 +24,7 @@
             <th>Hành động</th>
         </tr>
     </thead>
-    <tbody id="datasTable">
+    <tbody id="roomTypesTable">
     </tbody>
 </table>
 
@@ -63,7 +63,7 @@
                     <div class="col-9">
                         <div class="row">
                             <div class="col-3">
-                                <input type="number" id="adult" name="adult" class="form-control"/>
+                                <input type="number" id="adult" name="adult" class="form-control" />
                             </div>
                             <div class="col-3">
                                 x <i class="fas fa-male" style="font-size: 1.5em"></i>
@@ -75,7 +75,6 @@
                                 </label>
                             </div>
                         </div>
-                        @*<input type="number" id="Capacity" name="Capacity" class="form-control" data-rule-required="true">*@
                     </div>
                 </div>
                 <div class="row form-group">
@@ -95,3 +94,6 @@
     </div>
 </div>
 <!-- end modal medium -->
+@section scripts{
+    <script src="~/js/dashboard/roomtype.js" asp-append-version="true"></script>
+}
