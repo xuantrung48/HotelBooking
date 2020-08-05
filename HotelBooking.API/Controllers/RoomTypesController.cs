@@ -3,7 +3,7 @@ using HotelBooking.Domain.Response.HotelServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ActionResult = HotelBooking.Domain.Response.ActionResult;
+using ActionsResult = HotelBooking.Domain.Response.ActionsResult;
 
 namespace HotelBooking.API.Controllers
 {
@@ -30,14 +30,14 @@ namespace HotelBooking.API.Controllers
         }
         [HttpPost]
         [Route("api/roomtypes/save")]
-        public async Task<ActionResult> Save(RoomType roomType)
+        public async Task<ActionsResult> Save(RoomType roomType)
         {
             return await roomTypeService.Save(roomType);
         }
 
         [HttpDelete]
         [Route("api/roomtypes/delete/{id}")]
-        public async Task<ActionResult> Remove(int id)
+        public async Task<ActionsResult> Remove(int id)
         {
             return await roomTypeService.Delete(id);
         }

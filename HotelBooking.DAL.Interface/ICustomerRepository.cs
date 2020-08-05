@@ -8,8 +8,8 @@ namespace HotelBooking.DAL.Interface
     {
         Task<IEnumerable<Customer>> Get();
         Task<Customer> Get(int id);
-        Task<ActionResult> Save(Customer customer);
-        Task<ActionResult> Delete(int id);
+        Task<ActionsResult> Save(Customer customer);
+        Task<ActionsResult> Delete(int id);
 
     }
 }

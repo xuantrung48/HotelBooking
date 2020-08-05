@@ -9,7 +9,7 @@ namespace HotelBooking.DAL.Interface.HotelServices
     {
         Task<IEnumerable<RoomType>> GetAll();
         Task<RoomType> GetById(int id);
-        Task<ActionResult> Save(RoomType roomType);
-        Task<ActionResult> Delete(int id);
+        Task<ActionsResult> Save(RoomType roomType);
+        Task<ActionsResult> Delete(int id);
     }
 }

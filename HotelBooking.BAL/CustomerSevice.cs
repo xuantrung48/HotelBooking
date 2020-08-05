@@ -23,12 +23,12 @@ namespace HotelBooking.BAL
             return await customerRepository.Get();
         }
 
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionsResult> Delete(int id)
         {
             return await customerRepository.Delete(id);
         }
 
-        public async Task<ActionResult> Save(Customer customer)
+        public async Task<ActionsResult> Save(Customer customer)
         {
             return await customerRepository.Save(customer);
         }

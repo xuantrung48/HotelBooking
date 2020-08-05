@@ -20,12 +20,12 @@ namespace HotelBooking.BAL.Promotions
             return await promotionApplyRepository.GetAll();
         }
 
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionsResult> Delete(int id)
         {
             return await promotionApplyRepository.Delete(id);
         }
 
-        public async Task<ActionResult> Save(PromotionApply promotionApply)
+        public async Task<ActionsResult> Save(PromotionApply promotionApply)
         {
             return await promotionApplyRepository.Save(promotionApply);
         }

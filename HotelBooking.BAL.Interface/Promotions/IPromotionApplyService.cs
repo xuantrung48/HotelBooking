@@ -9,7 +9,7 @@ namespace HotelBooking.BAL.Interface.Promotions
     {
         Task<IEnumerable<PromotionApply>> GetAll();
         Task<PromotionApply> GetByRoomTypeId(int id);
-        Task<ActionResult> Save(PromotionApply promotionApply);
-        Task<ActionResult> Delete(int id);
+        Task<ActionsResult> Save(PromotionApply promotionApply);
+        Task<ActionsResult> Delete(int id);
     }
 }
