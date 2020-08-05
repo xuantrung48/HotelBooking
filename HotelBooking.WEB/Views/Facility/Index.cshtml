@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Quản lý dịch vụ";
+    ViewData["Title"] = "Quản lý tiện nghi";
 }
 
 <div class="text-center mb-3">
@@ -9,20 +9,19 @@
 <div class="row">
     <div class="col-12 mb-3">
         <a href="javascript:void(0);" class="btn btn-info"
-           onclick="service.add()"><i class="fas fa-plus"></i> Thêm dịch vụ</a>
+           onclick="facility.add()"><i class="fas fa-plus"></i> Thêm tiện nghi</a>
     </div>
 </div>
 
 <table class="table table-borderless table-striped table-earning">
     <thead>
         <tr>
-            <th>id</th>
-            <th>Tên dịch vụ</th>
-            <th>Giá dịch vụ</th>
+            <th>tên</th>
+            <th>biểu tượng</th>
             <th>Hành động</th>
         </tr>
     </thead>
-    <tbody id="serviceTable">
+    <tbody id="facilitiesTable">
     </tbody>
 </table>
 
@@ -37,33 +36,37 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input type="number" id="ServiceId" name="ServiceId" class="form-control" hidden>
+                <input type="number" id="FacilityId" name="FacilityId" class="form-control" hidden>
                 <div class="row form-group">
                     <div class="col-3">
-                        <label>Tên dịch vụ:</label>
+                        <label>Tên tiện nghi:</label>
                     </div>
                     <div class="col-9">
-                        <input type="text" id="ServiceName" name="ServiceName" class="form-control" data-rule-required="true">
+                        <input type="text" id="FacilityName" name="FacilityName" class="form-control" data-rule-required="true">
                     </div>
                 </div>
                 <div class="row form-group">
+                    <input hidden id="FacilityImage" type="text">
                     <div class="col-3">
-                        <label>Giá dịch vụ:</label>
+                        <label>Biểu tượng:</label>
                     </div>
-                    <div class="col-9">
-                        <input type="number" id="Price" name="Price" class="form-control" data-rule-required="true">
+                    <div class="col-6">
+                        <div class="custom-file">
+                            <input id="inp" type='file'>
+                        </div>
+                    </div>
+                    <div class="col-3" id="imgPreview">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="javascript:;" class="btn btn-primary" onclick="service.save()">Lưu</a>
+                <a href="javascript:;" class="btn btn-primary" onclick="facility.save()">Lưu</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
             </div>
         </div>
     </div>
 </div>
 <!-- end modal medium -->
-
 @section scripts{
-    <script src="~/js/dashboard/service.js" asp-append-version="true"></script>
+    <script src="~/js/dashboard/facility.js" asp-append-version="true"></script>
 }
