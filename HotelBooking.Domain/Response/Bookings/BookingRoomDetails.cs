@@ -7,8 +7,8 @@ namespace HotelBooking.Domain.Response.Bookings
         public int BookingRoomDetailsId { get; set; }
         public int BookingId { get; set; }
         public int RoomTypeId { get; set; }
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
+        public int RoomQuantity { get; set; }
+        public DateTime Date { get; set; }
         public float RoomPrice { get; set; }
     }
 }

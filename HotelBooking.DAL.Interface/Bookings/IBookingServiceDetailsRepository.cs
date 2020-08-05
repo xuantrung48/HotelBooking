@@ -9,7 +9,7 @@ namespace HotelBooking.DAL.Interface.Bookings
     {
         //Task<IEnumerable<BookingServiceDetails>> Get();
         Task<IEnumerable<BookingServiceDetails>> Get(int id);
-        Task<ActionResult> Save(BookingServiceDetails bookingServiceDetails);
-        Task<ActionResult> Delete(int id);
+        Task<ActionsResult> Save(BookingServiceDetails bookingServiceDetails);
+        Task<ActionsResult> Delete(int id);
     }
 }
