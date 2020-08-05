@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HotelBooking.Domain.Response.Promotions;
+﻿using HotelBooking.Domain.Response.Promotions;
 using Microsoft.AspNetCore.Mvc;
 using ShopDienThoai.Web.Ultilities;
+using System.Collections.Generic;
+using ActionResult = HotelBooking.Domain.Response.ActionResult;
 
 namespace HotelBooking.WEB.Controllers
 {
