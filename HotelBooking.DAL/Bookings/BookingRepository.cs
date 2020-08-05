@@ -23,25 +23,25 @@ namespace HotelBooking.DAL.Bookings
             return await SqlMapper.QueryAsync<Booking>(cnn: conn, sql: "Booking_GetAll", commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionsResult> Delete(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "Booking_Delete", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "Booking_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<ActionResult> Save(Booking booking)
+        public async Task<ActionsResult> Save(Booking booking)
         {
             try
             {
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@BookingId", booking.BookingId);
                 parameters.Add("@CustomerId", booking.CustomerId);
-                return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "Booking_Save", param: parameters, commandType: CommandType.StoredProcedure);
+                return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "Booking_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception e)
             {
-                return new ActionResult()
+                return new ActionsResult()
                 {
                     Id = 0,
                     Message = e.Message

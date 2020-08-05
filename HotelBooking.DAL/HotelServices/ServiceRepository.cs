@@ -23,14 +23,14 @@ namespace HotelBooking.DAL.HotelServices
             return await SqlMapper.QueryAsync<Service>(conn, "Service_GetAll", commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionsResult> Delete(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@ServiceId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "Service_Delete", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "Service_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<ActionResult> Save(Service service)
+        public async Task<ActionsResult> Save(Service service)
         {
             try
             {
@@ -38,11 +38,11 @@ namespace HotelBooking.DAL.HotelServices
                 parameters.Add("@ServiceId", service.ServiceId);
                 parameters.Add("@ServiceName", service.ServiceName);
                 parameters.Add("@Price", service.Price);
-                return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "Service_Save", param: parameters, commandType: CommandType.StoredProcedure);
+                return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "Service_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)
             {
-                return new ActionResult()
+                return new ActionsResult()
                 {
                     Id = 0,
                     Message = "Có lỗi xảy ra, xin thử lại!"

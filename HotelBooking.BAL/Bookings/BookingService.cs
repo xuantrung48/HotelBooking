@@ -17,7 +17,7 @@ namespace HotelBooking.BAL.Bookings
         {
             this.bookingRepository = bookingRepository;
         }
-        public Task<ActionResult> Delete(int id)
+        public Task<ActionsResult> Delete(int id)
         {
             return bookingRepository.Delete(id);
         }
@@ -32,7 +32,7 @@ namespace HotelBooking.BAL.Bookings
             return bookingRepository.Get(id);
         }
 
-        public Task<ActionResult> Save(Booking booking)
+        public Task<ActionsResult> Save(Booking booking)
         {
             return bookingRepository.Save(booking);
         }

@@ -9,8 +9,8 @@ namespace HotelBooking.DAL.Interface.HotelServices
     {
         Task<IEnumerable<Service>> Get();
         Task<Service> Get(int id);
-        Task<ActionResult> Save(Service service);
-        Task<ActionResult> Delete(int id);
+        Task<ActionsResult> Save(Service service);
+        Task<ActionsResult> Delete(int id);
         Task<IEnumerable<Service>> Search(string keyWord);
     }
 }

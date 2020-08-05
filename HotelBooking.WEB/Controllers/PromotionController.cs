@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ShopDienThoai.Web.Ultilities;
 using System.Collections.Generic;
-using ActionResult = HotelBooking.Domain.Response.ActionResult;
+using ActionsResult = HotelBooking.Domain.Response.ActionsResult;
 
 namespace HotelBooking.WEB.Controllers
 {
@@ -25,13 +25,13 @@ namespace HotelBooking.WEB.Controllers
 
         public JsonResult Delete(int id)
         {
-            ActionResult result = ApiHelper<ActionResult>.HttpGetAsync($"{Helper.ApiUrl}api/promotions/delete/{id}", "DELETE");
+            ActionsResult result = ApiHelper<ActionsResult>.HttpGetAsync($"{Helper.ApiUrl}api/promotions/delete/{id}", "DELETE");
             return Json(new { result });
         }
         public JsonResult Save([FromBody] Promotion model)
         {
-            ActionResult result;
-            result = ApiHelper<ActionResult>.HttpPostAsync($"{Helper.ApiUrl}api/promotions/save", model);
+            ActionsResult result;
+            result = ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/promotions/save", model);
             return Json(new { result });
         }
     }
