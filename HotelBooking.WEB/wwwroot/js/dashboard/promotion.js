@@ -91,6 +91,34 @@ promotion.save = function () {
     });
 }
 
+promotion.delete = function (id, name) {
+    bootbox.confirm({
+        title: "Xoá khuyến mãi",
+        message: 'Bạn có thực sự muốn xoá chương trình khuyến mãi "' + name + '"?',
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Huỷ'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Xác nhận'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                $.ajax({
+                    url: `/Promotion/Delete/${id}`,
+                    method: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        bootbox.alert(data.result.message);
+                        promotion.drawTable();
+                    }
+                });
+            }
+        }
+    });
+}
+
 dateToDMY = function (date) {
     date = new Date(date);
     var d = date.getDate();
