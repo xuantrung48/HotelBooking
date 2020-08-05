@@ -21,6 +21,10 @@
     {
       "library": "bootbox.js@5.4.0",
       "destination": "wwwroot/lib/bootbox/"
+    },
+    {
+      "library": "tinymce@4.5.12",
+      "destination": "wwwroot/lib/tinymce/"
     }
   ]
 }
