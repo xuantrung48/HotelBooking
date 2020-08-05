@@ -7,6 +7,7 @@ using ActionResult = HotelBooking.Domain.Response.ActionResult;
 
 namespace HotelBooking.API.Controllers
 {
+    [ApiController]
     public class PromotionsController : ControllerBase
     {
         private readonly IPromotionService promotionService;
