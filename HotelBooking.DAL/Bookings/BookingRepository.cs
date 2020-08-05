@@ -37,7 +37,6 @@ namespace HotelBooking.DAL.Bookings
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@BookingId", booking.BookingId);
                 parameters.Add("@CustomerId", booking.CustomerId);
-                parameters.Add("@CreateDate", booking.CreateDate);
                 return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "Booking_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception e)
