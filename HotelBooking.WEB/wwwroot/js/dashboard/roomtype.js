@@ -59,6 +59,7 @@ roomType.get = function (id) {
             $('#Name').val(data.result.name);
             $('#RoomTypeId').val(data.result.roomTypeId);
             $('#DefaultPrice').val(data.result.defaultPrice);
+            $('#Description').val(data.result.description);
             if (data.result.capacity % 1 == 0) {
                 $('#adult').val(data.result.capacity);
                 $('#child').val('0');
@@ -82,6 +83,7 @@ roomType.save = function () {
     roomTypeObj.DefaultPrice = parseInt($('#DefaultPrice').val());
     roomTypeObj.Capacity = parseFloat($('#adult').val()) + parseFloat($('#child').val());
     roomTypeObj.Quantity = parseInt($('#Quantity').val());
+    roomTypeObj.Description = $('#Description').val();
     $.ajax({
         url: `/RoomType/Save/`,
         method: "POST",
@@ -139,6 +141,7 @@ roomType.reset = function () {
     $('#child').val('0');
     $('#child').removeAttr('checked');
     $('#Quantity').val('');
+    $('#Description').val('');
 }
 
 $('#child').click(function () {
