@@ -40,6 +40,7 @@ namespace HotelBooking.DAL.HotelServices
                 parameters.Add("@DefaultPrice", roomType.DefaultPrice);
                 parameters.Add("@Capacity", roomType.Capacity);
                 parameters.Add("@Quantity", roomType.Quantity);
+                parameters.Add("@Description", roomType.Description);
                 return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "RoomType_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)
