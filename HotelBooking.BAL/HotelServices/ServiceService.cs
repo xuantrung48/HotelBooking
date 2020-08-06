@@ -10,10 +10,12 @@ namespace HotelBooking.BAL.HotelServices
     public class ServiceService : IServiceService
     {
         private readonly IServiceRepository serviceRepository;
+
         public ServiceService(IServiceRepository serviceRepository)
         {
             this.serviceRepository = serviceRepository;
         }
+
         public async Task<Service> Get(int id)
         {
             return await serviceRepository.Get(id);

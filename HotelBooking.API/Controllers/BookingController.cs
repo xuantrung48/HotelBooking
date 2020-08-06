@@ -1,19 +1,20 @@
 ﻿using HotelBooking.BAL.Interface.Bookings;
+using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Bookings;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ActionsResult = HotelBooking.Domain.Response.ActionsResult;
 
 namespace HotelBooking.API.Controllers
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [ApiController]
     public class BookingController : ControllerBase
     {
         private readonly IBookingService bookingService;
+
         public BookingController(IBookingService bookingService)
         {
             this.bookingService = bookingService;
@@ -31,8 +32,8 @@ namespace HotelBooking.API.Controllers
         public async Task<Booking> Get(int id)
         {
             return await bookingService.Get(id);
-        }  
-        
+        }
+
         [HttpPost]
         [Route("api/booking/save")]
         public async Task<ActionsResult> Save(Booking booking)

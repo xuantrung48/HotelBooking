@@ -17,12 +17,14 @@ namespace HotelBooking.DAL.Facilities
             parameters.Add("@FacilityApplyId", id);
             return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "FacilityApply_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
+
         public async Task<ActionsResult> DeleteByRoomTypeId(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@RoomTypeId", id);
             return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "FacilityApply_DeleteByRoomTypeId", param: parameters, commandType: CommandType.StoredProcedure);
         }
+
         public async Task<ActionsResult> Save(FacilityApply facilityApply)
         {
             try

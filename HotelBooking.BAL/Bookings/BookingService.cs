@@ -2,9 +2,7 @@
 using HotelBooking.DAL.Interface.Bookings;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Bookings;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelBooking.BAL.Bookings
@@ -17,6 +15,7 @@ namespace HotelBooking.BAL.Bookings
         {
             this.bookingRepository = bookingRepository;
         }
+
         public Task<ActionsResult> Delete(int id)
         {
             return bookingRepository.Delete(id);

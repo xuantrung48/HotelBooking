@@ -16,7 +16,6 @@ namespace HotelBooking.DAL.Bookings
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
             return await SqlMapper.QueryAsync<BookingServiceDetails>(cnn: conn, sql: "BookingServiceDetails_GetByBookingId", param: parameters, commandType: CommandType.StoredProcedure);
-
         }
 
         //public async Task<IEnumerable<BookingServiceDetails>> Get()

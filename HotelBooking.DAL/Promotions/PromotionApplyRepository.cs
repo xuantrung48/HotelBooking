@@ -11,7 +11,6 @@ namespace HotelBooking.DAL.Promotions
 {
     public class PromotionApplyRepository : BaseRepository, IPromotionApplyRepository
     {
-
         public async Task<IEnumerable<PromotionApply>> GetAll()
         {
             return await SqlMapper.QueryAsync<PromotionApply>(conn, "PromotionApply_GetAll", commandType: CommandType.StoredProcedure);

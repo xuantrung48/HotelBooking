@@ -8,8 +8,11 @@ namespace HotelBooking.DAL.Interface.Promotions
     public interface IPromotionApplyRepository
     {
         Task<IEnumerable<PromotionApply>> GetAll();
+
         Task<PromotionApply> GetByRoomTypeId(int id);
+
         Task<ActionsResult> Save(PromotionApply promotionApply);
+
         Task<ActionsResult> Delete(int id);
     }
 }

@@ -10,6 +10,7 @@ namespace HotelBooking.BAL.Facilities
     public class FacilityApplyService : IFacilityApplyService
     {
         private readonly IFacilityApplyRepository facilityApplyRepository;
+
         public FacilityApplyService(IFacilityApplyRepository facilityApplyRepository)
         {
             this.facilityApplyRepository = facilityApplyRepository;

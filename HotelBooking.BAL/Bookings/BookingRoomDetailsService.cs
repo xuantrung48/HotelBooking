@@ -10,10 +10,12 @@ namespace HotelBooking.BAL.Bookings
     public class BookingRoomDetailsService : IBookingRoomDetailsService
     {
         private readonly IBookingRoomDetailsRepository bookingRoomDetailsRepository;
+
         public BookingRoomDetailsService(IBookingRoomDetailsRepository bookingRoomDetailsRepository)
         {
             this.bookingRoomDetailsRepository = bookingRoomDetailsRepository;
         }
+
         public async Task<IEnumerable<BookingRoomDetails>> Get(int id)
         {
             return await bookingRoomDetailsRepository.Get(id);

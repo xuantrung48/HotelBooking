@@ -1,9 +1,9 @@
 ﻿using HotelBooking.BAL.Interface.HotelServices;
+using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ActionsResult = HotelBooking.Domain.Response.ActionsResult;
 
 namespace HotelBooking.API.Controllers
 {
@@ -11,6 +11,7 @@ namespace HotelBooking.API.Controllers
     public class RoomTypesController : ControllerBase
     {
         private readonly IRoomTypeService roomTypeService;
+
         public RoomTypesController(IRoomTypeService roomTypeService)
         {
             this.roomTypeService = roomTypeService;
@@ -22,12 +23,14 @@ namespace HotelBooking.API.Controllers
         {
             return await roomTypeService.GetAll();
         }
+
         [HttpGet]
         [Route("api/roomtypes/getbyid/{id}")]
         public async Task<RoomType> GetById(int id)
         {
             return await roomTypeService.GetById(id);
         }
+
         [HttpPost]
         [Route("api/roomtypes/save")]
         public async Task<ActionsResult> Save(RoomType roomType)

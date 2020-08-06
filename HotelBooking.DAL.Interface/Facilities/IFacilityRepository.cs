@@ -8,8 +8,11 @@ namespace HotelBooking.DAL.Interface.Facilities
     public interface IFacilityRepository
     {
         Task<IEnumerable<Facility>> GetAll();
+
         Task<Facility> GetById(int id);
+
         Task<ActionsResult> Save(Facility facility);
+
         Task<ActionsResult> Delete(int id);
     }
 }
