@@ -55,6 +55,30 @@ roomType.get = function (id) {
         method: "GET",
         dataType: "json",
         success: function (data) {
+            $.ajax({
+                url: `/Facility/GetAll`,
+                method: "GET",
+                dataType: "json",
+                success: function (facilities) {
+                    $.ajax({
+                        url: `/FacilityApply/Get/${id}`,
+                        method: "GET",
+                        dataType: "json",
+                        success: function (facilitiesApply) {
+                            for (let i = 0; i < facilities.result.length; i++) {
+                                $('#facilities').append(
+                                    `<option value="${facilities.result[i].facilityId}" id="facility${facilities.result[i].facilityId}">${facilities.result[i].facilityName}</option>`
+                                );
+                                for (let j = 0; j < facilitiesApply.result.length; j++) {
+                                    if (facilities.result[i].facilityId == facilitiesApply.result[j].facilityId) {
+                                        $(`#facility${facilities.result[i].facilityId}`).attr('selected', 'selected');
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+            });
             $('.modal-title').text('Đổi thông tin loại phòng');
             $('#Name').val(data.result.name);
             $('#RoomTypeId').val(data.result.roomTypeId);
@@ -84,6 +108,13 @@ roomType.save = function () {
     roomTypeObj.Capacity = parseFloat($('#adult').val()) + parseFloat($('#child').val());
     roomTypeObj.Quantity = parseInt($('#Quantity').val());
     roomTypeObj.Description = $('#Description').val();
+    if (roomTypeObj.RoomTypeId != '0') {
+        $.ajax({
+            url: `/FacilityApply/DeleteByRoomTypeId/${roomTypeObj.RoomTypeId}`,
+            method: "GET",
+            dataType: "json"
+        });
+    }
     $.ajax({
         url: `/RoomType/Save/`,
         method: "POST",
@@ -91,6 +122,20 @@ roomType.save = function () {
         contentType: "application/json",
         data: JSON.stringify(roomTypeObj),
         success: function (data) {
+            var facilities = $('#facilities').val();
+            for (let i = 0; i < facilities.length; i++) {
+                let facilityApplyObj = {};
+                facilityApplyObj.RoomTypeId = parseInt(data.result.id);
+                facilityApplyObj.FacilityId = parseInt(facilities[i]);
+                console.log(facilityApplyObj);
+                $.ajax({
+                    url: `/FacilityApply/Save/`,
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(facilityApplyObj)
+                });
+            }
             $('#mediumModal').modal('hide');
             bootbox.alert(data.result.message);
             roomType.drawTable();
@@ -128,12 +173,25 @@ roomType.delete = function (id, name) {
 
 roomType.add = function () {
     roomType.reset();
+    $.ajax({
+        url: `/Facility/GetAll`,
+        method: "GET",
+        dataType: "json",
+        success: function (facilities) {
+            for (let i = 0; i < facilities.result.length; i++) {
+                $('#facilities').append(
+                    `<option value="${facilities.result[i].facilityId}" id="facility${facilities.result[i].facilityId}">${facilities.result[i].facilityName}</option>`
+                );
+            }
+        }
+    });
     $('.modal-title').text('Thêm loại phòng');
     $('#mediumModal').appendTo("body");
     $('#mediumModal').modal('show');
 }
 
 roomType.reset = function () {
+    $('#facilities').empty();
     $('#Name').val('');
     $('#RoomTypeId').val(0);
     $('#DefaultPrice').val('');
