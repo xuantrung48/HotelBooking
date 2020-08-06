@@ -24,12 +24,12 @@ namespace HotelBooking.BAL.HotelServices
             return await roomTypeRepository.GetAll();
         }
 
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionsResult> Delete(int id)
         {
             return await roomTypeRepository.Delete(id);
         }
 
-        public async Task<ActionResult> Save(RoomType roomType)
+        public async Task<ActionsResult> Save(RoomType roomType)
         {
             return await roomTypeRepository.Save(roomType);
         }

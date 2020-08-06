@@ -1,16 +1,20 @@
 using HotelBooking.BAL;
 using HotelBooking.BAL.Bookings;
+using HotelBooking.BAL.Facilities;
 using HotelBooking.BAL.HotelServices;
 using HotelBooking.BAL.Interface;
 using HotelBooking.BAL.Interface.Bookings;
+using HotelBooking.BAL.Interface.Facilities;
 using HotelBooking.BAL.Interface.HotelServices;
 using HotelBooking.BAL.Interface.Promotions;
 using HotelBooking.BAL.Promotions;
 using HotelBooking.DAL;
 using HotelBooking.DAL.Bookings;
+using HotelBooking.DAL.Facilities;
 using HotelBooking.DAL.HotelServices;
 using HotelBooking.DAL.Interface;
 using HotelBooking.DAL.Interface.Bookings;
+using HotelBooking.DAL.Interface.Facilities;
 using HotelBooking.DAL.Interface.HotelServices;
 using HotelBooking.DAL.Interface.Promotions;
 using HotelBooking.DAL.Promotions;
@@ -53,7 +57,10 @@ namespace HotelBooking.API
             services.AddTransient<IPromotionService, PromotionService>();
             services.AddTransient<IPromotionApplyRepository, PromotionApplyRepository>();
             services.AddTransient<IPromotionApplyService, PromotionApplyService>();
-            //services.AddTransient<IBookingServiceDetailsService, BookingServiceDetailsService>();
+            services.AddTransient<IFacilityRepository, FacilityRepository>();
+            services.AddTransient<IFacilityService, FacilityService>();
+            services.AddTransient<IFacilityApplyRepository, FacilityApplyRepository>();
+            services.AddTransient<IFacilityApplyService, FacilityApplyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

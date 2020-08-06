@@ -17,14 +17,14 @@ namespace HotelBooking.DAL.Promotions
             return await SqlMapper.QueryAsync<PromotionApply>(conn, "PromotionApply_GetAll", commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionsResult> Delete(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@PromotionApplyId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "PromotionApply_Delete", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "PromotionApply_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<ActionResult> Save(PromotionApply promotionApply)
+        public async Task<ActionsResult> Save(PromotionApply promotionApply)
         {
             try
             {
@@ -32,11 +32,11 @@ namespace HotelBooking.DAL.Promotions
                 parameters.Add("@PromotionApplyId", promotionApply.PromotionApplyId);
                 parameters.Add("@PromotionId", promotionApply.PromotionId);
                 parameters.Add("@RoomTypeId", promotionApply.RoomTypeId);
-                return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "PromotionApply_Save", param: parameters, commandType: CommandType.StoredProcedure);
+                return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "PromotionApply_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)
             {
-                return new ActionResult()
+                return new ActionsResult()
                 {
                     Id = 0,
                     Message = "Có lỗi xảy ra, xin thử lại!"

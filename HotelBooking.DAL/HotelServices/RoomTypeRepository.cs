@@ -23,14 +23,14 @@ namespace HotelBooking.DAL.HotelServices
             return await SqlMapper.QueryAsync<RoomType>(conn, "RoomType_GetAll", commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionsResult> Delete(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@RoomTypeId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "RoomType_Delete", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "RoomType_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<ActionResult> Save(RoomType roomType)
+        public async Task<ActionsResult> Save(RoomType roomType)
         {
             try
             {
@@ -40,11 +40,12 @@ namespace HotelBooking.DAL.HotelServices
                 parameters.Add("@DefaultPrice", roomType.DefaultPrice);
                 parameters.Add("@Capacity", roomType.Capacity);
                 parameters.Add("@Quantity", roomType.Quantity);
-                return await SqlMapper.QueryFirstOrDefaultAsync<ActionResult>(cnn: conn, sql: "RoomType_Save", param: parameters, commandType: CommandType.StoredProcedure);
+                parameters.Add("@Description", roomType.Description);
+                return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "RoomType_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)
             {
-                return new ActionResult()
+                return new ActionsResult()
                 {
                     Id = 0,
                     Message = "Có lỗi xảy ra, xin thử lại!"
@@ -52,4 +53,4 @@ namespace HotelBooking.DAL.HotelServices
             }
         }
     }
-}
+} 

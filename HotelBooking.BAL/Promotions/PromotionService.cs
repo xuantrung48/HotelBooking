@@ -14,18 +14,22 @@ namespace HotelBooking.BAL
         {
             this.promotionRepository = promotionRepository;
         }
+        public async Task<Promotion> GetById(int id)
+        {
+            return await promotionRepository.GetById(id);
+        }
 
         public async Task<IEnumerable<Promotion>> GetAll()
         {
             return await promotionRepository.GetAll();
         }
 
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionsResult> Delete(int id)
         {
             return await promotionRepository.Delete(id);
         }
 
-        public async Task<ActionResult> Save(Promotion promotion)
+        public async Task<ActionsResult> Save(Promotion promotion)
         {
             return await promotionRepository.Save(promotion);
         }

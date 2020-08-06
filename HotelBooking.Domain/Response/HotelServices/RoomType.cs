@@ -8,5 +8,6 @@
         public float Capacity { get; set; }
         public int Quantity { get; set; }
         public bool IsDelete { get; set; }
+        public string Description { get; set; }
     }
 }
