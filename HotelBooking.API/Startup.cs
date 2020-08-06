@@ -59,7 +59,8 @@ namespace HotelBooking.API
             services.AddTransient<IPromotionApplyService, PromotionApplyService>();
             services.AddTransient<IFacilityRepository, FacilityRepository>();
             services.AddTransient<IFacilityService, FacilityService>();
-            //services.AddTransient<IBookingServiceDetailsService, BookingServiceDetailsService>();
+            services.AddTransient<IFacilityApplyRepository, FacilityApplyRepository>();
+            services.AddTransient<IFacilityApplyService, FacilityApplyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
