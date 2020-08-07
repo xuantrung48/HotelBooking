@@ -4,7 +4,7 @@
   "libraries": [
     {
       "library": "twitter-bootstrap@4.5.0",
-      "destination": "wwwroot/bootstrap/"
+      "destination": "wwwroot/lib/bootstrap/"
     },
     {
       "library": "jquery@3.5.1",
@@ -21,6 +21,26 @@
     {
       "library": "bootbox.js@5.4.0",
       "destination": "wwwroot/lib/bootbox/"
+    },
+    {
+      "library": "jquery-nice-select@1.1.0",
+      "destination": "wwwroot/lib/jquery-nice-select/"
+    },
+    {
+      "library": "jqueryui@1.12.1",
+      "destination": "wwwroot/lib/jqueryui/"
+    },
+    {
+      "library": "SlickNav@1.0.10",
+      "destination": "wwwroot/lib/SlickNav/"
+    },
+    {
+      "library": "owl-carousel@1.3.3",
+      "destination": "wwwroot/lib/owl-carousel/"
+    },
+    {
+      "library": "font-awesome@5.14.0",
+      "destination": "wwwroot/lib/font-awesome/"
     }
   ]
 }

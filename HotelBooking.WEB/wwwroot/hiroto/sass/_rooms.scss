@@ -1,0 +1,144 @@
+/*---------------------
+  Car
+-----------------------*/
+.room__pic__slider {
+    margin-bottom: 60px;
+
+    &.owl-carousel {
+
+        .owl-nav {
+
+            button {
+                height: 40px;
+                width: 40px;
+                background: $white-color;
+                line-height: 48px;
+                text-align: center;
+                position: absolute;
+                left: 20px;
+                top: 50%;
+                -webkit-transform: translateY(-20px);
+                transform: translateY(-20px);
+                @include transition(all, .3s);
+
+                &:hover {
+                    background: #1d1c1c;
+
+                    i {
+                        color: $white-color;
+                    }
+                }
+
+                &.owl-next {
+                    left: auto;
+                    right: 20px;
+                }
+
+                i {
+                    font-size: 24px;
+                    color: #1d1c1c;
+                }
+            }
+        }
+    }
+}
+
+.room__pic__item {
+    height: 400px;
+}
+
+.room__text {
+    margin-bottom: 60px;
+
+    &.right__text {
+        padding-left: 85px;
+    }
+
+    h3 {
+        color: $heading-color;
+        font-weight: 500;
+        margin-bottom: 32px;
+    }
+
+    h2 {
+        font-size: 48px;
+        color: $primary-color;
+        position: relative;
+        padding-left: 12px;
+        margin-bottom: 20px;
+
+        sup {
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: 15px;
+            color: #1d1c1c;
+        }
+
+        span {
+            font-size: 18px;
+            color: #1d1c1c;
+        }
+    }
+
+    ul {
+        margin-bottom: 30px;
+
+        li {
+            list-style: none;
+            font-size: 18px;
+            color: #1d1c1c;
+            line-height: 36px;
+
+            span {
+                display: inline-block;
+                width: 130px;
+            }
+        }
+    }
+
+    a {
+        font-size: 17px;
+        color: #1d1c1c;
+        font-family: "Barlow Condensed", sans-serif;
+        position: relative;
+        padding: 4px 0;
+        display: inline-block;
+        font-weight: 500;
+        @include transition(all, .3s);
+
+        &:before {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 100%;
+            background: #E9AD28;
+            content: "";
+        }
+    }
+}
+
+.pagination__number {
+    text-align: center;
+
+    a {
+        font-size: 16px;
+        display: inline-block;
+        padding: 10px 16px 8px;
+        color: #777C81;
+        @include transition(all, .3s);
+
+        span {
+            font-size: 16px;
+            position: relative;
+            top: 3px;
+            margin-left: 3px;
+        }
+
+        &:hover {
+            background: $primary-color;
+            color: $white-color;
+        }
+    }
+}

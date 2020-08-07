@@ -2,6 +2,45 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h2><a asp-controller="RoomType" asp-action="Index">RoomType Manager</a></h2>
-</div>
+<section class="hero spad set-bg" data-setbg="/hiroto/img/hero.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="hero__text">
+                    <h5>WELCOME TO GOLDEN STAR</h5>
+                    <h2>Dịch vụ chuyên nghiệp.</h2>
+                </div>
+                <form action="#" class="filter__form">
+                    <div class="filter__form__item">
+                        <p>Nhận phòng</p>
+                        <div class="filter__form__datepicker">
+                            <span class="icon_calendar"></span>
+                            <input type="text" class="datepicker_pop check__in">
+                            <i class="arrow_carrot-down"></i>
+                        </div>
+                    </div>
+                    <div class="filter__form__item">
+                        <p>Trả phòng</p>
+                        <div class="filter__form__datepicker">
+                            <span class="icon_calendar"></span>
+                            <input type="text" class="datepicker_pop check__out">
+                            <i class="arrow_carrot-down"></i>
+                        </div>
+                    </div>
+                    <div class="filter__form__item filter__form__item--select">
+                        <p>Số người</p>
+                        <div class="filter__form__select">
+                            <span class="icon_group"></span>
+                            <select>
+                                <option value="">2 Adult, 1 Children</option>
+                                <option value="">2 Adult</option>
+                                <option value="">1 Adult</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit">Đặt phòng</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

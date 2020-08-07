@@ -1,0 +1,20 @@
+/*---------------------
+  Services
+-----------------------*/
+.services {
+  padding-bottom: 60px;
+}
+
+.services__item {
+  margin-bottom: 40px;
+   
+  h4 {
+    color: $heading-color;
+    margin-top: 25px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}

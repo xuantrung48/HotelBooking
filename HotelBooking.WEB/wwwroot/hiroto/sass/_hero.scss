@@ -1,0 +1,170 @@
+/*---------------------
+  Hero
+-----------------------*/
+.hero {
+    padding-top: 145px;
+    padding-bottom: 190px;
+}
+
+.hero__text {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 65px;
+    h5 {
+        color: #E9AD28;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 35px;
+    }
+
+    h2 {
+        font-size: 72px;
+        color: $white-color;
+        line-height: 82px;
+    }
+}
+
+.filter__form {
+    background: $white-color;
+    display: flex;
+    padding: 30px 0 30px 40px;
+    position: relative;
+
+    button {
+        font-size: 18px;
+        font-weight: 500;
+        color: $white-color;
+        background: #1d1c1c;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        border: none;
+        width: 160px;
+        float: left;
+        text-align: center;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        line-height: 100%;
+    }
+}
+
+.filter__form__item {
+    width: 175px;
+    float: left;
+    margin-right: 30px;
+
+    &.filter__form__item--search {
+        width: 260px;
+    }
+
+    &.filter__form__item--select {
+        width: 230px;
+    }
+
+    p {
+        font-size: 18px;
+        color: #777C81;
+        margin-bottom: 24px;
+    }
+
+    .filter__form__input {
+        position: relative;
+
+        span {
+            font-size: 18px;
+            color: #E9AD28;
+            position: absolute;
+            right: 17px;
+            top: 15px;
+        }
+
+        input {
+            border: 1px solid #E4E4E4;
+            font-size: 20px;
+            color: #1d1c1c;
+            width: 100%;
+            height: 48px;
+            padding-left: 15px;
+            padding-right: 40px;
+            font-family: 'Barlow Condensed', sans-serif;
+        }
+    }
+
+    .filter__form__datepicker {
+        position: relative;
+
+        span {
+            font-size: 18px;
+            color: #E9AD28;
+            position: absolute;
+            left: 18px;
+            top: 15px;
+        }
+
+        input {
+            border: 1px solid #E4E4E4;
+            font-size: 20px;
+            color: #1d1c1c;
+            width: 100%;
+            padding-left: 48px;
+            height: 48px;
+            font-family: 'Barlow Condensed', sans-serif;
+        }
+
+        i {
+            font-size: 22px;
+            color: #1d1c1c;
+            position: absolute;
+            right: 10px;
+            top: 13px;
+        }
+    }
+
+    .filter__form__select {
+        position: relative;
+        height: 48px;
+        border: 1px solid #E4E4E4;
+
+        span {
+            font-size: 18px;
+            color: #E9AD28;
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            z-index: 1;
+        }
+
+        .nice-select {
+            float: none;
+            border: none;
+            border-radius: 0;
+            padding-left: 29px;
+            padding-top: 3px;
+            width: 100%;
+            font-family: 'Barlow Condensed', sans-serif;
+
+            .current {
+                font-size: 20px;
+                color: #1d1c1c;
+                position: relative;
+                top: 0;
+            }
+
+            &:after {
+                border-bottom: 1.5px solid #1d1c1c;
+                border-right: 1.5px solid #1d1c1c;
+                height: 8px;
+                width: 8px;
+                right: 20px;
+                top: 23px;
+            }
+
+            .list {
+                margin-top: 0;
+                width: 100%;
+                border-radius: 0;
+            }
+        }
+    }
+}
