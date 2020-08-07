@@ -117,7 +117,7 @@ facility.reset = function () {
 
 
 readFile = function () {
-
+    $('#imgPreview').empty();
     if (this.files && this.files[0]) {
 
         var FR = new FileReader();
@@ -131,7 +131,6 @@ readFile = function () {
 
         FR.readAsDataURL(this.files[0]);
     }
-
 }
 
 document.getElementById("inp").addEventListener("change", readFile);
