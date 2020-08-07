@@ -9,6 +9,7 @@ namespace HotelBooking.Domain.Response.Bookings
         public DateTime CreateDate { get; set; }
         public float ServiceAmount { get; set; }
         public float RoomAmount { get; set; }
+        public int CouponId { get; set; }
         public bool IsCanceled { get; set; }
     }
 }
