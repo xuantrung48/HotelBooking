@@ -8,4 +8,8 @@
     <ProjectReference Include="..\HotelBooking.Domain\HotelBooking.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Coupons\" />
+  </ItemGroup>
+
 </Project>
