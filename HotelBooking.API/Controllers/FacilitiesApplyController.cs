@@ -11,6 +11,7 @@ namespace HotelBooking.API.Controllers
     public class FacilitiesApplyController : ControllerBase
     {
         private readonly IFacilityApplyService facilityApplyService;
+
         public FacilitiesApplyController(IFacilityApplyService facilityApplyService)
         {
             this.facilityApplyService = facilityApplyService;
@@ -29,12 +30,14 @@ namespace HotelBooking.API.Controllers
         {
             return await facilityApplyService.Delete(id);
         }
+
         [HttpDelete]
         [Route("api/facilityapply/deletebyroomtypeid/{id}")]
         public async Task<ActionsResult> RemoveByRoomTypeId(int id)
         {
             return await facilityApplyService.DeleteByRoomTypeId(id);
         }
+
         [HttpGet]
         [Route("api/facilityapply/getbyroomtypeid/{id}")]
         public async Task<IEnumerable<FacilityApply>> GetByRoomTypeId(int id)

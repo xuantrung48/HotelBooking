@@ -10,6 +10,7 @@ namespace HotelBooking.BAL.Promotions
     public class PromotionApplyService : IPromotionApplyService
     {
         private readonly IPromotionApplyRepository promotionApplyRepository;
+
         public PromotionApplyService(IPromotionApplyRepository promotionApplyRepository)
         {
             this.promotionApplyRepository = promotionApplyRepository;

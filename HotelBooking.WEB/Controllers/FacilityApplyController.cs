@@ -10,7 +10,7 @@ namespace HotelBooking.WEB.Controllers
     {
         public JsonResult Get(int id)
         {
-            List<FacilityApply> result = ApiHelper< List<FacilityApply>>.HttpGetAsync($"{Helper.ApiUrl}api/facilityapply/getbyroomtypeid/{id}");
+            List<FacilityApply> result = ApiHelper<List<FacilityApply>>.HttpGetAsync($"{Helper.ApiUrl}api/facilityapply/getbyroomtypeid/{id}");
             return Json(new { result });
         }
 
@@ -19,11 +19,13 @@ namespace HotelBooking.WEB.Controllers
             ActionsResult result = ApiHelper<ActionsResult>.HttpGetAsync($"{Helper.ApiUrl}api/facilityapply/delete/{id}", "DELETE");
             return Json(new { result });
         }
+
         public JsonResult DeleteByRoomTypeId(int id)
         {
             ActionsResult result = ApiHelper<ActionsResult>.HttpGetAsync($"{Helper.ApiUrl}api/facilityapply/deletebyroomtypeid/{id}", "DELETE");
             return Json(new { result });
         }
+
         public JsonResult Save([FromBody] FacilityApply model)
         {
             ActionsResult result;

@@ -10,10 +10,12 @@ namespace HotelBooking.BAL.HotelServices
     public class RoomTypeService : IRoomTypeService
     {
         private readonly IRoomTypeRepository roomTypeRepository;
+
         public RoomTypeService(IRoomTypeRepository roomTypeRepository)
         {
             this.roomTypeRepository = roomTypeRepository;
         }
+
         public async Task<RoomType> GetById(int id)
         {
             return await roomTypeRepository.GetById(id);

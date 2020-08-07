@@ -10,10 +10,12 @@ namespace HotelBooking.BAL
     public class PromotionService : IPromotionService
     {
         private readonly IPromotionRepository promotionRepository;
+
         public PromotionService(IPromotionRepository promotionRepository)
         {
             this.promotionRepository = promotionRepository;
         }
+
         public async Task<Promotion> GetById(int id)
         {
             return await promotionRepository.GetById(id);

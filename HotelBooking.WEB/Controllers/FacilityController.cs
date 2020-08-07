@@ -12,6 +12,7 @@ namespace HotelBooking.WEB.Controllers
         {
             return View();
         }
+
         public JsonResult GetAll()
         {
             List<Facility> result = ApiHelper<List<Facility>>.HttpGetAsync($"{Helper.ApiUrl}api/facilities/getall");
@@ -29,6 +30,7 @@ namespace HotelBooking.WEB.Controllers
             ActionsResult result = ApiHelper<ActionsResult>.HttpGetAsync($"{Helper.ApiUrl}api/facilities/delete/{id}", "DELETE");
             return Json(new { result });
         }
+
         public JsonResult Save([FromBody] Facility model)
         {
             ActionsResult result;

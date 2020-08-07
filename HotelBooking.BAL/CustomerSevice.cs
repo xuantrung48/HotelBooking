@@ -9,10 +9,12 @@ namespace HotelBooking.BAL
     public class CustomerSerice : ICustomerSevice
     {
         private readonly ICustomerRepository customerRepository;
+
         public CustomerSerice(ICustomerRepository customerRepository)
         {
             this.customerRepository = customerRepository;
         }
+
         public async Task<Customer> Get(int id)
         {
             return await customerRepository.Get(id);

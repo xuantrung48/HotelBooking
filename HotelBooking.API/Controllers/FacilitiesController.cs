@@ -11,6 +11,7 @@ namespace HotelBooking.API.Controllers
     public class FacilitiesController : ControllerBase
     {
         private readonly IFacilityService facilityService;
+
         public FacilitiesController(IFacilityService facilityService)
         {
             this.facilityService = facilityService;
@@ -22,12 +23,14 @@ namespace HotelBooking.API.Controllers
         {
             return await facilityService.GetAll();
         }
+
         [HttpGet]
         [Route("api/facilities/getbyid/{id}")]
         public async Task<Facility> GetById(int id)
         {
             return await facilityService.GetById(id);
         }
+
         [HttpPost]
         [Route("api/facilities/save")]
         public async Task<ActionsResult> Save(Facility facility)

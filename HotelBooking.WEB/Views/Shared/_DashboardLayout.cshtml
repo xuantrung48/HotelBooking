@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -33,7 +32,7 @@
 
 	<!-- Main CSS-->
 	<link href="~/cooladminlib/css/theme.css" rel="stylesheet" media="all">
-
+    @RenderSection("styles", false)
 </head>
 
 <body class="animsition">
@@ -69,12 +68,12 @@
                         </li>
                         <li>
                             <a asp-controller="Service" asp-action="Index">
-                                <i class="fas fa-bell"></i>Dịch vụ
+                                <i class="fas fa-thumbs-up"></i>Dịch vụ
                             </a>
                         </li>
                         <li>
                             <a asp-controller="Service" asp-action="Index">
-                                <i class="fas fa-wrench"></i>Tiện nghi
+                                <i class="fas fa-tv"></i>Tiện nghi
                             </a>
                         </li>
                     </ul>
@@ -104,12 +103,12 @@
                         </li>
                         <li>
                             <a asp-controller="Service" asp-action="Index">
-                                <i class="fas fa-bell"></i>Dịch vụ
+                                <i class="fas fa-thumbs-up"></i>Dịch vụ
                             </a>
                         </li>
                         <li>
                             <a asp-controller="Facility" asp-action="Index">
-                                <i class="fas fa-wrench"></i>Tiện nghi
+                                <i class="fas fa-tv"></i>Tiện nghi
                             </a>
                         </li>
                     </ul>
@@ -304,10 +303,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <!-- END PAGE CONTAINER-->
-
     </div>
 
     <!-- Jquery JS-->
@@ -331,6 +328,5 @@
     <script src="~/cooladminlib/js/main.js"></script>
     @RenderSection("scripts", false)
 </body>
-
 </html>
 <!-- end document-->

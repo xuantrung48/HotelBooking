@@ -1,8 +1,8 @@
-﻿using HotelBooking.Domain.Response.HotelServices;
+﻿using HotelBooking.Domain.Response;
+using HotelBooking.Domain.Response.HotelServices;
 using Microsoft.AspNetCore.Mvc;
 using ShopDienThoai.Web.Ultilities;
 using System.Collections.Generic;
-using ActionsResult = HotelBooking.Domain.Response.ActionsResult;
 
 namespace HotelBooking.WEB.Controllers
 {
@@ -12,6 +12,7 @@ namespace HotelBooking.WEB.Controllers
         {
             return View();
         }
+
         public JsonResult GetAll()
         {
             List<RoomType> result = ApiHelper<List<RoomType>>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getall");
@@ -29,6 +30,7 @@ namespace HotelBooking.WEB.Controllers
             ActionsResult result = ApiHelper<ActionsResult>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/delete/{id}", "DELETE");
             return Json(new { result });
         }
+
         public JsonResult Save([FromBody] RoomType model)
         {
             ActionsResult result;

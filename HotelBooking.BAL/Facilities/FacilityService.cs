@@ -10,10 +10,12 @@ namespace HotelBooking.BAL.Facilities
     public class FacilityService : IFacilityService
     {
         private readonly IFacilityRepository facilityRepository;
+
         public FacilityService(IFacilityRepository facilityRepository)
         {
             this.facilityRepository = facilityRepository;
         }
+
         public async Task<Facility> GetById(int id)
         {
             return await facilityRepository.GetById(id);
