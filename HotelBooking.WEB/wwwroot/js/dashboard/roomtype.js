@@ -50,6 +50,10 @@ roomType.drawTable = function () {
 
 roomType.get = function (id) {
     roomType.reset();
+
+    if (id != 0) {
+        roomType.showImages(id);
+    }
     $.ajax({
         url: `/RoomType/Get/${id}`,
         method: "GET",
@@ -101,6 +105,7 @@ roomType.get = function (id) {
 }
 
 roomType.save = function () {
+    var imgsNo = parseInt($("#imgsNo").val());
     var roomTypeObj = {};
     roomTypeObj.Name = $('#Name').val();
     roomTypeObj.RoomTypeId = parseInt($('#RoomTypeId').val());
@@ -108,7 +113,12 @@ roomType.save = function () {
     roomTypeObj.Capacity = parseFloat($('#adult').val()) + parseFloat($('#child').val());
     roomTypeObj.Quantity = parseInt($('#Quantity').val());
     roomTypeObj.Description = $('#Description').val();
-    if (roomTypeObj.RoomTypeId != '0') {
+    roomTypeObj.Facilities = $('#facilities').val();
+    roomTypeObj.Images = [];
+    for (let i = 0; i < imgsNo; i++) {
+        roomTypeObj.Images[i] = $(`#img${i}`).val();
+    };
+    if (roomTypeObj.RoomTypeId != 0) {
         $.ajax({
             url: `/FacilityApply/DeleteByRoomTypeId/${roomTypeObj.RoomTypeId}`,
             method: "GET",
@@ -122,7 +132,7 @@ roomType.save = function () {
         contentType: "application/json",
         data: JSON.stringify(roomTypeObj),
         success: function (data) {
-            var facilities = $('#facilities').val();
+            /*var facilities = $('#facilities').val();
             for (let i = 0; i < facilities.length; i++) {
                 let facilityApplyObj = {};
                 facilityApplyObj.RoomTypeId = parseInt(data.result.id);
@@ -135,7 +145,7 @@ roomType.save = function () {
                     contentType: "application/json",
                     data: JSON.stringify(facilityApplyObj)
                 });
-            }
+            }*/
             $('#mediumModal').modal('hide');
             bootbox.alert(data.result.message);
             roomType.drawTable();
@@ -200,6 +210,9 @@ roomType.reset = function () {
     $('#child').removeAttr('checked');
     $('#Quantity').val('');
     $('#Description').val('');
+    $(".custom-file-label").text("Chọn tập tin");
+    $("#imgsPreview").empty();
+    $('#imgsData').empty();
 }
 
 $('#child').click(function () {
@@ -209,3 +222,90 @@ $('#child').click(function () {
         $('#child').val('0');
     }
 })
+
+readFiles = function () {
+    $("#imgsPreview").empty();
+
+    if ($('#RoomTypeId').val() == '0') {
+        $('#imgsData').empty();
+    }
+
+    if (this.files && this.files[0]) {
+        for (let i = 0; i < this.files.length; i++) {
+            var FR = new FileReader();
+
+            FR.addEventListener("load", function (e) {
+                $("#imgsPreview").append(
+                    `<img src="${e.target.result}" style="height:150px" class="mx-2 my-2">`
+                );
+                $("#imgsPreview").append(
+                    `<input hidden value="${e.target.result}" id="img${i}">`
+                );
+            });
+
+            FR.readAsDataURL(this.files[i]);
+        };
+        $("#imgsPreview").append(
+            `<input hidden value="${this.files.length}" id="imgsNo">`
+        );
+    }
+
+}
+
+roomType.showImages = function (roomTypeId) {
+    $.ajax({
+        url: `/RoomTypeImage/GetByRoomTypeId/${roomTypeId}`,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            /*imgsNo = data.result.length;*/
+            $.each(data.result, function (i, v) {
+                $("#imgsData").append(
+                    `<img src="${v.imageData}" style="height:150px" class="mx-2 my-2"><a class="remove-image" onclick="roomType.deleteImage('${v.roomTypeImageId}')" style="display: inline;">&#215;</a>`
+                );
+            });
+        }
+    });
+}
+
+roomType.deleteImage = function (roomTypeImageId) {
+    bootbox.confirm({
+        title: "Xoá ảnh",
+        message: "Bạn có thực sự muốn xoá ảnh này?",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Huỷ'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Xác nhận'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                $.ajax({
+                    url: `/RoomTypeImage/Delete/${roomTypeImageId}`,
+                    method: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        bootbox.alert(data.result.message);
+                        $("#imgsData").empty();
+
+                        $.ajax({
+                            url: `/RoomTypeImage/GetByRoomTypeId/${$('#RoomTypeId').val()}`,
+                            method: "GET",
+                            dataType: "json",
+                            success: function (data) {
+                                /*imgsNo = data.result.length;*/
+                                $.each(data.result, function (i, v) {
+                                    $("#imgsData").append(
+                                        `<img src="${v.imageData}" style="height:150px" class="mx-2 my-2"><a class="remove-image" onclick="roomType.deleteImage('${v.roomTypeImageId}')" style="display: inline;">&#215;</a>`
+                                    );
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    });
+}

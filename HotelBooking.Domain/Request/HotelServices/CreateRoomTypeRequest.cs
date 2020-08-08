@@ -1,9 +1,6 @@
-﻿using HotelBooking.Domain.Response.Facilities;
-using System.Collections.Generic;
-
-namespace HotelBooking.Domain.Response.HotelServices
+﻿namespace HotelBooking.Domain.Request.HotelServices
 {
-    public class RoomType
+    public class CreateRoomTypeRequest
     {
         public int RoomTypeId { get; set; }
         public string Name { get; set; }
@@ -12,7 +9,7 @@ namespace HotelBooking.Domain.Response.HotelServices
         public int Quantity { get; set; }
         public bool IsDelete { get; set; }
         public string Description { get; set; }
-        public IEnumerable<Facility> Facilities { get; set; }
-        public IEnumerable<RoomTypeImage> Images { get; set; }
+        public string[] Facilities { get; set; }
+        public string[] Images { get; set; }
     }
 }
