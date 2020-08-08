@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using HotelBooking.DAL.Interface.Facilities;
+using HotelBooking.Domain.Request.HotelServices;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Facilities;
 using System;
@@ -25,14 +26,19 @@ namespace HotelBooking.DAL.Facilities
             return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "FacilityApply_DeleteByRoomTypeId", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
-        public async Task<ActionsResult> Save(FacilityApply facilityApply)
+        public async Task<ActionsResult> Save(CreateRoomTypeFacilitiesApplyRequest facilitysApply)
         {
             try
             {
-                DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@FacilityId", facilityApply.FacilityId);
-                parameters.Add("@RoomTypeId", facilityApply.RoomTypeId);
-                return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "FacilityApply_Save", param: parameters, commandType: CommandType.StoredProcedure);
+                var result = new ActionsResult();
+                foreach(var facility in facilitysApply.FacilitieIds)
+                {
+                    DynamicParameters parameters = new DynamicParameters();
+                    parameters.Add("@FacilityId", int.Parse(facility));
+                    parameters.Add("@RoomTypeId", facilitysApply.RoomTypeId);
+                    result = await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "FacilityApply_Save", param: parameters, commandType: CommandType.StoredProcedure);
+                }
+                return result;
             }
             catch (Exception)
             {

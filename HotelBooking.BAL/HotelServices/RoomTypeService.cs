@@ -1,5 +1,7 @@
 ﻿using HotelBooking.BAL.Interface.HotelServices;
+using HotelBooking.DAL.Interface.Facilities;
 using HotelBooking.DAL.Interface.HotelServices;
+using HotelBooking.Domain.Request.HotelServices;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
 using System.Collections.Generic;
@@ -10,10 +12,13 @@ namespace HotelBooking.BAL.HotelServices
     public class RoomTypeService : IRoomTypeService
     {
         private readonly IRoomTypeRepository roomTypeRepository;
-
-        public RoomTypeService(IRoomTypeRepository roomTypeRepository)
+        private IRoomTypeImageRepository roomTypeImageRepository;
+        private IFacilityApplyRepository facilityApplyRepository;
+        public RoomTypeService(IRoomTypeRepository roomTypeRepository, IRoomTypeImageRepository roomTypeImageRepository, IFacilityApplyRepository facilityApplyRepository)
         {
             this.roomTypeRepository = roomTypeRepository;
+            this.roomTypeImageRepository = roomTypeImageRepository;
+            this.facilityApplyRepository = facilityApplyRepository;
         }
 
         public async Task<RoomType> GetById(int id)
@@ -31,9 +36,32 @@ namespace HotelBooking.BAL.HotelServices
             return await roomTypeRepository.Delete(id);
         }
 
-        public async Task<ActionsResult> Save(RoomType roomType)
+        public async Task<ActionsResult> Save(CreateRoomTypeRequest roomType)
         {
-            return await roomTypeRepository.Save(roomType);
+            var createRoomtype = new RoomType()
+            {
+                RoomTypeId = roomType.RoomTypeId,
+                Capacity = roomType.Capacity,
+                DefaultPrice = roomType.DefaultPrice,
+                Description = roomType.Description,
+                Name = roomType.Name,
+                Quantity = roomType.Quantity
+            };
+            var createRoomtypeResult = await roomTypeRepository.Save(createRoomtype);
+            if (createRoomtypeResult.Id != 0)
+            {
+                _ = await roomTypeImageRepository.Save(new UploadRoomTypeImagesRequest()
+                {
+                    Images = roomType.Images,
+                    RoomTypeId = createRoomtypeResult.Id
+                });
+                _ = await facilityApplyRepository.Save(new CreateRoomTypeFacilitiesApplyRequest()
+                {
+                    RoomTypeId = createRoomtypeResult.Id,
+                    FacilitieIds = roomType.Facilities
+                });
+            }
+            return createRoomtypeResult;
         }
     }
 }

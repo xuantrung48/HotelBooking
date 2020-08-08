@@ -1,4 +1,5 @@
 ﻿using HotelBooking.BAL.Interface.Facilities;
+using HotelBooking.Domain.Request.HotelServices;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Facilities;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,7 @@ namespace HotelBooking.API.Controllers
 
         [HttpPost]
         [Route("api/facilityapply/save")]
-        public async Task<ActionsResult> Save(FacilityApply facilityApply)
+        public async Task<ActionsResult> Save(CreateRoomTypeFacilitiesApplyRequest facilityApply)
         {
             return await facilityApplyService.Save(facilityApply);
         }

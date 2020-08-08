@@ -1,4 +1,5 @@
 ﻿using HotelBooking.BAL.Interface.HotelServices;
+using HotelBooking.Domain.Request.HotelServices;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace HotelBooking.API.Controllers
 
         [HttpPost]
         [Route("api/roomtypes/save")]
-        public async Task<ActionsResult> Save(RoomType roomType)
+        public async Task<ActionsResult> Save(CreateRoomTypeRequest roomType)
         {
             return await roomTypeService.Save(roomType);
         }

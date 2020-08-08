@@ -42,6 +42,29 @@
                 <input type="number" id="RoomTypeId" name="RoomTypeId" class="form-control" hidden>
                 <div class="row form-group">
                     <div class="col-3">
+                    </div>
+                    <div class="col-9" id="imgsData">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-3">
+                    </div>
+                    <div class="col-9" id="imgsPreview">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-3">
+                        <label>Hình ảnh:</label>
+                    </div>
+                    <div class="col-9">
+                        <div class="custom-file">
+                            <input id="RoomTypeImages" name="RoomTypeImages" type="file" class="custom-file-input form-control" data-rule-required="true" multiple>
+                            <label class="custom-file-label" for="RoomTypeImages">Chọn tập tin</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-3">
                         <label>Tên loại phòng:</label>
                     </div>
                     <div class="col-9">
@@ -113,4 +136,47 @@
 <!-- end modal medium -->
 @section scripts{
     <script src="~/js/dashboard/roomtype.js" asp-append-version="true"></script>
+    <script>
+        document.getElementById("RoomTypeImages").addEventListener("change", readFiles);
+
+        $('#RoomTypeImages').on('change', function () {
+            var fileLabel = $(this).next('.custom-file-label');
+            var files = $(this)[0].files;
+            if (files.length > 1) {
+                fileLabel.html(files.length + ' tập tin được chọn');
+            }
+            else if (files.length == 1) {
+                fileLabel.html(files[0].name);
+            }
+        });
+    </script>
+}
+
+@section styles{
+    <style>
+        .remove-image {
+            display: none;
+            position: absolute;
+            border-radius: 10em;
+            padding: 2px 6px 3px;
+            text-decoration: none;
+            font: 700 21px/20px sans-serif;
+            background: #555;
+            border: 3px solid #fff;
+            color: #FFF;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            -webkit-transition: background 0.5s;
+            transition: background 0.5s;
+        }
+
+        .remove-image:hover {
+            background: #E54E4E;
+            padding: 3px 7px 5px;
+        }
+
+        .remove-image:active {
+            background: #E54E4E;
+        }
+    </style>
 }

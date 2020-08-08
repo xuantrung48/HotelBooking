@@ -1,5 +1,6 @@
 ﻿using HotelBooking.BAL.Interface.Facilities;
 using HotelBooking.DAL.Interface.Facilities;
+using HotelBooking.Domain.Request.HotelServices;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Facilities;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace HotelBooking.BAL.Facilities
             return await facilityApplyRepository.Delete(id);
         }
 
-        public async Task<ActionsResult> Save(FacilityApply facilityApply)
+        public async Task<ActionsResult> Save(CreateRoomTypeFacilitiesApplyRequest facilityApply)
         {
             return await facilityApplyRepository.Save(facilityApply);
         }

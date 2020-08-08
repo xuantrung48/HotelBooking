@@ -4,15 +4,14 @@ using HotelBooking.Domain.Response.HotelServices;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace HotelBooking.BAL.Interface.HotelServices
+namespace HotelBooking.DAL.Interface.HotelServices
 {
-    public interface IRoomTypeService
+    public interface IRoomTypeImageRepository
     {
-        Task<IEnumerable<RoomType>> GetAll();
 
-        Task<RoomType> GetById(int id);
+        Task<ActionsResult> Save(UploadRoomTypeImagesRequest roomTypeImagesRequest);
 
-        Task<ActionsResult> Save(CreateRoomTypeRequest roomType);
+        Task<IEnumerable<RoomTypeImage>> GetByRoomTypeId(int id);
 
         Task<ActionsResult> Delete(int id);
     }

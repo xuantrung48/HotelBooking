@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace HotelBooking.BAL.Interface.HotelServices
 {
-    public interface IRoomTypeService
+    public interface IRoomTypeImageService
     {
-        Task<IEnumerable<RoomType>> GetAll();
+        Task<IEnumerable<RoomTypeImage>> GetByRoomTypeId(int id);
 
-        Task<RoomType> GetById(int id);
 
-        Task<ActionsResult> Save(CreateRoomTypeRequest roomType);
+        Task<ActionsResult> Save(UploadRoomTypeImagesRequest roomTypeImage);
 
         Task<ActionsResult> Delete(int id);
     }

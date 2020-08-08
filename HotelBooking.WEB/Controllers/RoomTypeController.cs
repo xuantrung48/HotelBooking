@@ -1,4 +1,5 @@
-﻿using HotelBooking.Domain.Response;
+﻿using HotelBooking.Domain.Request.HotelServices;
+using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
 using Microsoft.AspNetCore.Mvc;
 using ShopDienThoai.Web.Ultilities;
@@ -31,7 +32,7 @@ namespace HotelBooking.WEB.Controllers
             return Json(new { result });
         }
 
-        public JsonResult Save([FromBody] RoomType model)
+        public JsonResult Save([FromBody] CreateRoomTypeRequest model)
         {
             ActionsResult result;
             result = ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/roomtypes/save", model);
