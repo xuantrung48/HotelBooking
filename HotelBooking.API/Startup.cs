@@ -1,3 +1,4 @@
+using HotelBooking.API.DbContext;
 using HotelBooking.BAL;
 using HotelBooking.BAL.Bookings;
 using HotelBooking.BAL.Coupons;
@@ -22,8 +23,11 @@ using HotelBooking.DAL.Interface.Facilities;
 using HotelBooking.DAL.Interface.HotelServices;
 using HotelBooking.DAL.Interface.Promotions;
 using HotelBooking.DAL.Promotions;
+using HotelBooking.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -45,6 +49,8 @@ namespace HotelBooking.API
             services.AddMvc();
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Common.ConnectionString));
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             services.AddTransient<IBookingRoomDetailsService, BookingRoomDetailsService>();
             services.AddTransient<IBookingService, BookingService>();
             services.AddTransient<IBookingServiceDetailsService, BookingServiceDetailsService>();
