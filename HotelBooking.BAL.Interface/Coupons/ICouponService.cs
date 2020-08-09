@@ -12,5 +12,6 @@ namespace HotelBooking.BAL.Interface.Coupons
         Task<IEnumerable<Coupon>> GetAll();
         Task<Coupon> GetById(int id);
         Task<ActionsResult> Save(Coupon coupon);
+        Task<ActionsResult> Delete(int id);
     }
 }

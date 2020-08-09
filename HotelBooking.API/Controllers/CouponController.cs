@@ -35,5 +35,11 @@ namespace HotelBooking.API.Controllers
         {
             return await couponService.Save(coupon);
         }
+        [HttpDelete]
+        [Route("api/coupon/delete/{id}")]
+        public async Task<ActionsResult> Delete(int id)
+        {
+            return await couponService.Delete(id);
+        }
     }
 }
