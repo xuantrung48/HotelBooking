@@ -17,6 +17,12 @@ namespace HotelBooking.BAL.Coupons
         {
             this.couponRepository = couponRepository;
         }
+
+        public async Task<ActionsResult> Delete(int id)
+        {
+            return await couponRepository.Delete(id);
+        }
+
         public async Task<IEnumerable<Coupon>> GetAll()
         {
             return await couponRepository.GetAll();

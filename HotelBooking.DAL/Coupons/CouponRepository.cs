@@ -12,6 +12,13 @@ namespace HotelBooking.DAL.Coupons
 {
     public class CouponRepository : BaseRepository, ICouponRepository
     {
+        public async Task<ActionsResult> Delete(int id)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@CouponId", id);
+            return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "Coupon_Delete", param: parameters, commandType: CommandType.StoredProcedure);
+        }
+
         public async Task<IEnumerable<Coupon>> GetAll()
         {
             return await SqlMapper.QueryAsync<Coupon>(conn, "Coupon_GetAll", commandType: CommandType.StoredProcedure);
