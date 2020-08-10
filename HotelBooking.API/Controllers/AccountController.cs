@@ -4,8 +4,6 @@ using HotelBooking.Domain.Response.Account;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace HotelBooking.API.Controllers
