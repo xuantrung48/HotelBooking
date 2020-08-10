@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using HotelBooking.Domain;
+﻿using HotelBooking.Domain;
 using HotelBooking.Domain.Request.Account;
 using HotelBooking.Domain.Response.Account;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelBooking.API.Controllers
 {

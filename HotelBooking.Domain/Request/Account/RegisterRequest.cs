@@ -1,5 +1,4 @@
 ﻿using HotelBooking.Domain.Response.Account;
-using Microsoft.AspNetCore.Http;
 
 namespace HotelBooking.Domain.Request.Account
 {
