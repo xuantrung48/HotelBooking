@@ -1,10 +1,14 @@
-﻿using HotelBooking.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using HotelBooking.Domain;
 using HotelBooking.Domain.Request.Account;
 using HotelBooking.Domain.Response.Account;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace HotelBooking.API.Controllers
 {
@@ -67,17 +71,9 @@ namespace HotelBooking.API.Controllers
                 Email = request.Email,
                 UserName = request.Email,
                 PhoneNumber = request.PhoneNumber,
-                Name = request.Name
+                Name = request.Name,
+                Avatar = request.Avatar
             };
-            /*if (request.ImageFile != null)
-            {
-                string uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "images\\users");
-                string fileName = $"{Guid.NewGuid()}{Path.GetExtension(request.ImageFile.FileName)}";
-                var filePath = Path.Combine(uploadFolder, fileName);
-                using var fs = new FileStream(filePath, FileMode.Create);
-                request.ImageFile.CopyTo(fs);
-                user.Avatar = fileName;
-            }*/
             var registerResult = await userManager.CreateAsync(user, request.Password);
             if (registerResult.Succeeded)
             {

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using ShopDienThoai.Models.Validation;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace HotelBooking.Domain.Response.Account
 {
@@ -17,10 +15,7 @@ namespace HotelBooking.Domain.Response.Account
         [Compare("Password", ErrorMessage = "Mật khẩu không khớp!")]
         [Display(Name = "Confirm password")]
         public string ConfirmPassword { get; set; }
-        /*[DataType(DataType.Upload)]
-        [AllowedExtensions(new string[] { ".jpg", ".png" })]
-        [MaxFileSize(1 * 1024 * 1024)]
-        public IFormFile ImageFile { get; set; }*/
+        public string Avatar { get; set; }
         [Required(ErrorMessage = "Nhập vào tên!")]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "Độ dài của tên trong khoảng từ 5 đến 50 ký tự!")]
         public string Name { get; set; }

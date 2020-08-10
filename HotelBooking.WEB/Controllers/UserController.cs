@@ -50,10 +50,9 @@ namespace HotelBooking.WEB.Controllers
                     Email = model.Email,
                     Password = model.Password,
                     Gender = model.Gender,
-                    /*ImageFile = model.ImageFile,*/
                     Name = model.Name,
-                    PhoneNumber = model.PhoneNumber
-                    
+                    PhoneNumber = model.PhoneNumber,
+                    Avatar = model.Avatar
                 };
                 RegisterResult result = ApiHelper<RegisterResult>.HttpPostAsync($"{Helper.ApiUrl}api/account/register", registerRequest);
                 if (result.Success)
