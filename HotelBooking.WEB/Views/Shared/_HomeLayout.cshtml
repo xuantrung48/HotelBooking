@@ -65,8 +65,8 @@
                         <div class="header__top__right">
                             <div class="header__top__auth">
                                 <ul>
-                                    <li><a href="#">Đăng nhập</a></li>
-                                    <li><a href="#">Đăng ký</a></li>
+                                    <li><a asp-controller="User" asp-action="Login" method="get">Đăng nhập</a></li>
+                                    <li><a asp-controller="User" asp-action="Register" method="get">Đăng ký</a></li>
                                     <li><a asp-controller="RoomType" asp-action="Index">Dashboard</a></li>
                                 </ul>
                             </div>
@@ -234,6 +234,8 @@
     <script src="~/lib/SlickNav/jquery.slicknav.min.js"></script>
     <script src="~/lib/owl-carousel/owl.carousel.min.js"></script>
     <script src="~/hiroto/js/main.js"></script>
+    <script src="~/js/frontend/main.js"></script>
+    @RenderSection("scripts", false)
 </body>
 
 </html>

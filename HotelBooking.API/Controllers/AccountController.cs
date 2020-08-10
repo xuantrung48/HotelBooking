@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using HotelBooking.Domain;
+﻿using HotelBooking.Domain;
 using HotelBooking.Domain.Request.Account;
 using HotelBooking.Domain.Response.Account;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace HotelBooking.API.Controllers
 {
@@ -18,12 +18,13 @@ namespace HotelBooking.API.Controllers
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
-
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         [HttpPost]
@@ -66,8 +67,19 @@ namespace HotelBooking.API.Controllers
             var user = new ApplicationUser()
             {
                 Email = request.Email,
-                UserName = request.Email
+                UserName = request.Email,
+                PhoneNumber = request.PhoneNumber,
+                Name = request.Name
             };
+            /*if (request.ImageFile != null)
+            {
+                string uploadFolder = Path.Combine(webHostEnvironment.WebRootPath, "images\\users");
+                string fileName = $"{Guid.NewGuid()}{Path.GetExtension(request.ImageFile.FileName)}";
+                var filePath = Path.Combine(uploadFolder, fileName);
+                using var fs = new FileStream(filePath, FileMode.Create);
+                request.ImageFile.CopyTo(fs);
+                user.Avatar = fileName;
+            }*/
             var registerResult = await userManager.CreateAsync(user, request.Password);
             if (registerResult.Succeeded)
             {

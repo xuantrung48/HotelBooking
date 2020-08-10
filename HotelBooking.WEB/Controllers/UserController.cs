@@ -5,8 +5,9 @@ using ShopDienThoai.Web.Ultilities;
 
 namespace HotelBooking.WEB.Controllers
 {
-    public class AccountController : Controller
+    public class UserController : Controller
     {
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
@@ -17,16 +18,15 @@ namespace HotelBooking.WEB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = new LoginResult();
                 var loginRequest = new LoginRequest()
                 {
                     Email = model.Email,
                     Password = model.Password
                 };
-                result = ApiHelper<LoginResult>.HttpPostAsync($"{Helper.ApiUrl}api/account/login", loginRequest);
+                LoginResult result = ApiHelper<LoginResult>.HttpPostAsync($"{Helper.ApiUrl}api/account/login", loginRequest);
                 if (result.Success)
                 {
-                    return RedirectToAction("Index", "Department");
+                    return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", result.Message);
                 return View();
@@ -34,6 +34,7 @@ namespace HotelBooking.WEB.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
@@ -47,13 +48,17 @@ namespace HotelBooking.WEB.Controllers
                 var registerRequest = new RegisterRequest()
                 {
                     Email = model.Email,
-                    Password = model.Password
+                    Password = model.Password,
+                    Gender = model.Gender,
+                    /*ImageFile = model.ImageFile,*/
+                    Name = model.Name,
+                    PhoneNumber = model.PhoneNumber
+                    
                 };
-                var result = new RegisterResult();
-                result = result = ApiHelper<RegisterResult>.HttpPostAsync($"{Helper.ApiUrl}api/account/register", registerRequest);
+                RegisterResult result = ApiHelper<RegisterResult>.HttpPostAsync($"{Helper.ApiUrl}api/account/register", registerRequest);
                 if (result.Success)
                 {
-                    return RedirectToAction("Index", "Department");
+                    return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", result.Message);
                 return View();

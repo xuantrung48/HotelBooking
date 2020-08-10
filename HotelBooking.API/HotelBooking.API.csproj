@@ -23,5 +23,10 @@
     <ProjectReference Include="..\HotelBooking.Domain\HotelBooking.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\rooms\" />
+    <Folder Include="wwwroot\images\users\" />
+  </ItemGroup>
+
 
 </Project>
