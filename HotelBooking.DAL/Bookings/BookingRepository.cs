@@ -38,6 +38,10 @@ namespace HotelBooking.DAL.Bookings
                 parameters.Add("@BookingId", booking.BookingId);
                 parameters.Add("@CustomerId", booking.CustomerId);
                 parameters.Add("@CouponId", booking.CouponId);
+                parameters.Add("@CheckinDate", booking.CheckinDate);
+                parameters.Add("@CheckoutDate", booking.CheckoutDate);
+                parameters.Add("@NumberofAdults", booking.NumberofAdults);
+                parameters.Add("@NumberofChildren", booking.NumberofChildren);
                 return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "Booking_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception e)

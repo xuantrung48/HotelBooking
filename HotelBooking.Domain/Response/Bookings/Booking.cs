@@ -9,6 +9,10 @@ namespace HotelBooking.Domain.Response.Bookings
         public int BookingId { get; set; }
         public int CustomerId { get; set; }
         public DateTime CreateDate { get; set; }
+        public DateTime CheckinDate { get; set; }
+        public DateTime CheckoutDate { get; set; }
+        public int NumberofAdults { get; set; }
+        public int NumberofChildren { get; set; }
         public float ServiceAmount { get; set; }
         public float RoomAmount { get; set; }
         public int? CouponId { get; set; }

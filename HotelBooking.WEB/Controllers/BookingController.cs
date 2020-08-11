@@ -31,12 +31,14 @@ namespace HotelBooking.WEB.Controllers
 
         public JsonResult Delete(int id)
         {
-            ActionsResult result = ApiHelper<ActionsResult>.HttpGetAsync($"{Helper.ApiUrl}api/booking/get/{id}", "DELETE");
+            ActionsResult result = ApiHelper<ActionsResult>.HttpGetAsync($"{Helper.ApiUrl}api/booking/delete/{id}", "DELETE");
             return Json(new { result });
         }
 
         public JsonResult Save([FromBody] Booking model)
         {
+            ActionsResult customerResult = ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/customer/save", model.BookingCustomer);
+            model.CustomerId = customerResult.Id;
             ActionsResult result;
             result = ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/booking/save", model);
             return Json(new { result });
