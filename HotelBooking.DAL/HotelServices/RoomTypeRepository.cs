@@ -38,7 +38,9 @@ namespace HotelBooking.DAL.HotelServices
                 parameters.Add("@RoomTypeId", roomType.RoomTypeId);
                 parameters.Add("@Name", roomType.Name);
                 parameters.Add("@DefaultPrice", roomType.DefaultPrice);
-                parameters.Add("@Capacity", roomType.Capacity);
+                parameters.Add("@MaxAdult", roomType.MaxAdult);
+                parameters.Add("@MaxChildren", roomType.MaxChildren);
+                parameters.Add("@MaxPeople", roomType.MaxPeople);
                 parameters.Add("@Quantity", roomType.Quantity);
                 parameters.Add("@Description", roomType.Description);
                 return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "RoomType_Save", param: parameters, commandType: CommandType.StoredProcedure);
