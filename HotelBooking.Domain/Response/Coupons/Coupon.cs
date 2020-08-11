@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HotelBooking.Domain.Response.Coupon
+namespace HotelBooking.Domain.Response.Coupons
 {
     public class Coupon
     {

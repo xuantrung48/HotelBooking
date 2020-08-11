@@ -1,7 +1,7 @@
 ﻿using HotelBooking.BAL.Interface.Coupons;
 using HotelBooking.DAL.Interface.Coupons;
 using HotelBooking.Domain.Response;
-using HotelBooking.Domain.Response.Coupon;
+using HotelBooking.Domain.Response.Coupons;
 using System;
 using System.Collections.Generic;
 using System.Text;
