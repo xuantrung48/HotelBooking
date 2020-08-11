@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
+
+    <!-- Title Page-->
+    <title>@ViewData["Title"]</title>
+
+    <!-- Fontfaces CSS-->
+    <link href="~/cooladminlib/css/font-face.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="~/cooladminlib/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap CSS-->
+    <link href="~/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Vendor CSS-->
+    <link href="~/cooladminlib/vendor/animsition/animsition.min.css" rel="stylesheet" />
+    <script src="~/cooladminlib/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+    <link href="~/cooladminlib/vendor/wow/animate.css" rel="stylesheet" />
+    <link href="~/cooladminlib/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" />
+    <link href="~/cooladminlib/vendor/select2/select2.min.css" rel="stylesheet" />
+    <script src="~/cooladminlib/vendor/slick/slick.min.js"></script>
+    <link href="~/cooladminlib/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" />
+
+    <!-- Main CSS-->
+    <link href="~/cooladminlib/css/theme.css" rel="stylesheet" />
+
+</head>
+
+<body class="animsition">
+    <div class="page-wrapper">
+        <div class="page-content--bge5">
+            <div class="container">
+                <div class="login-wrap">
+                    <div class="login-content">
+                        <div class="login-logo">
+                            <a href="#">
+                                <img src="~/cooladminlib/images/icon/logo.png" alt="CoolAdmin">
+                            </a>
+                        </div>
+                        <div class="login-form">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Jquery JS-->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <!-- Bootstrap JS-->
+    <script src="~/cooladminlib/vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="~/cooladminlib/vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <!-- Vendor JS       -->
+    <script src="~/cooladminlib/vendor/slick/slick.min.js">
+    </script>
+    <script src="~/cooladminlib/vendor/wow/wow.min.js"></script>
+    <script src="~/cooladminlib/vendor/animsition/animsition.min.js"></script>
+    <script src="~/cooladminlib/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
+    </script>
+    <script src="~/cooladminlib/vendor/counter-up/jquery.waypoints.min.js"></script>
+    <script src="~/cooladminlib/vendor/counter-up/jquery.counterup.min.js">
+    </script>
+    <script src="~/cooladminlib/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="~/cooladminlib/vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="~/cooladminlib/vendor/chartjs/Chart.bundle.min.js"></script>
+    <script src="~/cooladminlib/vendor/select2/select2.min.js">
+    </script>
+
+    <!-- Main JS-->
+    <script src="~/cooladminlib/js/main.js"></script>
+    @RenderSection("scripts", false)
+</body>
+
+</html>
+<!-- end document-->

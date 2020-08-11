@@ -1,0 +1,91 @@
+﻿@model RegisterModel
+@{
+    ViewData["Title"] = "Đăng ký";
+}
+<form enctype="multipart/form-data" asp-controller="User" asp-action="Register" method="post">
+    <div class="form-group" id="imgPreview">
+        <input hidden id="avatarData" type="text" asp-for="Avatar">
+        <img id="profilePicture" src="" width="200" style="display:none;" class="mx-auto d-block" />
+    </div>
+
+    <div class="form-group">
+        <div>
+            <label>Ảnh đại diện</label>
+        </div>
+        <div class="custom-file">
+            <input id="avatarImage" name="avatarImage" type="file" class="custom-file-input form-control">
+            <label class="custom-file-label" for="avatarImage">Chọn tập tin</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <input class="au-input au-input--full" type="Email" name="Email" placeholder="Email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Họ và tên</label>
+        <input class="au-input au-input--full" type="text" name="Name" placeholder="Họ và tên">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Số điện thoại</label>
+        <input class="au-input au-input--full" type="text" name="PhoneNumber" placeholder="Số điện thoại">
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Giới tính</label>
+        <div>
+            @Html.RadioButtonFor(s => s.Gender, Gender.Male)@Html.Label("Nam")
+        </div>
+        <div>
+            @Html.RadioButtonFor(s => s.Gender, Gender.Female)@Html.Label("Nữ")
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Mật khẩu</label>
+        <input class="au-input au-input--full" type="Password" name="Password" placeholder="Mật khẩu">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Nhập lại mật khẩu</label>
+        <input class="au-input au-input--full" type="Password" name="ConfirmPassword" placeholder="Nhập lại mật khẩu">
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+    <div class="login-checkbox">
+        <label>
+            <input type="checkbox" name="aggree">Agree the terms and policy
+        </label>
+    </div>
+    <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">register</button>
+</form>
+<div class="register-link">
+    <p>
+        Already have account?
+        <a asp-controller="User" asp-action="Login">Sign In</a>
+    </p>
+</div>
+
+
+@section scripts{
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        readFile = function () {
+            if (this.files && this.files[0]) {
+                var FR = new FileReader();
+                FR.addEventListener("load", function (e) {
+                    $('#profilePicture').attr("src", e.target.result);
+                    $('#avatarData').val(e.target.result);
+                });
+                FR.readAsDataURL(this.files[0]);
+            }
+        };
+
+        document.getElementById("avatarImage").addEventListener("change", readFile);
+
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+}
