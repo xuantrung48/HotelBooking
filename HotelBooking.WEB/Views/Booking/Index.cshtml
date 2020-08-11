@@ -20,9 +20,9 @@
             <th>mã đặt phòng</th>
             <th>tên khách hàng</th>
             <th>ngày tạo</th>
-            <th>giá dịch vụ</th>
-            <th>giá phòng</th>
-            <th>mã giảm giá</th>
+            <th>ngày đến</th>
+            <th>ngày đi</th>
+            <th>tổng tiền</th>
             <th>hành động</th>
         </tr>
     </thead>
@@ -66,6 +66,38 @@
                     </div>
                     <div class="col-9">
                         <input type="text" id="Email" name="Email" class="form-control" data-rule-required="true">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-3">
+                        <label>Số lượng người lớn</label>
+                    </div>
+                    <div class="col-9">
+                        <input type="number" id="NumberofAdults" name="NumberofAdults" class="form-control" data-rule-required="true">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-3">
+                        <label>Số lượng trẻ em</label>
+                    </div>
+                    <div class="col-9">
+                        <input type="number" id="NumberofChildren" name="NumberofChildren" class="form-control" data-rule-required="true">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-3">
+                        <label>Ngày đến:</label>
+                    </div>
+                    <div class="col-9">
+                        <input type="date" id="CheckinDate" name="CheckinDate" class="form-control" data-rule-required="true">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-3">
+                        <label>Ngày đi:</label>
+                    </div>
+                    <div class="col-9">
+                        <input type="date" id="CheckoutDate" name="CheckoutDate" class="form-control" data-rule-required="true">
                     </div>
                 </div>
                 <hr />

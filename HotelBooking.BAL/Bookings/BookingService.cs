@@ -53,9 +53,13 @@ namespace HotelBooking.BAL.Bookings
                         {
                             BookingId = b.BookingId,
                             CreateDate = b.CreateDate,
+                            CheckinDate = b.CheckinDate,
+                            CheckoutDate = b.CheckoutDate,
                             IsCanceled = b.IsCanceled,
                             CustomerId = c.CustomerId,
                             BookingCustomer = c,
+                            NumberofAdults = b.NumberofAdults,
+                            NumberofChildren = b.NumberofChildren,
                             CouponId = b.CouponId,
                             BookingCoupon = subtemp,
                             bookingRoomDetails = b.bookingRoomDetails,
@@ -76,6 +80,10 @@ namespace HotelBooking.BAL.Bookings
             {
                 BookingId = booking.BookingId,
                 CreateDate = booking.CreateDate,
+                CheckinDate = booking.CheckinDate,
+                CheckoutDate = booking.CheckoutDate,
+                NumberofAdults = booking.NumberofAdults,
+                NumberofChildren = booking.NumberofChildren,
                 IsCanceled = booking.IsCanceled,
                 CustomerId = customer.CustomerId,
                 BookingCustomer = customer,
@@ -91,7 +99,7 @@ namespace HotelBooking.BAL.Bookings
 
         public Task<ActionsResult> Save(Booking booking)
         {
-            throw new System.NotImplementedException();
+            return bookingRepository.Save(booking);
         }
         //public Task<ActionsResult> Save(Booking booking)
         //{

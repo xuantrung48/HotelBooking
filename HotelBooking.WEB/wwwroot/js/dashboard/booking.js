@@ -20,14 +20,14 @@ booking.drawTable = function () {
                         <td>${v.bookingId}</td>
                         <td>${v.bookingCustomer.name}</td>
                         <td>${dateToDMY(v.createDate)}</td>
-                        <td>${v.serviceAmount}</td>
-                        <td>${v.roomAmount}</td>
-                        <td>${v.couponId != null ? v.bookingCoupon.couponCode : `Not applicable`}</td>
+                        <td>${dateToDMY(v.checkinDate)}</td>
+                        <td>${dateToDMY(v.checkoutDate)}</td>
+                        <td>${v.serviceAmount + v.roomAmount}</td>
                         <td>
                             <a href="javascripts:;" class="btn btn-primary"
-                                       onclick="promotion.get(${v.bookingId})"><i class="fas fa-edit"></i></a> 
+                                       onclick="booking.get(${v.bookingId})"><i class="fas fa-edit"></i></a> 
                             <a href="javascripts:;" class="btn btn-danger"
-                                        onclick="promotion.delete(${v.bookingId}, '${v.bookingCustomer.name}')"><i class="fas fa-trash"></i></a>
+                                        onclick="booking.delete(${v.bookingId}, '${v.bookingCustomer.name}')"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>`
                 );
@@ -37,18 +37,21 @@ booking.drawTable = function () {
 }
 
 booking.add = function () {
-    //booking.reset();
+    booking.reset();
     $('.modal-title').text('Đặt phòng');
     $('#mediumModal').appendTo("body");
     $('#mediumModal').modal('show');
 }
 
 booking.reset = function () {
-    $('#PromotionName').val('');
-    $('#PromotionId').val(0);
-    $('#DefaultPrice').val('');
-    $('#StartDate').val('');
-    $('#EndDate').val('');
+    $('#Name').val('');
+    $('#BookingId').val(0);
+    $('#CustomerId').val(0);
+    $('#NumberofAdults').val('');
+    $('#NumberofChildren').val('');
+    $('#PhoneNumber').val('');
+    $('#Email').val('');
+    $('#CouponId').val('');
 }
 
 booking.get = function (id) {
@@ -59,11 +62,16 @@ booking.get = function (id) {
         dataType: "json",
         success: function (data) {
             $('.modal-title').text('Đổi thông tin đặt phòng');
-            $('#PromotionName').val(data.result.promotionName);
-            $('#PromotionId').val(data.result.promotionId);
-            $('#DiscountRates').val(data.result.discountRates * 100);
-            $('#StartDate').val(dateToYMD(data.result.startDate));
-            $('#EndDate').val(dateToYMD(data.result.endDate));
+            $('#BookingId').val(data.result.bookingId);
+            $('#CheckinDate').val(dateToYMD(data.result.checkinDate));
+            $('#CheckoutDate').val(dateToYMD(data.result.checkoutDate));
+            $('#Name').val(data.result.bookingCustomer.name);
+            $('#PhoneNumber').val(data.result.bookingCustomer.phoneNumber);
+            $('#Email').val(data.result.bookingCustomer.email);
+            $('#NumberofAdults').val(data.result.numberofAdults);
+            $('#NumberofChildren').val(data.result.numberofChildren);
+            $('#CouponId').val(data.result.couponId);
+            $('#CustomerId').val(data.result.customerId);
             $('#mediumModal').appendTo("body");
             $('#mediumModal').modal('show');
         }
@@ -71,18 +79,30 @@ booking.get = function (id) {
 }
 
 booking.save = function () {
-    var promotionObj = {};
-    promotionObj.PromotionId = parseInt($('#PromotionId').val());
-    promotionObj.PromotionName = $('#PromotionName').val();
-    promotionObj.StartDate = new Date($('#StartDate').val());
-    promotionObj.EndDate = new Date($('#EndDate').val());
-    promotionObj.DiscountRates = parseFloat($('#DiscountRates').val() / 100);
+    var bookingObj = {};
+    var customerObj = {};
+    bookingObj.BookingId = parseInt($('#BookingId').val());
+    //bookingObj.BookingCustomer.Name = $('#Name').val();
+    //bookingObj.BookingCustomer.PhoneNumber = $('#PhoneNumber').val();
+    //bookingObj.BookingCustomer.Email = $('#Email').val();
+    //bookingObj.BookingCustomer.CustomerId = parseInt($('#CustomerId').val());
+    customerObj.Name = $('#Name').val();
+    customerObj.PhoneNumber = $('#PhoneNumber').val();
+    customerObj.Email = $('#Email').val();
+    customerObj.CustomerId = parseInt($('#CustomerId').val());
+    bookingObj.NumberofChildren = parseInt($('#NumberofChildren').val());
+    bookingObj.NumberofAdults = parseInt($('#NumberofAdults').val());
+    bookingObj.CouponId = parseInt($('#CouponId').val());
+    bookingObj.CustomerId = parseInt($('#CustomerId').val());
+    bookingObj.CheckinDate = new Date($('#CheckinDate').val());
+    bookingObj.CheckoutDate = new Date($('#CheckoutDate').val());
+    bookingObj.BookingCustomer = customerObj;
     $.ajax({
-        url: `/Promotion/Save/`,
+        url: `/Booking/Save/`,
         method: "POST",
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify(promotionObj),
+        data: JSON.stringify(bookingObj),
         success: function (data) {
             $('#mediumModal').modal('hide');
             bootbox.alert(data.result.message);
@@ -94,7 +114,7 @@ booking.save = function () {
 booking.delete = function (id, name) {
     bootbox.confirm({
         title: "Xoá khuyến mãi",
-        message: 'Bạn có thực sự muốn xoá chương trình khuyến mãi "' + name + '"?',
+        message: 'Bạn có thực sự muốn hủy đặt phòng của khách hàng ' + name + '?',
         buttons: {
             cancel: {
                 label: '<i class="fa fa-times"></i> Huỷ'
@@ -106,7 +126,7 @@ booking.delete = function (id, name) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: `/Promotion/Delete/${id}`,
+                    url: `/Booking/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
