@@ -1,5 +1,5 @@
 ﻿using HotelBooking.Domain.Response;
-using HotelBooking.Domain.Response.Coupon;
+using HotelBooking.Domain.Response.Coupons;
 using System;
 using System.Collections.Generic;
 using System.Text;
