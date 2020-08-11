@@ -41,11 +41,13 @@ namespace HotelBooking.BAL.HotelServices
             var createRoomtype = new RoomType()
             {
                 RoomTypeId = roomType.RoomTypeId,
-                Capacity = roomType.Capacity,
                 DefaultPrice = roomType.DefaultPrice,
                 Description = roomType.Description,
                 Name = roomType.Name,
-                Quantity = roomType.Quantity
+                Quantity = roomType.Quantity,
+                MaxAdult = roomType.MaxAdult,
+                MaxChildren = roomType.MaxChildren,
+                MaxPeople = roomType.MaxPeople
             };
             var createRoomtypeResult = await roomTypeRepository.Save(createRoomtype);
             if (createRoomtypeResult.Id != 0)

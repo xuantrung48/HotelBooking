@@ -13,13 +13,12 @@
     </div>
 </div>
 
-<table class="table table-borderless table-striped table-earning table-responsive">
+<table class="table table-borderless table-striped table-earning">
     <thead>
         <tr>
             <th>id</th>
             <th>loại phòng</th>
             <th class="text-right">giá (₫)</th>
-            <th class="text-right">sức chứa</th>
             <th class="text-right">số lượng</th>
             <th>Hành động</th>
         </tr>
@@ -85,17 +84,44 @@
                     </div>
                     <div class="col-9">
                         <div class="row">
-                            <div class="col-3">
-                                <input type="number" id="adult" name="adult" class="form-control" />
+                            <div class="col-4">
+                                Max người lớn:
                             </div>
-                            <div class="col-3">
+                            <div class="col-4">
+                                <input type="number" id="adult" name="adult" class="form-control"/>
+                            </div>
+                            <div class="col-4">
                                 x <i class="fas fa-male" style="font-size: 1.5em"></i>
                             </div>
-                            <div class="col-6">
-                                <label class="form-check-label ">
-                                    <input type="checkbox" id="child" name="child" value="0.5" class="form-check-input">
-                                    <i class="fas fa-child"></i>
-                                </label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                    </div>
+                    <div class="col-9">
+                        <div class="row">
+                            <div class="col-4">
+                                Max trẻ em:
+                            </div>
+                            <div class="col-4">
+                                <input type="number" id="children" name="children" class="form-control"/>
+                            </div>
+                            <div class="col-4">
+                                x <i class="fas fa-child"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                    </div>
+                    <div class="col-9">
+                        <div class="row">
+                            <div class="col-4">
+                                Max tổng người:
+                            </div>
+                            <div class="col-4">
+                                <input type="number" id="people" name="people" class="form-control" />
+                            </div>
+                            <div class="col-4">
+                                x <i class="fas fa-users"></i>
                             </div>
                         </div>
                     </div>

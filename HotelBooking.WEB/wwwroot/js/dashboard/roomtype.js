@@ -20,20 +20,11 @@ roomType.drawTable = function () {
         dataType: "json",
         success: function (data) {
             $.each(data.result, function (i, v) {
-                let people = '';
-                if (v.capacity % 1 == 0) {
-                    people += `(${v.capacity} x <i class="fas fa-male" style="font-size: 1.5em"></i>) `;
-                }
-                else {
-                    people += `(${v.capacity - 0.5} x <i class="fas fa-male" style="font-size: 1.5em"></i>) `;
-                    people += '+ <i class="fas fa-child"></i>';
-                }
                 $('#roomTypesTable').append(
                     `<tr>
                         <td>${v.roomTypeId}</td>
                         <td>${v.name}</td>
                         <td>${digitGrouping(v.defaultPrice)}</td>
-                        <td>${people}</td>
                         <td>${v.quantity}</td>
                         <td>
                             <a href="javascripts:;" class="btn btn-primary"
@@ -88,15 +79,9 @@ roomType.get = function (id) {
             $('#RoomTypeId').val(data.result.roomTypeId);
             $('#DefaultPrice').val(data.result.defaultPrice);
             $('#Description').val(data.result.description);
-            if (data.result.capacity % 1 == 0) {
-                $('#adult').val(data.result.capacity);
-                $('#child').val('0');
-            } else {
-                $('#adult').val(data.result.capacity - 0.5);
-                $('#child').val('0.5');
-                $('#child').attr('checked', 'checked');
-            }
-            $('#Capacity').val(data.result.capacity);
+            $('#adult').val(data.result.maxAdult);
+            $('#children').val(data.result.maxChildren);
+            $('#people').val(data.result.maxPeople);
             $('#Quantity').val(data.result.quantity);
             $('#mediumModal').appendTo("body");
             $('#mediumModal').modal('show');
@@ -110,7 +95,9 @@ roomType.save = function () {
     roomTypeObj.Name = $('#Name').val();
     roomTypeObj.RoomTypeId = parseInt($('#RoomTypeId').val());
     roomTypeObj.DefaultPrice = parseInt($('#DefaultPrice').val());
-    roomTypeObj.Capacity = parseFloat($('#adult').val()) + parseFloat($('#child').val());
+    roomTypeObj.MaxAdult = parseInt($('#adult').val());
+    roomTypeObj.MaxChildren = parseInt($('#children').val());
+    roomTypeObj.MaxPeople = parseInt($('#people').val());
     roomTypeObj.Quantity = parseInt($('#Quantity').val());
     roomTypeObj.Description = $('#Description').val();
     roomTypeObj.Facilities = $('#facilities').val();
