@@ -1,0 +1,102 @@
+﻿@{
+    ViewData["Title"] = "Quản lý đặt phòng";
+    var listCoupon = ViewBag.Coupon as List<HotelBooking.Domain.Response.Coupons.Coupon>;
+}
+
+<div class="text-center mb-3">
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<div class="row">
+    <div class="col-12 mb-3">
+        <a href="javascript:void(0);" class="btn btn-info"
+           onclick="booking.add()"><i class="fas fa-plus"></i>Tạo mới</a>
+    </div>
+</div>
+
+<table class="table table-borderless table-striped table-earning table-responsive">
+    <thead>
+        <tr>
+            <th>mã đặt phòng</th>
+            <th>tên khách hàng</th>
+            <th>ngày tạo</th>
+            <th>giá dịch vụ</th>
+            <th>giá phòng</th>
+            <th>mã giảm giá</th>
+            <th>hành động</th>
+        </tr>
+    </thead>
+    <tbody id="bookingTable">
+    </tbody>
+</table>
+
+<!-- modal medium -->
+<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="mediumModalLabel"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="number" id="BookingId" name="BookingId" class="form-control" hidden>
+                <h4 class="mb-3">Thông tin khách hàng </h4>
+                <input type="number" id="CustomerId" name="CustomerId" class="form-control" hidden>
+                <div class="row form-group">
+                    <div class="col-3">
+                        <label>Tên khách hàng</label>
+                    </div>
+                    <div class="col-9">
+                        <input type="text" id="Name" name="Name" class="form-control" data-rule-required="true">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-3">
+                        <label>Số điện thoại</label>
+                    </div>
+                    <div class="col-9">
+                        <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" data-rule-required="true">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-3">
+                        <label>Địa chỉ email</label>
+                    </div>
+                    <div class="col-9">
+                        <input type="text" id="Email" name="Email" class="form-control" data-rule-required="true">
+                    </div>
+                </div>
+                <hr />
+                <h4 class="mb-3">Thông tin khuyến mãi </h4>
+                <div class="row form-group">
+                    <div class="col-3">
+                        <label>Mã giảm giá</label>
+                    </div>
+                    <div class="col-9">
+                        <select id="CouponId" class="custom-select">
+                            <option value="">Select a coupon</option>
+                            @if (listCoupon != null)
+                            {
+                                foreach (var item in listCoupon)
+                                {
+                                    <option value="@item.CouponId">@item.CouponCode</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="btn btn-primary" onclick="booking.save()">Lưu</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal medium -->
+
+@section scripts{
+    <script src="~/js/dashboard/booking.js" asp-append-version="true"></script>
+}

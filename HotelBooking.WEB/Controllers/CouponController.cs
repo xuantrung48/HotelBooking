@@ -1,5 +1,5 @@
 ﻿using HotelBooking.Domain.Response;
-using HotelBooking.Domain.Response.Coupon;
+using HotelBooking.Domain.Response.Coupons;
 using Microsoft.AspNetCore.Mvc;
 using ShopDienThoai.Web.Ultilities;
 using System;

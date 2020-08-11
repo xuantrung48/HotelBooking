@@ -1,6 +1,6 @@
 ﻿using HotelBooking.BAL.Interface.Coupons;
 using HotelBooking.BAL.Interface.Promotions;
-using HotelBooking.Domain.Response.Coupon;
+using HotelBooking.Domain.Response.Coupons;
 using HotelBooking.Domain.Response.Promotions;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
