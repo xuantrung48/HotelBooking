@@ -24,8 +24,8 @@ roomType.drawTable = function () {
                     `<tr>
                         <td>${v.roomTypeId}</td>
                         <td>${v.name}</td>
-                        <td>${digitGrouping(v.defaultPrice)}</td>
-                        <td>${v.quantity}</td>
+                        <td class="text-center">${digitGrouping(v.defaultPrice)}</td>
+                        <td class="text-center">${v.quantity}</td>
                         <td>
                             <a href="javascripts:;" class="btn btn-primary"
                                        onclick="roomType.get(${v.roomTypeId})"><i class="fas fa-edit"></i></a> 

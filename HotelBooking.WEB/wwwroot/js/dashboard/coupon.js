@@ -16,13 +16,14 @@ coupon.drawTable = function () {
         dataType: "json",
         success: function (data) {
             $.each(data.result, function (i, v) {
+                let remain = (v.remain >= 0) ? v.remain : '∞'
                 $('#couponsTable').append(
                     `<tr>
                         <td>${v.couponId}</td>
                         <td>${v.couponCode}</td>
-                        <td>${v.remain}</td>
-                        <td>${v.reduction * 100}%</td>
-                        <td>${dateToDMY(v.endDate)}</td>
+                        <td class="text-center">${remain}</td>
+                        <td class="text-center">${v.reduction * 100}%</td>
+                        <td class="text-center">${dateToDMY(v.endDate)}</td>
                         <td>
                             <a href="javascripts:;" class="btn btn-primary"
                                        onclick="coupon.get(${v.couponId})"><i class="fas fa-edit"></i></a> 
