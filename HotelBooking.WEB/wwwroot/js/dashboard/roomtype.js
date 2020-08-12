@@ -42,9 +42,8 @@ roomType.drawTable = function () {
 roomType.get = function (id) {
     roomType.reset();
 
-    if (id != 0) {
-        roomType.showImages(id);
-    }
+    roomType.showImages(id);
+
     $.ajax({
         url: `/RoomType/Get/${id}`,
         method: "GET",
@@ -197,8 +196,8 @@ roomType.reset = function () {
     $('#RoomTypeId').val(0);
     $('#DefaultPrice').val('');
     $('#adult').val('');
-    $('#child').val('0');
-    $('#child').removeAttr('checked');
+    $('#children').val('');
+    $('#people').val('');
     $('#Quantity').val('');
     $('#Description').val('');
     $(".custom-file-label").text("Chọn tập tin");
