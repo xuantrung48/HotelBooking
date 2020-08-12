@@ -8,8 +8,7 @@
 
 <div class="row">
     <div class="col-12 mb-3">
-        <a href="javascript:void(0);" class="btn btn-info"
-           onclick="roomType.add()"><i class="fas fa-plus"></i> Thêm loại phòng</a>
+        <a href="javascript:void(0);" class="btn btn-info" onclick="roomType.add()"><i class="fas fa-plus"></i> Thêm loại phòng</a>
     </div>
 </div>
 
@@ -88,7 +87,7 @@
                                 Max người lớn:
                             </div>
                             <div class="col-4">
-                                <input type="number" id="adult" name="adult" class="form-control"/>
+                                <input type="number" id="adult" name="adult" class="form-control" />
                             </div>
                             <div class="col-4">
                                 x <i class="fas fa-male" style="font-size: 1.5em"></i>
@@ -103,7 +102,7 @@
                                 Max trẻ em:
                             </div>
                             <div class="col-4">
-                                <input type="number" id="children" name="children" class="form-control"/>
+                                <input type="number" id="children" name="children" class="form-control" />
                             </div>
                             <div class="col-4">
                                 x <i class="fas fa-child"></i>
@@ -162,6 +161,7 @@
 <!-- end modal medium -->
 @section scripts{
     <script src="~/js/dashboard/roomtype.js" asp-append-version="true"></script>
+    <script src="~/lib/select2/js/select2.min.js"></script>
     <script>
         document.getElementById("RoomTypeImages").addEventListener("change", readFiles);
 
@@ -179,7 +179,11 @@
 }
 
 @section styles{
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
     <style>
+        .select2-search__field {
+            width: 100% !important; /*makes the placeholder to be 100% of the width while there are no options selected*/
+        }
         .remove-image {
             display: none;
             position: absolute;
@@ -196,13 +200,13 @@
             transition: background 0.5s;
         }
 
-        .remove-image:hover {
-            background: #E54E4E;
-            padding: 3px 7px 5px;
-        }
+            .remove-image:hover {
+                background: #E54E4E;
+                padding: 3px 7px 5px;
+            }
 
-        .remove-image:active {
-            background: #E54E4E;
-        }
+            .remove-image:active {
+                background: #E54E4E;
+            }
     </style>
 }
