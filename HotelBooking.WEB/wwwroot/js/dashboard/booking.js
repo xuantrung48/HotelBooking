@@ -22,7 +22,7 @@ booking.drawTable = function () {
                         <td>${dateToDMY(v.createDate)}</td>
                         <td>${dateToDMY(v.checkinDate)}</td>
                         <td>${dateToDMY(v.checkoutDate)}</td>
-                        <td>${v.serviceAmount + v.roomAmount}</td>
+                        <td>${digitGrouping(v.serviceAmount + v.roomAmount)}₫</td>
                         <td>
                             <a href="javascripts:;" class="btn btn-primary"
                                        onclick="booking.get(${v.bookingId})"><i class="fas fa-edit"></i></a> 
@@ -153,4 +153,7 @@ dateToYMD = function (date) {
     var m = date.getMonth() + 1;
     var y = date.getFullYear();
     return '' + y + '-' + (m <= 9 ? '0' + m : m) + '-' + (d <= 9 ? '0' + d : d);
+}
+digitGrouping = function (price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
