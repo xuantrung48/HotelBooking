@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Stored Procedures\" />
     <Folder Include="wwwroot\images\rooms\" />
     <Folder Include="wwwroot\images\users\" />
   </ItemGroup>
