@@ -20,9 +20,9 @@ promotion.drawTable = function () {
                     `<tr>
                         <td>${v.promotionId}</td>
                         <td>${v.promotionName}</td>
-                        <td>${dateToDMY(v.startDate)}</td>
-                        <td>${dateToDMY(v.endDate)}</td>
-                        <td>${v.discountRates * 100}%</td>
+                        <td class="text-center">${dateToDMY(v.startDate)}</td>
+                        <td class="text-center">${dateToDMY(v.endDate)}</td>
+                        <td class="text-center">${v.discountRates * 100}%</td>
                         <td>
                             <a href="javascripts:;" class="btn btn-primary"
                                        onclick="promotion.get(${v.promotionId})"><i class="fas fa-edit"></i></a> 
