@@ -70,6 +70,8 @@ roomType.get = function (id) {
                                     }
                                 }
                             }
+
+                            $('#facilities').select2();
                         }
                     });
                 }
@@ -179,6 +181,8 @@ roomType.add = function () {
                 $('#facilities').append(
                     `<option value="${facilities.result[i].facilityId}" id="facility${facilities.result[i].facilityId}">${facilities.result[i].facilityName}</option>`
                 );
+
+                $('#facilities').select2();
             }
         }
     });
