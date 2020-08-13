@@ -1,9 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
-}~
+}
 
 <section class="hero spad set-bg" data-setbg="/lib/hiroto/img/hero.jpg">
-    <div class="container">
+    <div class="container" id="bookroom">
         <div class="row">
             <div class="col-lg-12">
                 <div class="hero__text">
@@ -51,14 +51,35 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h5>Loại phòng</h5>
-                    <h2>Explore Our Hotel</h2>
+                    <h2>Khám phá khách sạn</h2>
                 </div>
             </div>
         </div>
     </div>
     <div class="container-fluid">
-        <div class="row" id="roomTypes">
+        <div class="row">
+            <div class="col-md-6 carousel slide" data-ride="carousel" id="roomTypes">
+                <div class="section-title">
+                    <h5>Loại phòng</h5>
+                </div>
+                <!-- Indicators -->
+                <ul class="carousel-indicators">
+                </ul>
+
+                <!-- The slideshow -->
+                <div class="carousel-inner">
+                </div>
+
+                <!-- Left and right controls -->
+                <a class="carousel-control-prev" href="#roomTypes" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#roomTypes" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-6">
 
         </div>
     </div>
@@ -76,7 +97,14 @@
     </div>
 </section>
 <!-- Home Room Section End -->
-
+@section styles{
+    <style>
+        .carousel-caption {
+            text-shadow: 0 0 1px #ffffff;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+}
 @section scripts{
     <script>
         $(document).ready(function () {
