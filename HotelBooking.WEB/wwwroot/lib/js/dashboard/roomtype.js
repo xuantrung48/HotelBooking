@@ -43,7 +43,7 @@ roomType.get = function (id) {
     roomType.reset();
 
     $.ajax({
-        url: `/RoomType/GetWithImages/${id}`,
+        url: `/RoomType/GetWithImagesAndFacilities/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
