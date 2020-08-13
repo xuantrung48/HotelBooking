@@ -24,8 +24,8 @@ booking.drawTable = function () {
                         <td>${dateToDMY(v.checkoutDate)}</td>
                         <td>${digitGrouping(v.serviceAmount + v.roomAmount)}₫</td>
                         <td>
-                            <a href="javascripts:;" class="btn btn-primary"
-                                       onclick="booking.get(${v.bookingId})"><i class="fas fa-edit"></i></a> 
+                            <a href="Booking/BookingDetails/${v.bookingId}" class="btn btn-primary"
+                                       ><i class="fas fa-edit"></i></a> 
                             <a href="javascripts:;" class="btn btn-danger"
                                         onclick="booking.delete(${v.bookingId}, '${v.bookingCustomer.name}')"><i class="fas fa-trash"></i></a>
                         </td>
@@ -35,6 +35,7 @@ booking.drawTable = function () {
         }
     });
 }
+//onclick = "return booking.get(${v.bookingId})"
 
 booking.add = function () {
     booking.reset();
@@ -52,6 +53,8 @@ booking.reset = function () {
     $('#PhoneNumber').val('');
     $('#Email').val('');
     $('#CouponId').val('');
+    $('#CheckinDate').val('');
+    $('#CheckoutDate').val('');
 }
 
 booking.get = function (id) {
@@ -61,7 +64,8 @@ booking.get = function (id) {
         method: "GET",
         dataType: "json",
         success: function (data) {
-            $('.modal-title').text('Đổi thông tin đặt phòng');
+            //location.assign(`Booking/BookingDetails/${id}`);
+            //$('.modal-title').text('Đổi thông tin đặt phòng');
             $('#BookingId').val(data.result.bookingId);
             $('#CheckinDate').val(dateToYMD(data.result.checkinDate));
             $('#CheckoutDate').val(dateToYMD(data.result.checkoutDate));
@@ -72,10 +76,11 @@ booking.get = function (id) {
             $('#NumberofChildren').val(data.result.numberofChildren);
             $('#CouponId').val(data.result.couponId);
             $('#CustomerId').val(data.result.customerId);
-            $('#mediumModal').appendTo("body");
-            $('#mediumModal').modal('show');
+            //$('#mediumModal').appendTo("body");
+            //$('#mediumModal').modal('show');
         }
     });
+
 }
 
 booking.save = function () {
@@ -104,8 +109,9 @@ booking.save = function () {
         contentType: "application/json",
         data: JSON.stringify(bookingObj),
         success: function (data) {
-            $('#mediumModal').modal('hide');
-            bootbox.alert(data.result.message);
+            bootbox.alert(data.result.message, function () {
+                location.assign(`/Booking`);
+            });
             booking.drawTable();
         }
     });
@@ -113,7 +119,7 @@ booking.save = function () {
 
 booking.delete = function (id, name) {
     bootbox.confirm({
-        title: "Xoá khuyến mãi",
+        title: "Xoá đặt phòng",
         message: 'Bạn có thực sự muốn hủy đặt phòng của khách hàng ' + name + '?',
         buttons: {
             cancel: {
@@ -138,7 +144,32 @@ booking.delete = function (id, name) {
         }
     });
 }
-
+//booking.addNewRoomType = function () {
+//    $('#RoomTypeDetails').append(
+//        `
+//            <div class="row mb-3">
+//                        <div class="col-9">
+//                            <select id="" class="custom-select">
+//                                <option value="">Select a roomtype</option>
+//                                @if (listRoomtype != null)
+//                                {
+//                                    foreach (var item in listRoomtype)
+//                                    {
+//                                        <option value="@item.RoomTypeId">@item.Name</option>
+//                                    }
+//                                }
+//                            </select>
+//                        </div>
+//                        <div class="col-2">
+//                            <input type="number" name="name" value="" class="form-control" />
+//                        </div>
+//                        <div class="col-1">
+//                            <a href="javascripts:;" class="btn btn-danger"><i class="fas fa-minus"></i></a>
+//                        </div>
+//            </div>
+//        `
+//    );
+//}
 dateToDMY = function (date) {
     date = new Date(date);
     var d = date.getDate();

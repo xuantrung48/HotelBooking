@@ -1,6 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Quản lý đặt phòng";
-    var listCoupon = ViewBag.Coupon as List<HotelBooking.Domain.Response.Coupons.Coupon>;
 }
 
 <div class="text-center mb-3">
@@ -9,8 +8,8 @@
 
 <div class="row">
     <div class="col-12 mb-3">
-        <a href="javascript:void(0);" class="btn btn-info"
-           onclick="booking.add()"><i class="fas fa-plus"></i>Tạo mới</a>
+        <a href="Booking/BookingDetails/0" class="btn btn-info"
+           @*onclick="booking.add()"*@><i class="fas fa-plus"></i>Tạo mới</a>
     </div>
 </div>
 
@@ -30,8 +29,7 @@
     </tbody>
 </table>
 
-<!-- modal medium -->
-<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+@*<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -128,9 +126,7 @@
             </div>
         </div>
     </div>
-</div>
-<!-- end modal medium -->
-
+</div>*@
 @section scripts{
     <script src="~/js/dashboard/booking.js" asp-append-version="true"></script>
 }
