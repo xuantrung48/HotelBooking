@@ -43,11 +43,11 @@ namespace HotelBooking.DAL.Promotions
             }
         }
 
-        public async Task<PromotionApply> GetByRoomTypeId(int id)
+        public async Task<IEnumerable<PromotionApply>> GetByRoomTypeId(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@RoomTypeId", id);
-            return await SqlMapper.QueryFirstOrDefaultAsync<PromotionApply>(cnn: conn, sql: "PromotionApply_GetByRoomTypeId", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryAsync<PromotionApply>(cnn: conn, sql: "PromotionApply_GetByRoomTypeId", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }

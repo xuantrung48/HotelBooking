@@ -39,7 +39,7 @@ namespace HotelBooking.API.Controllers
 
         [HttpGet]
         [Route("api/promotionapply/getbyroomtypeid/{id}")]
-        public async Task<PromotionApply> GetByRoomTypeId(int id)
+        public async Task<IEnumerable<PromotionApply>> GetByRoomTypeId(int id)
         {
             return await promotionApplyService.GetByRoomTypeId(id);
         }
