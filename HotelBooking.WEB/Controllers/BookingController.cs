@@ -1,6 +1,7 @@
 ﻿using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Bookings;
 using HotelBooking.Domain.Response.Coupons;
+using HotelBooking.Domain.Response.HotelServices;
 using Microsoft.AspNetCore.Mvc;
 using ShopDienThoai.Web.Ultilities;
 using System;
@@ -14,8 +15,14 @@ namespace HotelBooking.WEB.Controllers
     {
         public IActionResult Index()
         {
-            ViewBag.Coupon = GetAllCoupon();
             return View();
+        }
+        public IActionResult BookingDetails(int id)
+        {
+            ViewBag.RoomType = GetAllRoomType();
+            ViewBag.Coupon = GetAllCoupon();
+            ViewBag.Service = GetAllService();
+            return View(id);
         }
         public JsonResult Get(int id)
         {
@@ -46,6 +53,14 @@ namespace HotelBooking.WEB.Controllers
         private List<Coupon> GetAllCoupon()
         {
             return ApiHelper<List<Coupon>>.HttpGetAsync($"{Helper.ApiUrl}api/coupon/getall");
+        }
+        private List<RoomType> GetAllRoomType()
+        {
+            return ApiHelper<List<RoomType>>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getall");
+        }
+        private List<Service> GetAllService()
+        {
+            return ApiHelper<List<Service>>.HttpGetAsync($"{Helper.ApiUrl}api/service/get");
         }
     }
 }
