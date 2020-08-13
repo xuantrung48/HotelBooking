@@ -1,4 +1,5 @@
-﻿using HotelBooking.Domain.Response.Promotions;
+﻿using HotelBooking.Domain.Response;
+using HotelBooking.Domain.Response.Promotions;
 using Microsoft.AspNetCore.Mvc;
 using ShopDienThoai.Web.Ultilities;
 using System.Collections.Generic;
@@ -10,6 +11,16 @@ namespace HotelBooking.WEB.Controllers
         public JsonResult GetByRoomTypeId(int id)
         {
             List<PromotionApply> result = ApiHelper<List<PromotionApply>>.HttpGetAsync($"{Helper.ApiUrl}api/promotionapply/getbyroomtypeid/{id}");
+            return Json(new { result });
+        }
+        public JsonResult GetByPromotionId(int id)
+        {
+            List<PromotionApply> result = ApiHelper<List<PromotionApply>>.HttpGetAsync($"{Helper.ApiUrl}api/promotionapply/getbypromotionid/{id}");
+            return Json(new { result });
+        }
+        public JsonResult DeleteByPromotionId(int id)
+        {
+            ActionsResult result = ApiHelper<ActionsResult>.HttpGetAsync($"{Helper.ApiUrl}api/promotionapply/deletebypromotionid/{id}", "DELETE");
             return Json(new { result });
         }
     }

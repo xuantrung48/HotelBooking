@@ -249,7 +249,6 @@ roomType.deleteImage = function (roomTypeImageId) {
                             method: "GET",
                             dataType: "json",
                             success: function (data) {
-                                /*imgsNo = data.result.length;*/
                                 $.each(data.result, function (i, v) {
                                     $("#imgsData").append(
                                         `<img src="${v.imageData}" style="height:150px" class="mx-2 my-2"><a class="remove-image" onclick="roomType.deleteImage('${v.roomTypeImageId}')" style="display: inline;">&#215;</a>`

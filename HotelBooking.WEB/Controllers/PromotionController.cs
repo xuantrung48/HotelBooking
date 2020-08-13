@@ -1,4 +1,5 @@
-﻿using HotelBooking.Domain.Response;
+﻿using HotelBooking.Domain.Request.Promotions;
+using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Promotions;
 using Microsoft.AspNetCore.Mvc;
 using ShopDienThoai.Web.Ultilities;
@@ -31,7 +32,7 @@ namespace HotelBooking.WEB.Controllers
             return Json(new { result });
         }
 
-        public JsonResult Save([FromBody] Promotion model)
+        public JsonResult Save([FromBody] SavePromotionRequest model)
         {
             ActionsResult result;
             result = ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/promotions/save", model);
