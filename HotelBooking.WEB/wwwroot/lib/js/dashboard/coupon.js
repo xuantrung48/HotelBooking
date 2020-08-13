@@ -1,33 +1,34 @@
-﻿var promotion = {} || promotion;
+﻿var coupon = {} || coupon;
 
 $(document).ready(function () {
-    promotion.init();
+    coupon.init();
 })
 
-promotion.init = function () {
-    promotion.drawTable();
+coupon.init = function () {
+    coupon.drawTable();
 }
 
-promotion.drawTable = function () {
-    $('#promotionsTable').empty();
+coupon.drawTable = function () {
+    $('#couponsTable').empty();
     $.ajax({
-        url: "/Promotion/GetAll",
+        url: "/Coupon/GetAll",
         method: "GET",
         dataType: "json",
         success: function (data) {
             $.each(data.result, function (i, v) {
-                $('#promotionsTable').append(
+                let remain = (v.remain >= 0) ? v.remain : '∞'
+                $('#couponsTable').append(
                     `<tr>
-                        <td>${v.promotionId}</td>
-                        <td>${v.promotionName}</td>
-                        <td>${dateToDMY(v.startDate)}</td>
-                        <td>${dateToDMY(v.endDate)}</td>
-                        <td>${v.discountRates * 100}%</td>
+                        <td>${v.couponId}</td>
+                        <td>${v.couponCode}</td>
+                        <td class="text-center">${remain}</td>
+                        <td class="text-center">${v.reduction * 100}%</td>
+                        <td class="text-center">${dateToDMY(v.endDate)}</td>
                         <td>
                             <a href="javascripts:;" class="btn btn-primary"
-                                       onclick="promotion.get(${v.promotionId})"><i class="fas fa-edit"></i></a> 
+                                       onclick="coupon.get(${v.couponId})"><i class="fas fa-edit"></i></a> 
                             <a href="javascripts:;" class="btn btn-danger"
-                                        onclick="promotion.delete(${v.promotionId}, '${v.promotionName}')"><i class="fas fa-trash"></i></a>
+                                        onclick="coupon.delete(${v.couponId}, '${v.couponCode}')"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>`
                 );
@@ -36,65 +37,65 @@ promotion.drawTable = function () {
     });
 }
 
-promotion.add = function () {
-    promotion.reset();
-    $('.modal-title').text('Thêm chương trình khuyến mãi');
+coupon.add = function () {
+    coupon.reset();
+    $('.modal-title').text('Thêm phiếu giảm giá');
     $('#mediumModal').appendTo("body");
     $('#mediumModal').modal('show');
 }
 
-promotion.reset = function () {
-    $('#PromotionName').val('');
-    $('#PromotionId').val(0);
-    $('#DefaultPrice').val('');
-    $('#StartDate').val('');
+coupon.reset = function () {
+    $('#CouponCode').val('');
+    $('#CouponId').val(0);
+    $('#Remain').val('');
+    $('#Reduction').val('');
     $('#EndDate').val('');
 }
 
-promotion.get = function (id) {
-    promotion.reset();
+coupon.get = function (id) {
+    coupon.reset();
     $.ajax({
-        url: `/Promotion/Get/${id}`,
+        url: `/Coupon/Get/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
-            $('.modal-title').text('Đổi thông tin khuyến mãi');
-            $('#PromotionName').val(data.result.promotionName);
-            $('#PromotionId').val(data.result.promotionId);
-            $('#DiscountRates').val(data.result.discountRates * 100);
-            $('#StartDate').val(dateToYMD(data.result.startDate));
+            $('.modal-title').text('Đổi thông tin phiếu giảm giá');
+            $('#CouponCode').val(data.result.couponCode);
+            $('#CouponId').val(data.result.couponId);
+            $('#Remain').val(data.result.remain);
             $('#EndDate').val(dateToYMD(data.result.endDate));
+            $('#Reduction').val(data.result.reduction * 100);
             $('#mediumModal').appendTo("body");
             $('#mediumModal').modal('show');
         }
     });
 }
 
-promotion.save = function () {
-    var promotionObj = {};
-    promotionObj.PromotionId = parseInt($('#PromotionId').val());
-    promotionObj.PromotionName = $('#PromotionName').val();
-    promotionObj.StartDate = new Date($('#StartDate').val());
-    promotionObj.EndDate = new Date($('#EndDate').val());
-    promotionObj.DiscountRates = parseFloat($('#DiscountRates').val() / 100);
+coupon.save = function () {
+    var couponObj = {};
+    couponObj.CouponId = parseInt($('#CouponId').val());
+    couponObj.CouponCode = $('#CouponCode').val();
+    couponObj.Remain = parseInt($('#Remain').val());
+    couponObj.EndDate = new Date ($('#EndDate').val());
+    couponObj.Reduction = parseFloat($('#Reduction').val() / 100);
     $.ajax({
-        url: `/Promotion/Save/`,
+        url: `/Coupon/Save/`,
         method: "POST",
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify(promotionObj),
+        data: JSON.stringify(couponObj),
         success: function (data) {
             $('#mediumModal').modal('hide');
             bootbox.alert(data.result.message);
-            promotion.drawTable();
+            coupon.drawTable();
         }
     });
 }
 
-promotion.delete = function (id, name) {
+coupon.delete = function (id, name) {
     bootbox.confirm({
         title: "Xoá khuyến mãi",
-        message: 'Bạn có thực sự muốn xoá chương trình khuyến mãi "' + name + '"?',
+        message: 'Bạn có thực sự muốn xoá thẻ giảm giá "' + name + '"?',
         buttons: {
             cancel: {
                 label: '<i class="fa fa-times"></i> Huỷ'
@@ -106,19 +107,18 @@ promotion.delete = function (id, name) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    url: `/Promotion/Delete/${id}`,
+                    url: `/Coupon/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
                         bootbox.alert(data.result.message);
-                        promotion.drawTable();
+                        coupon.drawTable();
                     }
                 });
             }
         }
     });
 }
-
 dateToDMY = function (date) {
     date = new Date(date);
     var d = date.getDate();
@@ -126,7 +126,6 @@ dateToDMY = function (date) {
     var y = date.getFullYear();
     return '' + (d <= 9 ? '0' + d : d) + '-' + (m <= 9 ? '0' + m : m) + '-' + y;
 }
-
 dateToYMD = function (date) {
     date = new Date(date);
     var d = date.getDate();

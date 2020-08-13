@@ -14,6 +14,10 @@ namespace HotelBooking.BAL.HotelServices
         private readonly IRoomTypeRepository roomTypeRepository;
         private IRoomTypeImageRepository roomTypeImageRepository;
         private IFacilityApplyRepository facilityApplyRepository;
+        public RoomTypeService(IRoomTypeRepository roomTypeRepository)
+        {
+            this.roomTypeRepository = roomTypeRepository;
+        }
         public RoomTypeService(IRoomTypeRepository roomTypeRepository, IRoomTypeImageRepository roomTypeImageRepository, IFacilityApplyRepository facilityApplyRepository)
         {
             this.roomTypeRepository = roomTypeRepository;
