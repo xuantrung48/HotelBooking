@@ -19,13 +19,21 @@ namespace HotelBooking.WEB.Controllers
             List<RoomType> result = ApiHelper<List<RoomType>>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getall");
             return Json(new { result });
         }
-
+        public JsonResult GetAllWithImagesAndFacilities()
+        {
+            List<RoomType> result = ApiHelper<List<RoomType>>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getallroomtypewithimages");
+            return Json(new { result });
+        }
         public JsonResult Get(int id)
         {
             RoomType result = ApiHelper<RoomType>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getbyid/{id}");
             return Json(new { result });
         }
-
+        public JsonResult GetWithImagesAndFacilities(int id)
+        {
+            RoomType result = ApiHelper<RoomType>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getbyidwithimages/{id}");
+            return Json(new { result });
+        }
         public JsonResult Delete(int id)
         {
             ActionsResult result = ApiHelper<ActionsResult>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/delete/{id}", "DELETE");

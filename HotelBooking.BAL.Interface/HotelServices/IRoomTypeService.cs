@@ -9,11 +9,10 @@ namespace HotelBooking.BAL.Interface.HotelServices
     public interface IRoomTypeService
     {
         Task<IEnumerable<RoomType>> GetAll();
-
+        Task<IEnumerable<RoomType>> GetAllRoomTypeWithImagesAndFacilities();
         Task<RoomType> GetById(int id);
-
+        Task<RoomType> GetByIdWithImagesAndFacilities(int id);
         Task<ActionsResult> Save(CreateRoomTypeRequest roomType);
-
         Task<ActionsResult> Delete(int id);
     }
 }
