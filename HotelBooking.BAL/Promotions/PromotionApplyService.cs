@@ -31,7 +31,7 @@ namespace HotelBooking.BAL.Promotions
             return await promotionApplyRepository.Save(promotionApply);
         }
 
-        public async Task<PromotionApply> GetByRoomTypeId(int id)
+        public async Task<IEnumerable<PromotionApply>> GetByRoomTypeId(int id)
         {
             return await promotionApplyRepository.GetByRoomTypeId(id);
         }
