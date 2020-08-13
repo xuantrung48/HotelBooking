@@ -31,7 +31,7 @@ namespace HotelBooking.BAL
             {
                 return number1 / number2;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return float.MinValue;
             }

@@ -5,11 +5,7 @@ using HotelBooking.DAL.HotelServices;
 using HotelBooking.DAL.Interface.Facilities;
 using HotelBooking.DAL.Interface.HotelServices;
 using HotelBooking.Domain.Request.HotelServices;
-using HotelBooking.Domain.Response.HotelServices;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HotelBooking.Test
