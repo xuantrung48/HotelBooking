@@ -1,4 +1,5 @@
 ﻿using HotelBooking.BAL.Interface.Promotions;
+using HotelBooking.Domain.Request.Promotions;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Promotions;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,7 @@ namespace HotelBooking.API.Controllers
 
         [HttpPost]
         [Route("api/promotions/save")]
-        public async Task<ActionsResult> Save(Promotion promotion)
+        public async Task<ActionsResult> Save(SavePromotionRequest promotion)
         {
             return await promotionService.Save(promotion);
         }

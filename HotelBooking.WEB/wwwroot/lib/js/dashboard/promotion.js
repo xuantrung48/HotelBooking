@@ -39,6 +39,19 @@ promotion.drawTable = function () {
 promotion.add = function () {
     promotion.reset();
     $('.modal-title').text('Thêm chương trình khuyến mãi');
+    $.ajax({
+        url: "/RoomType/GetAll",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            $.each(data.result, function (i, v) {
+                $('#roomTypes').append(
+                    `<option value="${v.roomTypeId}" id="roomType${v.roomTypeId}">${v.name}</option`
+                );
+            });
+            $('#roomTypes').select2();
+        }
+    });
     $('#mediumModal').appendTo("body");
     $('#mediumModal').modal('show');
 }
@@ -58,6 +71,31 @@ promotion.get = function (id) {
         method: "GET",
         dataType: "json",
         success: function (data) {
+            $.ajax({
+                url: `/PromotionApply/GetByPromotionId/${data.result.promotionId}`,
+                method: "GET",
+                dataType: "json",
+                success: function (promotionApply) {
+                    $.ajax({
+                        url: "/RoomType/GetAll",
+                        method: "GET",
+                        dataType: "json",
+                        success: function (roomTypes) {
+                            $.each(roomTypes.result, function (i, v) {
+                                $('#roomTypes').append(
+                                    `<option value="${v.roomTypeId}" id="roomType${v.roomTypeId}">${v.name}</option>`
+                                );
+                                $.each(promotionApply.result, function (j, u) {
+                                    if (v.roomTypeId == u.roomTypeId) {
+                                        $(`#roomType${u.roomTypeId}`).attr('selected', 'selected');
+                                    }
+                                })
+                            });
+                            $('#roomTypes').select2();
+                        }
+                    });
+                }
+            });
             $('.modal-title').text('Đổi thông tin khuyến mãi');
             $('#PromotionName').val(data.result.promotionName);
             $('#PromotionId').val(data.result.promotionId);
@@ -77,6 +115,14 @@ promotion.save = function () {
     promotionObj.StartDate = new Date($('#StartDate').val());
     promotionObj.EndDate = new Date($('#EndDate').val());
     promotionObj.DiscountRates = parseFloat($('#DiscountRates').val() / 100);
+    promotionObj.RoomTypeIds = $('#roomTypes').val();
+    if (promotionObj.PromotionId != 0) {
+        $.ajax({
+            url: `/PromotionApply/DeleteByPromotionId/${promotionObj.PromotionId}`,
+            method: "GET",
+            dataType: "json"
+        });
+    }
     $.ajax({
         url: `/Promotion/Save/`,
         method: "POST",
