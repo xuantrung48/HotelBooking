@@ -62,6 +62,7 @@ promotion.reset = function () {
     $('#DefaultPrice').val('');
     $('#StartDate').val('');
     $('#EndDate').val('');
+    $('#roomTypes').empty();
 }
 
 promotion.get = function (id) {
