@@ -8,7 +8,6 @@ showRoomTypes = function () {
         method: "GET",
         dataType: "json",
         success: function (data) {
-            console.log(data);
             $.ajax({
                 url: `/Promotion/GetAvailable`,
                 method: "GET",
@@ -50,7 +49,7 @@ showRoomTypes = function () {
                             if (data.result[j].roomTypeId == roomTypePromotions.result[k].roomTypeId) {
                                 $(`#price${data.result[j].roomTypeId}`).empty();
                                 $(`#price${data.result[j].roomTypeId}`).append(
-                                    `<small><del class="text-danger">${digitGrouping(data.result[j].defaultPrice)}₫</del></small> ${digitGrouping(data.result[j].defaultPrice * roomTypePromotions.result[k].discountRates)}₫/đêm`
+                                    `<small><del class="text-danger">${digitGrouping(data.result[j].defaultPrice)}₫</del></small> ${digitGrouping(data.result[j].defaultPrice * (1 - roomTypePromotions.result[k].discountRates))}₫/đêm`
                                 )
                             }
                         }
