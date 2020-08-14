@@ -58,5 +58,10 @@ namespace HotelBooking.BAL
             }
             return createPromotionResult;
         }
+
+        public async Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailable()
+        {
+            return await promotionRepository.GetAvailable();
+        }
     }
 }

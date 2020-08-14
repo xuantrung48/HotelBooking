@@ -14,5 +14,6 @@ namespace HotelBooking.DAL.Interface.Promotions
         Task<Promotion> GetById(int id);
 
         Task<ActionsResult> Delete(int id);
+        Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailable();
     }
 }

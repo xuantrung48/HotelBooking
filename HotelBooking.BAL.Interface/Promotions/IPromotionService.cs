@@ -15,5 +15,7 @@ namespace HotelBooking.BAL.Interface.Promotions
         Task<ActionsResult> Save(SavePromotionRequest promotion);
 
         Task<ActionsResult> Delete(int id);
+
+        Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailable();
     }
 }
