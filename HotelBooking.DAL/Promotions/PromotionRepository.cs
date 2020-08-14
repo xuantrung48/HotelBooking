@@ -51,5 +51,10 @@ namespace HotelBooking.DAL.Promotions
                 };
             }
         }
+
+        public async Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailable()
+        {
+            return await SqlMapper.QueryAsync<GetMaxDiscountRatesPromotionAvailable>(conn, "Promotion_GetAvailable", commandType: CommandType.StoredProcedure);
+        }
     }
 }

@@ -38,5 +38,10 @@ namespace HotelBooking.WEB.Controllers
             result = ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/promotions/save", model);
             return Json(new { result });
         }
+        public JsonResult GetAvailable()
+        {
+            List<GetMaxDiscountRatesPromotionAvailable> result = ApiHelper<List<GetMaxDiscountRatesPromotionAvailable>>.HttpGetAsync($"{Helper.ApiUrl}api/promotions/getavailable");
+            return Json(new { result });
+        }
     }
 }
