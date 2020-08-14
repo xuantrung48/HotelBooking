@@ -86,6 +86,7 @@ booking.get = function (id) {
 booking.save = function () {
     var bookingObj = {};
     var customerObj = {};
+    var serviceDetails = [];
     bookingObj.BookingId = parseInt($('#BookingId').val());
     //bookingObj.BookingCustomer.Name = $('#Name').val();
     //bookingObj.BookingCustomer.PhoneNumber = $('#PhoneNumber').val();
@@ -101,6 +102,7 @@ booking.save = function () {
     bookingObj.CustomerId = parseInt($('#CustomerId').val());
     bookingObj.CheckinDate = new Date($('#CheckinDate').val());
     bookingObj.CheckoutDate = new Date($('#CheckoutDate').val());
+    bookingObj.bookingServiceDetails = $('#ServiceDetails').val();
     bookingObj.BookingCustomer = customerObj;
     $.ajax({
         url: `/Booking/Save/`,

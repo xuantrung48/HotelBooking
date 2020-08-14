@@ -20,12 +20,12 @@ namespace HotelBooking.API.Controllers
             this.bookingServiceDetailsService = bookingServiceDetailsService;
         }
 
-        //[HttpGet]
-        //[Route("api/booking/get")]
-        //public async Task<IEnumerable<Booking>> Get()
-        //{
-        //    return await bookingRoomDetails.Get();
-        //}
+        [HttpGet]
+        [Route("api/bookingServiceDetails/get")]
+        public async Task<IEnumerable<BookingServiceDetails>> Get()
+        {
+            return await bookingServiceDetailsService.Get();
+        }
 
         [HttpGet]
         [Route("api/bookingServiceDetails/get/{id}")]

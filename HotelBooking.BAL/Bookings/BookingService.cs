@@ -6,6 +6,7 @@ using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Bookings;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace HotelBooking.BAL.Bookings
@@ -39,8 +40,15 @@ namespace HotelBooking.BAL.Bookings
 
         public async Task<IEnumerable<Booking>> Get()
         {
-
             var bookings = (await bookingRepository.Get()).ToList();
+            foreach(var item in bookings)
+            {
+                var bookingServiceDetails = (await bookingServiceDetailsRepository.Get(item.BookingId)).ToList();
+                item.bookingServiceDetails = bookingServiceDetails;
+                var bookingRoomDetails = (await bookingRoomDetailsRepository.Display(item.BookingId)).ToList();
+                item.bookingRoomDetails = bookingRoomDetails;
+            }
+            
             var customers = await customerRepository.Get();
             var coupons = await couponRepository.GetAll();
             var data = (from b in bookings
@@ -74,6 +82,8 @@ namespace HotelBooking.BAL.Bookings
         {
             
             var booking = await bookingRepository.Get(id);
+            var bookingServiceDetails = (await bookingServiceDetailsRepository.Get(booking.BookingId)).ToList();
+            var bookingRoomDetails = (await bookingRoomDetailsRepository.Display(booking.BookingId)).ToList();
             var customer = await customerRepository.Get(booking.CustomerId);
             var coupon = await couponRepository.GetById(booking.CouponId.GetValueOrDefault());
             var data = new Booking()
@@ -89,8 +99,8 @@ namespace HotelBooking.BAL.Bookings
                 BookingCustomer = customer,
                 CouponId = booking.CouponId,
                 BookingCoupon = coupon,
-                bookingRoomDetails = booking.bookingRoomDetails,
-                bookingServiceDetails = booking.bookingServiceDetails,
+                bookingRoomDetails = bookingRoomDetails,
+                bookingServiceDetails = bookingServiceDetails,
                 RoomAmount = booking.RoomAmount,
                 ServiceAmount = booking.ServiceAmount,
             };
