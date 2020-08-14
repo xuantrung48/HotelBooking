@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using HotelBooking.Domain;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace HotelBooking.DAL
@@ -9,7 +10,7 @@ namespace HotelBooking.DAL
 
         public BaseRepository()
         {
-            var connectionString = @"workstation id=CoCoHomeStayDb.mssql.somee.com;packet size=4096;user id=quangnguyencg1_SQLLogin_1;pwd=r18z5w2tqk;data source=CoCoHomeStayDb.mssql.somee.com;persist security info=False;initial catalog=CoCoHomeStayDb";
+            var connectionString = Common.ConnectionString;
             conn = new SqlConnection(connectionString);
         }
     }
