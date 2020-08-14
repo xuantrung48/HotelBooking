@@ -6,6 +6,7 @@ using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Facilities;
 using HotelBooking.Domain.Response.HotelServices;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelBooking.BAL.HotelServices
@@ -48,19 +49,26 @@ namespace HotelBooking.BAL.HotelServices
         {
             return await roomTypeRepository.GetAll();
         }
-        public async Task<IEnumerable<RoomType>> GetAllRoomTypeWithImagesAndFacilities()
+        public async Task<IEnumerable<RoomTypes>> GetAllRoomTypeWithImages()
         {
+            var getRoomTypes = new List<RoomTypes>();
             var roomTypes = await roomTypeRepository.GetAll();
             foreach(var roomType in roomTypes)
             {
-                roomType.Images = await roomTypeImageRepository.GetByRoomTypeId(roomType.RoomTypeId);
-                var facilitiesApply = await facilityApplyRepository.GetByRoomTypeId(roomType.RoomTypeId);
-                var facilities = new List<Facility>();
-                foreach (var facility in facilitiesApply)
-                    facilities.Add(await facilityRepository.GetById(facility.FacilityId));
-                roomType.Facilities = facilities;
+                getRoomTypes.Add(new RoomTypes()
+                {
+                    MaxAdult = roomType.MaxAdult,
+                    DefaultPrice = roomType.DefaultPrice,
+                    Description = roomType.Description,
+                    MaxChildren = roomType.MaxChildren,
+                    MaxPeople = roomType.MaxPeople,
+                    Name = roomType.Name,
+                    Quantity = roomType.Quantity,
+                    RoomTypeId = roomType.RoomTypeId,
+                    Image = (await roomTypeImageRepository.GetByRoomTypeId(roomType.RoomTypeId)).FirstOrDefault().ImageData
+                });
             }
-            return roomTypes;
+            return getRoomTypes;
         }
         public async Task<ActionsResult> Delete(int id)
         {

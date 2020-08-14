@@ -4,10 +4,11 @@
 
 showRoomTypes = function () {
     $.ajax({
-        url: "/RoomType/GetAllWithImagesAndFacilities",
+        url: "/RoomType/GetAllWithImages",
         method: "GET",
         dataType: "json",
         success: function (data) {
+            console.log(data);
             $.ajax({
                 url: `/Promotion/GetAvailable`,
                 method: "GET",
@@ -20,7 +21,7 @@ showRoomTypes = function () {
                             );
                             $('.carousel-inner').append(
                                 `<div class="carousel-item active">
-                                    <img src="${data.result[i].images[0].imageData}" alt="${data.result[i].name}" width="100%" height="auto">
+                                    <img src="${data.result[i].image}" alt="${data.result[i].name}" width="100%" height="auto">
                                     <div class="carousel-caption">
                                         <h3 class="text-success">${data.result[i].name}</h3>
                                         <p class="text-warning" id="price${data.result[i].roomTypeId}">${digitGrouping(data.result[i].defaultPrice)}₫<span>/đêm</span></p>
@@ -34,7 +35,7 @@ showRoomTypes = function () {
                             );
                             $('.carousel-inner').append(
                                 `<div class="carousel-item">
-                            <img src="${data.result[i].images[0].imageData}" alt="${data.result[i].name}" width="100%" height="auto">
+                            <img src="${data.result[i].image}" alt="${data.result[i].name}" width="100%" height="auto">
                             <div class="carousel-caption">
                                 <h3 class="text-success">${data.result[i].name}</h3>
                                 <p class="text-warning" id="price${data.result[i].roomTypeId}">${digitGrouping(data.result[i].defaultPrice)}₫<span>/đêm</span></p>
