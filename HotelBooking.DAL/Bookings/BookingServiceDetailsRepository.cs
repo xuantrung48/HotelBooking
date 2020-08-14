@@ -50,5 +50,10 @@ namespace HotelBooking.DAL.Bookings
                 };
             }
         }
+
+        public async Task<IEnumerable<BookingServiceDetails>> Get()
+        {
+            return await SqlMapper.QueryAsync<BookingServiceDetails>(cnn: conn, sql: "BookingServiceDetails_GetAll", commandType: CommandType.StoredProcedure);
+        }
     }
 }

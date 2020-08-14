@@ -51,5 +51,12 @@ namespace HotelBooking.DAL.Bookings
                 };
             }
         }
+
+        public async Task<IEnumerable<BookingRoomDetails>> Display(int id)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@BookingId", id);
+            return await SqlMapper.QueryAsync<BookingRoomDetails>(cnn: conn, sql: "BookingRoomDetails_DisplayBookingRoomTypesByBookingId",param: parameters, commandType: CommandType.StoredProcedure);
+        }
     }
 }

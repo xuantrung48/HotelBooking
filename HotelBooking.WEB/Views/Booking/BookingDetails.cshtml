@@ -85,7 +85,7 @@
                     </a>
                 </div>
                 <div class="col-9" id="RoomTypeDetails">
-                    <div class="row mb-3 rowRoomType_1">
+                    <div class="row mb-3 rowRoomType_0">
                         <div class="col-9">
                             <select id="" class="custom-select">
                                 <option value="">Chọn loại phòng</option>
@@ -119,7 +119,7 @@
                     </a>
                 </div>
                 <div class="col-9" id="ServiceDetails">
-                    <div class="row mb-3 rowService_1">
+                    <div class="row mb-3 rowService_0">
                         <div class="col-9">
                             <select id="" class="custom-select">
                                 <option value="">Chọn dịch vụ</option>
@@ -163,14 +163,18 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a href="javascripts:;" class="btn btn-primary" onclick="return booking.save()">Lưu</a>
+        <a href="javascripts:;" class="btn btn-primary" onclick="save()">Lưu</a>
         <button class="btn btn-secondary" onclick="goBack()">Trở về</button>
     </div>
 </div>
 @section scripts{
-    <script src="~/js/dashboard/booking.js" asp-append-version="true"></script>
+    <script src="~/lib/js/dashboard/booking.js" asp-append-version="true"></script>
     <script>
+        var serviceRowId = 1;
+        var roomTypeRowId = 1;
         if (@Model > 0) {
+            $('.rowService_0').remove();
+            $('.rowRoomType_0').remove();
             $(document).ready(function () {
                 $.ajax({
                     url: `/Booking/Get/@Model`,
@@ -191,16 +195,67 @@
                         $('#CustomerId').val(data.result.customerId);
                         //$('#mediumModal').appendTo("body");
                         //$('#mediumModal').modal('show');
+                        for (let i = 0; i < data.result.bookingServiceDetails.length; i++) {
+                            $('#ServiceDetails').append(`
+                                <div class="row mb-3 rowService_${i}">
+                                    <div class="col-9">
+                                        <select id="Serivce_${i}" class="custom-select">
+                                            <option value="">Chọn dịch vụ</option>
+                                            @if (listService != null)
+                                            {
+                                                foreach (var item in listService)
+                                                {
+                                                    <option value="@item.ServiceId">@item.ServiceName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="number" id="ServiceQuantity_${i}" name="name" value="" placeholder="Số lượng" class="form-control" />
+                                    </div>
+                                    <div class="col-1">
+                                        <a href="javascripts:;" class="btn btn-danger" onclick="deleteServiceRow(${i})"><i class="fas fa-minus"></i></a>
+                                    </div>
+                                 </div>
+                                `);
+                            $(`#Serivce_${i}`).val(data.result.bookingServiceDetails[i].serviceId);
+                            $(`#ServiceQuantity_${i}`).val(parseInt(data.result.bookingServiceDetails[i].serviceQuantity))
+                            serviceRowId = i;
+                        }
+                        for (let i = 0; i < data.result.bookingRoomDetails.length; i++) {
+                                $('#RoomTypeDetails').append(`
+                                <div class="row mb-3 rowRoomType_${i}">
+                                    <div class="col-9">
+                                        <select id="RoomTypeRow_${i}" class="custom-select">
+                                            <option value="">Chọn loại phòng</option>
+                                            @if (listRoomtype != null)
+                                            {
+                                                foreach (var item in listRoomtype)
+                                                {
+                                                    <option value="@item.RoomTypeId">@item.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="number" id="RoomQuantity_${i}" name="name" value="" placeholder="Số lượng" class="form-control" />
+                                    </div>
+                                    <div class="col-1">
+                                        <a href="javascripts:;" class="btn btn-danger" onclick="deleteRoomTypeRow(${i})"><i class="fas fa-minus"></i></a>
+                                    </div>
+                                </div>
+                                `);
+                                $(`#RoomTypeRow_${i}`).val(data.result.bookingRoomDetails[i].roomTypeId);
+                                $(`#RoomQuantity_${i}`).val(parseInt(data.result.bookingRoomDetails[i].roomQuantity))
+                        }
                     }
                 });
             })
-        }
-    </script>
-    <script>
+        };
         function goBack() {
             window.history.back();
         };
-        var id = 2;
+
         function addNewRoomTypeRow() {
             $('#RoomTypeDetails').append(
                 `
@@ -231,7 +286,7 @@
         function deleteRoomTypeRow(id) {
             $(`.rowRoomType_${id}`).remove();
         }
-        var serviceRowId = 2
+
         function addNewServiceRow() {
             $('#ServiceDetails').append(
                 `
@@ -261,6 +316,49 @@
         };
         function deleteServiceRow(id) {
             $(`.rowService_${id}`).remove();
+        };
+        save = function () {
+            var bookingObj = {};
+            var customerObj = {};
+            var serviceDetails = new Array();
+            for (let i = 0; i <= serviceRowId; i++) {
+                var serviceDetail = {};
+                serviceDetail.serviceId = parseInt($(`#Serivce_${i}`).val());
+                serviceDetail.serviceQuantity = parseInt($(`#ServiceQuantity_${i}`).val());
+                if (serviceDetail != null) {
+                    serviceDetails.push(serviceDetail);
+                }
+            }
+            bookingObj.BookingId = parseInt($('#BookingId').val());
+            //bookingObj.BookingCustomer.Name = $('#Name').val();
+            //bookingObj.BookingCustomer.PhoneNumber = $('#PhoneNumber').val();
+            //bookingObj.BookingCustomer.Email = $('#Email').val();
+            //bookingObj.BookingCustomer.CustomerId = parseInt($('#CustomerId').val());
+            customerObj.Name = $('#Name').val();
+            customerObj.PhoneNumber = $('#PhoneNumber').val();
+            customerObj.Email = $('#Email').val();
+            customerObj.CustomerId = parseInt($('#CustomerId').val());
+            bookingObj.NumberofChildren = parseInt($('#NumberofChildren').val());
+            bookingObj.NumberofAdults = parseInt($('#NumberofAdults').val());
+            bookingObj.CouponId = parseInt($('#CouponId').val());
+            bookingObj.CustomerId = parseInt($('#CustomerId').val());
+            bookingObj.CheckinDate = new Date($('#CheckinDate').val());
+            bookingObj.CheckoutDate = new Date($('#CheckoutDate').val());
+            bookingObj.bookingServiceDetails = serviceDetails;
+            bookingObj.BookingCustomer = customerObj;
+            $.ajax({
+                url: `/Booking/Save/`,
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(bookingObj),
+                success: function (data) {
+                    bootbox.alert(data.result.message, function () {
+                        location.assign(`/Booking`);
+                    });
+                    booking.drawTable();
+                }
+            });
         }
     </script>
 }

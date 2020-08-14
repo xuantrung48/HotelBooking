@@ -21,10 +21,10 @@ namespace HotelBooking.BAL.Bookings
             return await bookingServiceDetailsRepository.Get(id);
         }
 
-        //public async Task<IEnumerable<BookingServiceDetails>> Get()
-        //{
-        //    return await bookingServiceDetailsRepository.Get();
-        //}
+        public async Task<IEnumerable<BookingServiceDetails>> Get()
+        {
+            return await bookingServiceDetailsRepository.Get();
+        }
 
         public async Task<ActionsResult> Delete(int id)
         {

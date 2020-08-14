@@ -7,7 +7,7 @@ namespace HotelBooking.BAL.Interface.Bookings
 {
     public interface IBookingRoomDetailsService
     {
-        //Task<IEnumerable<BookingRoomDetails>> Get();
+        Task<IEnumerable<BookingRoomDetails>> Display(int id);
         Task<IEnumerable<BookingRoomDetails>> Get(int id);
 
         Task<ActionsResult> Save(BookingRoomDetails bookingRoomDetails);
