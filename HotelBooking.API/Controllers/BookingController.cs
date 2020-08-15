@@ -2,6 +2,7 @@
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Bookings;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -46,6 +47,13 @@ namespace HotelBooking.API.Controllers
         public async Task<ActionsResult> Remove(int id)
         {
             return await bookingService.Delete(id);
+        }
+
+        [HttpGet]
+        [Route("api/booking/getListDate/{id}")]
+        public async Task<IEnumerable<DateTime>> GetListDate(int id)
+        {
+            return await bookingService.GetListDate(id);
         }
     }
 }

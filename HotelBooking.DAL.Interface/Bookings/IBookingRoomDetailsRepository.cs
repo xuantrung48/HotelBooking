@@ -13,6 +13,7 @@ namespace HotelBooking.DAL.Interface.Bookings
         Task<ActionsResult> Save(BookingRoomDetails bookingRoomDetails);
 
         Task<ActionsResult> Delete(int id);
+        Task<ActionsResult> DeleteByBookingId(int id);
 
     }
 }

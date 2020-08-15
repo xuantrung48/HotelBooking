@@ -10,7 +10,9 @@ using HotelBooking.BAL.Interface.Coupons;
 using HotelBooking.BAL.Interface.Facilities;
 using HotelBooking.BAL.Interface.HotelServices;
 using HotelBooking.BAL.Interface.Promotions;
+using HotelBooking.BAL.Interface.Supports;
 using HotelBooking.BAL.Promotions;
+using HotelBooking.BAL.Supports;
 using HotelBooking.DAL;
 using HotelBooking.DAL.Bookings;
 using HotelBooking.DAL.Coupons;
@@ -22,7 +24,9 @@ using HotelBooking.DAL.Interface.Coupons;
 using HotelBooking.DAL.Interface.Facilities;
 using HotelBooking.DAL.Interface.HotelServices;
 using HotelBooking.DAL.Interface.Promotions;
+using HotelBooking.DAL.Interface.Supports;
 using HotelBooking.DAL.Promotions;
+using HotelBooking.DAL.Supports;
 using HotelBooking.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -75,6 +79,8 @@ namespace HotelBooking.API
             services.AddTransient<ICouponService, CouponService>();
             services.AddTransient<IRoomTypeImageRepository, RoomTypeImageRepository>();
             services.AddTransient<IRoomTypeImageService, RoomTypeImageService>();
+            services.AddTransient<ISupportRepository, SupportRepository>();
+            services.AddTransient<ISupportService, SupportService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

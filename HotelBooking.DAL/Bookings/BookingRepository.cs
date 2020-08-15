@@ -54,5 +54,12 @@ namespace HotelBooking.DAL.Bookings
                 };
             }
         }
+
+        public async Task<IEnumerable<DateTime>> GetListDate(int id)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@BookingId", id);
+            return await SqlMapper.QueryAsync<DateTime>(cnn: conn, sql: "Booking_GetListDate", param: parameters, commandType: CommandType.StoredProcedure);
+        }
     }
 }
