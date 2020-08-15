@@ -35,5 +35,10 @@ namespace HotelBooking.BAL.Bookings
         {
             return await bookingServiceDetailsRepository.Save(bookingServiceDetails);
         }
+
+        public async Task<ActionsResult> DeleteByBookingId(int id)
+        {
+            return await bookingServiceDetailsRepository.DeleteByBookingId(id);
+        }
     }
 }

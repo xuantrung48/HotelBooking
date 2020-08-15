@@ -25,7 +25,7 @@ namespace HotelBooking.API.Controllers
         {
             return await bookingRoomDetailsService.Display(id);
         }
-
+        
         [HttpGet]
         [Route("api/bookingRoomDetails/get/{id}")]
         public async Task<IEnumerable<BookingRoomDetails>> Get(int id)
@@ -45,6 +45,12 @@ namespace HotelBooking.API.Controllers
         public async Task<ActionsResult> Remove(int id)
         {
             return await bookingRoomDetailsService.Delete(id);
+        }
+        [HttpDelete]
+        [Route("api/bookingRoomDetails/detetebyBookingId/{id}")]
+        public async Task<ActionsResult> DeleteByBookingId(int id)
+        {
+            return await bookingRoomDetailsService.DeleteByBookingId(id);
         }
     }
 }

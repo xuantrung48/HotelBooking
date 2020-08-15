@@ -20,11 +20,11 @@ namespace HotelBooking.WEB.Controllers
             return Json(new { result });
         }
 
-        //public JsonResult DeleteByRoomTypeId(int id)
-        //{
-        //    ActionsResult result = ApiHelper<ActionsResult>.HttpGetAsync($"{Helper.ApiUrl}api/facilityapply/deletebyroomtypeid/{id}", "DELETE");
-        //    return Json(new { result });
-        //}
+        public JsonResult DeleteByBookingId(int id)
+        {
+            ActionsResult result = ApiHelper<ActionsResult>.HttpGetAsync($"{Helper.ApiUrl}api/bookingServiceDetails/deletebyBookingId/{id}", "DELETE");
+            return Json(new { result });
+        }
 
         public JsonResult Save([FromBody] BookingServiceDetails model)
         {

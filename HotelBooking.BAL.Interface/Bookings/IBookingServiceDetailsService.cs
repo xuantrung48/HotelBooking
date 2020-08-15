@@ -13,5 +13,7 @@ namespace HotelBooking.BAL.Interface.Bookings
         Task<ActionsResult> Save(BookingServiceDetails bookingServiceDetails);
 
         Task<ActionsResult> Delete(int id);
+        Task<ActionsResult> DeleteByBookingId(int id);
+
     }
 }

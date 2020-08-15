@@ -2,8 +2,10 @@
 using HotelBooking.DAL.Interface;
 using HotelBooking.DAL.Interface.Bookings;
 using HotelBooking.DAL.Interface.Coupons;
+using HotelBooking.DAL.Interface.Supports;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Bookings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -18,19 +20,22 @@ namespace HotelBooking.BAL.Bookings
         private readonly IBookingServiceDetailsRepository bookingServiceDetailsRepository;
         private readonly ICustomerRepository customerRepository;
         private readonly ICouponRepository couponRepository;
+        private readonly ISupportRepository supportRepository;
 
         public BookingService(
              IBookingRepository bookingRepository
             ,IBookingRoomDetailsRepository bookingRoomDetailsRepository
             ,IBookingServiceDetailsRepository bookingServiceDetailsRepository
             ,ICustomerRepository customerRepository
-            ,ICouponRepository couponRepository)
+            ,ICouponRepository couponRepository
+            ,ISupportRepository supportRepository)
         {
             this.bookingRepository = bookingRepository;
             this.bookingRoomDetailsRepository = bookingRoomDetailsRepository;
             this.bookingServiceDetailsRepository = bookingServiceDetailsRepository;
             this.customerRepository = customerRepository;
             this.couponRepository = couponRepository;
+            this.supportRepository = supportRepository;
         }
 
         public Task<ActionsResult> Delete(int id)
@@ -105,6 +110,11 @@ namespace HotelBooking.BAL.Bookings
                 ServiceAmount = booking.ServiceAmount,
             };
             return data;
+        }
+
+        public Task<IEnumerable<DateTime>> GetListDate(int id)
+        {
+            return bookingRepository.GetListDate(id);
         }
 
         public Task<ActionsResult> Save(Booking booking)

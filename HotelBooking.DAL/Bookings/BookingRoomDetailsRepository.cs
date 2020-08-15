@@ -35,7 +35,6 @@ namespace HotelBooking.DAL.Bookings
             try
             {
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@BookingRoomDetailsId", bookingRoomDetails.BookingRoomDetailsId);
                 parameters.Add("@BookingId", bookingRoomDetails.BookingId);
                 parameters.Add("@RoomTypeId", bookingRoomDetails.RoomTypeId);
                 parameters.Add("@RoomQuantity", bookingRoomDetails.RoomQuantity);
@@ -57,6 +56,13 @@ namespace HotelBooking.DAL.Bookings
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
             return await SqlMapper.QueryAsync<BookingRoomDetails>(cnn: conn, sql: "BookingRoomDetails_DisplayBookingRoomTypesByBookingId",param: parameters, commandType: CommandType.StoredProcedure);
+        }
+
+        public async Task<ActionsResult> DeleteByBookingId(int id)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@BookingId", id);
+            return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "BookingRoomDetails_DeletebyBookingId", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }
