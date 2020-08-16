@@ -56,15 +56,10 @@ namespace HotelBooking.WEB.Controllers
                 item.BookingId = result.Id;
                 ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/bookingServiceDetails/save", item);
             }
-            var listDate = GetListDate(result.Id);
             foreach (var roomDetail in model.bookingRoomDetails)
             {
                 roomDetail.BookingId = result.Id;
-                foreach (var date in listDate)
-                {
-                    roomDetail.Date = date;
-                    ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/bookingRoomDetails/save", roomDetail);
-                }
+                ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/bookingRoomDetails/save", roomDetail);
             }
             model.BookingId = result.Id;
             ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/booking/save", model);
