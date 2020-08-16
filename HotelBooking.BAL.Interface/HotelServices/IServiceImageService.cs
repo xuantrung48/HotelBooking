@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace HotelBooking.BAL.Interface.HotelServices
 {
-    public interface IServiceService
+    public interface IServiceImageService
     {
-        Task<IEnumerable<Service>> Get();
+        Task<IEnumerable<ServiceImage>> GetByServiceId(int id);
 
-        Task<Service> Get(int id);
 
-        Task<ActionsResult> Save(CreateServiceRequest service);
+        Task<ActionsResult> Save(UploadServiceImagesRequest serviceImage);
 
         Task<ActionsResult> Delete(int id);
-
-        Task<IEnumerable<Service>> Search(string keyWord);
-        Task<Service> GetByIdWithImages(int id);
     }
 }

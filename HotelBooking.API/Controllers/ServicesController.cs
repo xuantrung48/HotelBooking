@@ -1,4 +1,5 @@
 ﻿using HotelBooking.BAL.Interface.HotelServices;
+using HotelBooking.Domain.Request.HotelServices;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
 using Microsoft.AspNetCore.Mvc;
@@ -33,10 +34,15 @@ namespace HotelBooking.API.Controllers
         {
             return await serviceService.Get(id);
         }
-
+        [HttpGet]
+        [Route("api/service/getbyidwithimages/{id}")]
+        public async Task<Service> GetByIdWithImages(int id)
+        {
+            return await serviceService.GetByIdWithImages(id);
+        }
         [HttpPost]
         [Route("api/service/save")]
-        public async Task<ActionsResult> Save([FromBody] Service service)
+        public async Task<ActionsResult> Save([FromBody] CreateServiceRequest service)
         {
             return await serviceService.Save(service);
         }

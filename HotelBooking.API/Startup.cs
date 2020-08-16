@@ -26,6 +26,7 @@ using HotelBooking.DAL.Promotions;
 using HotelBooking.Domain;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -75,6 +76,8 @@ namespace HotelBooking.API
             services.AddTransient<ICouponService, CouponService>();
             services.AddTransient<IRoomTypeImageRepository, RoomTypeImageRepository>();
             services.AddTransient<IRoomTypeImageService, RoomTypeImageService>();
+            services.AddTransient<IServiceImageRepository, ServiceImageRepository>();
+            services.AddTransient<IServiceImageService, ServiceImageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,6 +86,10 @@ namespace HotelBooking.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseHsts();
             }
 
             app.UseRouting();
@@ -99,6 +106,9 @@ namespace HotelBooking.API
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hotel Booking APIs");
                 c.RoutePrefix = string.Empty;
+            });
+            app.Run(async(context) => {
+                await context.Response.WriteAsync("Could not find Anything.");
             });
         }
     }
