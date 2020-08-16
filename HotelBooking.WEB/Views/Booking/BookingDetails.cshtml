@@ -87,7 +87,7 @@
                 <div class="col-9" id="RoomTypeDetails">
                     <div class="row mb-3 rowRoomType_0">
                         <div class="col-9">
-                            <select id="" class="custom-select">
+                            <select id="RoomTypeRow_0" class="custom-select">
                                 <option value="">Chọn loại phòng</option>
                                 @if (listRoomtype != null)
                                 {
@@ -99,7 +99,7 @@
                             </select>
                         </div>
                         <div class="col-2">
-                            <input type="number" name="name" value="" placeholder="Số lượng" class="form-control" />
+                            <input type="number" id="RoomQuantity_0" name="name" value="" placeholder="Số lượng" class="form-control" />
                         </div>
                         <div class="col-1">
                             <a href="javascripts:;" class="btn btn-danger" onclick="deleteRoomTypeRow(1)"><i class="fas fa-minus"></i></a>
@@ -121,7 +121,7 @@
                 <div class="col-9" id="ServiceDetails">
                     <div class="row mb-3 rowService_0">
                         <div class="col-9">
-                            <select id="" class="custom-select">
+                            <select id="Serivce_0" class="custom-select">
                                 <option value="">Chọn dịch vụ</option>
                                 @if (listService != null)
                                 {
@@ -133,10 +133,10 @@
                             </select>
                         </div>
                         <div class="col-2">
-                            <input type="number" name="name" value="" placeholder="Số lượng" class="form-control" />
+                            <input type="number" id="ServiceQuantity_0" name="name" value="" placeholder="Số lượng" class="form-control" />
                         </div>
                         <div class="col-1">
-                            <a href="javascripts:;" class="btn btn-danger" onclick="deleteServiceRow(1)"><i class="fas fa-minus"></i></a>
+                            <a href="javascripts:;" class="btn btn-danger" onclick="deleteServiceRow(0)"><i class="fas fa-minus"></i></a>
                         </div>
                     </div>
                 </div>
@@ -259,9 +259,9 @@
         function addNewRoomTypeRow() {
             $('#RoomTypeDetails').append(
                 `
-                <div class="row mb-3 rowRoomType_${id}">
+                <div class="row mb-3 rowRoomType_${roomTypeRowId+1}">
                             <div class="col-9">
-                                <select id="" class="custom-select">
+                                <select id="RoomTypeRow_${roomTypeRowId + 1}" class="custom-select">
                                     <option value="">Chọn loại phòng</option>
                                     @if (listRoomtype != null)
                                     {
@@ -273,15 +273,15 @@
                                 </select>
                             </div>
                             <div class="col-2">
-                                <input type="number" name="name" value="" placeholder="Số lượng" class="form-control" />
+                                <input type="number" id="RoomQuantity_${roomTypeRowId+1}" name="name" value="" placeholder="Số lượng" class="form-control" />
                             </div>
                             <div class="col-1">
-                                <a href="javascripts:;" class="btn btn-danger" onclick="deleteRoomTypeRow(${id})"><i class="fas fa-minus"></i></a>
+                                <a href="javascripts:;" class="btn btn-danger" onclick="deleteRoomTypeRow(${roomTypeRowId+1})"><i class="fas fa-minus"></i></a>
                             </div>
                 </div>
             `
             );
-            id++;
+            roomTypeRowId++;
         };
         function deleteRoomTypeRow(id) {
             $(`.rowRoomType_${id}`).remove();
@@ -290,9 +290,9 @@
         function addNewServiceRow() {
             $('#ServiceDetails').append(
                 `
-                <div class="row mb-3 rowService_${serviceRowId}">
+                <div class="row mb-3 rowService_${serviceRowId+1}">
                             <div class="col-9">
-                                <select id="" class="custom-select">
+                                <select id="Serivce_${serviceRowId+1}" class="custom-select">
                                     <option value="">Chọn dịch vụ</option>
                                     @if (listService != null)
                                     {
@@ -304,10 +304,10 @@
                                 </select>
                             </div>
                             <div class="col-2">
-                                <input type="number" name="name" value="" placeholder="Số lượng" class="form-control" />
+                                <input type="number" id="ServiceQuantity_${serviceRowId+1}" name="name" value="" placeholder="Số lượng" class="form-control" />
                             </div>
                             <div class="col-1">
-                                <a href="javascripts:;" class="btn btn-danger" onclick="deleteServiceRow(${serviceRowId})"><i class="fas fa-minus"></i></a>
+                                <a href="javascripts:;" class="btn btn-danger" onclick="deleteServiceRow(${serviceRowId+1})"><i class="fas fa-minus"></i></a>
                             </div>
                 </div>
             `
@@ -321,12 +321,26 @@
             var bookingObj = {};
             var customerObj = {};
             var serviceDetails = new Array();
+           
+
             for (let i = 0; i <= serviceRowId; i++) {
                 var serviceDetail = {};
-                serviceDetail.serviceId = parseInt($(`#Serivce_${i}`).val());
-                serviceDetail.serviceQuantity = parseInt($(`#ServiceQuantity_${i}`).val());
-                if (serviceDetail != null) {
+                serviceDetail.ServiceId = parseInt($(`#Serivce_${i}`).val());
+                serviceDetail.ServiceQuantity = parseInt($(`#ServiceQuantity_${i}`).val());
+
+                if (!Number.isNaN(serviceDetail.ServiceId)) {
+                    serviceDetail.BookingId = parseInt($('#BookingId').val())
                     serviceDetails.push(serviceDetail);
+                }
+            }
+            var roomDetails = new Array();
+            for (let i = 0; i <= roomTypeRowId; i++) {
+                var roomDetail = {};
+                roomDetail.RoomTypeId = parseInt($(`#RoomTypeRow_${i}`).val());
+                roomDetail.RoomQuantity = parseInt($(`#RoomQuantity_${i}`).val());
+                if (!Number.isNaN(roomDetail.RoomTypeId)) {
+                    roomDetail.BookingId = parseInt($('#BookingId').val())
+                    roomDetails.push(roomDetail);
                 }
             }
             bookingObj.BookingId = parseInt($('#BookingId').val());
@@ -345,7 +359,20 @@
             bookingObj.CheckinDate = new Date($('#CheckinDate').val());
             bookingObj.CheckoutDate = new Date($('#CheckoutDate').val());
             bookingObj.bookingServiceDetails = serviceDetails;
+            bookingObj.bookingRoomDetails = roomDetails
             bookingObj.BookingCustomer = customerObj;
+            if (bookingObj.BookingId != 0) {
+                $.ajax({
+                    url: `/BookingServiceDetails/DeleteByBookingId/${bookingObj.BookingId}`,
+                    method: "GET",
+                    dataType: "json"
+                });
+                $.ajax({
+                    url: `/BookingRoomDetails/DeleteByBookingId/${bookingObj.BookingId}`,
+                    method: "GET",
+                    dataType: "json"
+                });
+            }
             $.ajax({
                 url: `/Booking/Save/`,
                 method: "POST",

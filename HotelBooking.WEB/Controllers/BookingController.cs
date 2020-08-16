@@ -3,10 +3,12 @@ using HotelBooking.Domain.Response.Bookings;
 using HotelBooking.Domain.Response.Coupons;
 using HotelBooking.Domain.Response.HotelServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using ShopDienThoai.Web.Ultilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 
 namespace HotelBooking.WEB.Controllers
@@ -27,6 +29,7 @@ namespace HotelBooking.WEB.Controllers
         public JsonResult Get(int id)
         {
             Booking result = ApiHelper<Booking>.HttpGetAsync($"{Helper.ApiUrl}api/booking/get/{id}");
+            // ai đó =.=
             return Json(new { result });
         }
 
@@ -48,6 +51,23 @@ namespace HotelBooking.WEB.Controllers
             model.CustomerId = customerResult.Id;
             ActionsResult result;
             result = ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/booking/save", model);
+            foreach (var item in model.bookingServiceDetails)
+            {
+                item.BookingId = result.Id;
+                ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/bookingServiceDetails/save", item);
+            }
+            var listDate = GetListDate(result.Id);
+            foreach (var roomDetail in model.bookingRoomDetails)
+            {
+                roomDetail.BookingId = result.Id;
+                foreach (var date in listDate)
+                {
+                    roomDetail.Date = date;
+                    ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/bookingRoomDetails/save", roomDetail);
+                }
+            }
+            model.BookingId = result.Id;
+            ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/booking/save", model);
             return Json(new { result });
         }
         private List<Coupon> GetAllCoupon()
@@ -61,6 +81,10 @@ namespace HotelBooking.WEB.Controllers
         private List<Service> GetAllService()
         {
             return ApiHelper<List<Service>>.HttpGetAsync($"{Helper.ApiUrl}api/service/get");
+        }
+        private List<DateTime> GetListDate(int id)
+        {
+            return ApiHelper<List<DateTime>>.HttpGetAsync($"{Helper.ApiUrl}api/booking/getListDate/{id}");
         }
     }
 }

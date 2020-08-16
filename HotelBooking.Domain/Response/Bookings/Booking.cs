@@ -21,5 +21,6 @@ namespace HotelBooking.Domain.Response.Bookings
         public Coupon BookingCoupon { get; set; }
         public List<BookingRoomDetails> bookingRoomDetails { get; set; }
         public List<BookingServiceDetails> bookingServiceDetails { get; set; }
+        //public List<DateTime> listDate { get; set; }
     }
 }
