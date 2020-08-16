@@ -185,14 +185,6 @@ roomType.reset = function () {
     $('#imgsData').empty();
 }
 
-$('#child').click(function () {
-    if ($('#child').is(":checked")) {
-        $('#child').val('0.5');
-    } else {
-        $('#child').val('0');
-    }
-})
-
 readFiles = function () {
     $("#imgsPreview").empty();
 
