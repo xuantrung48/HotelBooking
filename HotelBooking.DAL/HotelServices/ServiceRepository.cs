@@ -38,6 +38,7 @@ namespace HotelBooking.DAL.HotelServices
                 parameters.Add("@ServiceId", service.ServiceId);
                 parameters.Add("@ServiceName", service.ServiceName);
                 parameters.Add("@Price", service.Price);
+                parameters.Add("@Description", service.Description);
                 return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "Service_Save", param: parameters, commandType: CommandType.StoredProcedure);
             }
             catch (Exception)

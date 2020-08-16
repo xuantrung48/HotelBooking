@@ -47,19 +47,29 @@ service.reset = function () {
     $('#ServiceName').val('');
     $('#ServiceId').val(0);
     $('#Price').val('');
+    $('#Description').val('');
+    $(".custom-file-label").text("Chọn tập tin");
+    $("#imgsPreview").empty();
+    $('#imgsData').empty();
 }
 
 service.get = function (id) {
     service.reset();
     $.ajax({
-        url: `/Service/Get/${id}`,
+        url: `/Service/GetWithImages/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
+            $.each(data.result.images, function (i, v) {
+                $("#imgsData").append(
+                    `<img src="${v.imageData}" style="height:150px" class="mx-2 my-2"><a class="remove-image" onclick="service.deleteImage('${v.serviceImageId}')" style="display: inline;">&#215;</a>`
+                );
+            });
             $('.modal-title').text('Đổi thông tin dịch vụ');
             $('#ServiceName').val(data.result.serviceName);
             $('#ServiceId').val(data.result.serviceId);
             $('#Price').val(data.result.price);
+            $('#Description').val(data.result.description);
             $('#mediumModal').appendTo("body");
             $('#mediumModal').modal('show');
         }
@@ -67,10 +77,16 @@ service.get = function (id) {
 }
 
 service.save = function () {
+    var imgsNo = parseInt($("#imgsNo").val());
     var serviceObj = {};
     serviceObj.ServiceId = parseInt($('#ServiceId').val());
     serviceObj.ServiceName = $('#ServiceName').val();
     serviceObj.Price = parseInt($('#Price').val());
+    serviceObj.Description = $('#Description').val();
+    serviceObj.Images = [];
+    for (let i = 0; i < imgsNo; i++) {
+        serviceObj.Images[i] = $(`#img${i}`).val();
+    };
     $.ajax({
         url: `/Service/Save/`,
         method: "POST",
@@ -84,6 +100,7 @@ service.save = function () {
         }
     });
 }
+
 service.delete = function (id, name) {
     bootbox.confirm({
         title: "Xoá dịch vụ",
@@ -105,6 +122,76 @@ service.delete = function (id, name) {
                     success: function (data) {
                         bootbox.alert(data.result.message);
                         service.drawTable();
+                    }
+                });
+            }
+        }
+    });
+}
+
+readFiles = function () {
+    $("#imgsPreview").empty();
+
+    if ($('#ServiceId').val() == '0') {
+        $('#imgsData').empty();
+    }
+
+    if (this.files && this.files[0]) {
+        for (let i = 0; i < this.files.length; i++) {
+            var FR = new FileReader();
+
+            FR.addEventListener("load", function (e) {
+                $("#imgsPreview").append(
+                    `<img src="${e.target.result}" style="height:150px" class="mx-2 my-2">`
+                );
+                $("#imgsPreview").append(
+                    `<input hidden value="${e.target.result}" id="img${i}">`
+                );
+            });
+
+            FR.readAsDataURL(this.files[i]);
+        };
+        $("#imgsPreview").append(
+            `<input hidden value="${this.files.length}" id="imgsNo">`
+        );
+    }
+
+}
+
+service.deleteImage = function (serviceImageId) {
+    bootbox.confirm({
+        title: "Xoá ảnh",
+        message: "Bạn có thực sự muốn xoá ảnh này?",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Huỷ'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Xác nhận'
+            }
+        },
+        callback: function (result) {
+            if (result) {
+                $.ajax({
+                    url: `/ServiceImage/Delete/${serviceImageId}`,
+                    method: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        bootbox.alert(data.result.message);
+                        $("#imgsData").empty();
+
+                        $.ajax({
+                            url: `/ServiceImage/GetByServiceId/${$('#ServiceId').val()}`,
+                            method: "GET",
+                            dataType: "json",
+                            success: function (data) {
+                                $.each(data.result, function (i, v) {
+                                    $("#imgsData").append(
+                                        `<img src="${v.imageData}" style="height:150px" class="mx-2 my-2"><a class="remove-image" onclick="service.deleteImage('${v.serviceImageId}')" style="display: inline;">&#215;</a>`
+                                    );
+                                });
+                            }
+                        });
                     }
                 });
             }
