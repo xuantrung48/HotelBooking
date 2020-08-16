@@ -7,6 +7,7 @@ namespace ShopDienThoai.Web.Ultilities
 {
     public class ApiHelper<T> where T : class
     {
+        //sss
         public static T HttpGetAsync(string apiUrl, string method = "GET")
         {
             HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(apiUrl);
