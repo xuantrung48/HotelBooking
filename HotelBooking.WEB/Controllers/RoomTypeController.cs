@@ -31,7 +31,7 @@ namespace HotelBooking.WEB.Controllers
         }
         public JsonResult GetWithImagesAndFacilities(int id)
         {
-            RoomType result = ApiHelper<RoomType>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getbyidwithimages/{id}");
+            RoomType result = ApiHelper<RoomType>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getbyidwithimagesandfacilities/{id}");
             return Json(new { result });
         }
         public JsonResult Delete(int id)

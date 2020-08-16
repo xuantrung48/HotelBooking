@@ -4,6 +4,7 @@ using HotelBooking.Domain.Request.HotelServices;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelBooking.BAL.HotelServices
@@ -64,6 +65,26 @@ namespace HotelBooking.BAL.HotelServices
         public async Task<IEnumerable<Service>> Search(string keyWord)
         {
             return await serviceRepository.Search(keyWord);
+        }
+
+        public async Task<IEnumerable<Services>> GetAllWithImages()
+        {
+            var services = await serviceRepository.Get();
+            var servicesResult = new List<Services>();
+            foreach(var service in services)
+            {
+                servicesResult.Add(new Services()
+                {
+                    Description = service.Description,
+                    Price = service.Price,
+                    IsDelete = service.IsDelete,
+                    ServiceId = service.ServiceId,
+                    ServiceName = service.ServiceName,
+                    Image = (await serviceImageRepository.GetByServiceId(service.ServiceId)).FirstOrDefault().ImageData
+                });
+                
+            }
+            return servicesResult;
         }
     }
 }

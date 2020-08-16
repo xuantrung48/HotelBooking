@@ -27,6 +27,12 @@ namespace HotelBooking.API.Controllers
         {
             return await serviceService.Get();
         }
+        [HttpGet]
+        [Route("api/service/getallwithimages")]
+        public async Task<IEnumerable<Services>> GetAllWithImages()
+        {
+            return await serviceService.GetAllWithImages();
+        }
 
         [HttpGet]
         [Route("api/service/get/{id}")]
