@@ -18,5 +18,6 @@ namespace HotelBooking.BAL.Interface.HotelServices
 
         Task<IEnumerable<Service>> Search(string keyWord);
         Task<Service> GetByIdWithImages(int id);
+        Task<IEnumerable<Services>> GetAllWithImages();
     }
 }

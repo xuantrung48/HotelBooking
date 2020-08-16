@@ -38,7 +38,7 @@ namespace HotelBooking.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/roomtypes/getbyidwithimages/{id}")]
+        [Route("api/roomtypes/getbyidwithimagesandfacilities/{id}")]
         public async Task<RoomType> GetByIdWithImages(int id)
         {
             return await roomTypeService.GetByIdWithImagesAndFacilities(id);
