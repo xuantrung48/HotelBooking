@@ -40,47 +40,49 @@
             </div>
             <div class="modal-body">
                 <input type="number" id="PromotionId" name="PromotionId" class="form-control" hidden>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Tên chương trình:</label>
+                <form id="form">
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Tên chương trình:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="PromotionName" name="PromotionName" class="form-control" data-rule-required="true">
+                        </div>
                     </div>
-                    <div class="col-9">
-                        <input type="text" id="PromotionName" name="PromotionName" class="form-control" data-rule-required="true">
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Ngày bắt đầu:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" id="StartDate" name="StartDate" class="form-control" data-rule-required="true">
+                        </div>
                     </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Ngày bắt đầu:</label>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Ngày kết thúc:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" id="EndDate" name="EndDate" class="form-control" data-rule-required="true">
+                        </div>
                     </div>
-                    <div class="col-9">
-                        <input type="date" id="StartDate" name="StartDate" class="form-control" data-rule-required="true">
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Mức giảm giá (%):</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="DiscountRates" name="DiscountRates" class="form-control" data-rule-required="true" min="1" max="100">
+                        </div>
                     </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Ngày kết thúc:</label>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Loại phòng áp dụng:</label>
+                        </div>
+                        <div class="col-9">
+                            <select id="roomTypes" name="roomTypes" multiple="multiple" class="form-control">
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-9">
-                        <input type="date" id="EndDate" name="EndDate" class="form-control" data-rule-required="true">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Mức giảm giá (%):</label>
-                    </div>
-                    <div class="col-9">
-                        <input type="number" id="DiscountRates" name="DiscountRates" class="form-control" data-rule-required="true" min="1" max="100">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Loại phòng áp dụng:</label>
-                    </div>
-                    <div class="col-9">
-                        <select id="roomTypes" name="roomTypes" multiple="multiple" class="form-control">
-                        </select>
-                    </div>
-                </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <a href="javascript:;" class="btn btn-primary" onclick="promotion.save()">Lưu</a>

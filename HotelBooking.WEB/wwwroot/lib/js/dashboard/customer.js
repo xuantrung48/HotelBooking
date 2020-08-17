@@ -6,8 +6,47 @@ $(document).ready(function () {
 
 customer.init = function () {
     customer.drawTable();
+    customer.validation();
 }
-
+customer.validation = function () {
+    $.validator.addMethod(
+        "regex",
+        function (value, element, regexp) {
+            return this.optional(element) || regexp.test(value);
+        },
+        "Please check your input."
+    );
+    $('#form').validate({
+        rules: {
+            Name: {
+                required: true,
+                regex: /^[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+(([',. -][a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ ])?[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]*)*$/
+            },
+            PhoneNumber: {
+                required: true,
+                regex: /^\(?(0|[3|5|7|8|9])+([0-9]{8})$/
+            },
+            Email: {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            Name: {
+                required: "Bạn phải nhập tên khách hàng",
+                regex: "Tên khách hàng không chứa chữ số và kí tự đặc biệt"
+            },
+            PhoneNumber: {
+                required: "Bạn phải nhập số điện thoại",
+                regex: "Số điện thoại không hợp lệ"
+            },
+            Email: {
+                required: "Bạn phải nhập địa chỉ email",
+                email: "Địa chỉ email không hợp lệ"
+            }
+        }
+    })
+}
 customer.drawTable = function () {
     $('#customersTable').empty();
     $.ajax({
@@ -68,23 +107,25 @@ customer.get = function (id) {
 }
 
 customer.save = function () {
-    var customerObj = {};
-    customerObj.CustomerId = parseInt($('#CustomerId').val());
-    customerObj.Name = $('#Name').val();
-    customerObj.Email = $('#Email').val();
-    customerObj.PhoneNumber = $('#PhoneNumber').val();
-    $.ajax({
-        url: `/Customer/Save/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(customerObj),
-        success: function (data) {
-            $('#mediumModal').modal('hide');
-            bootbox.alert(data.result.message);
-            customer.drawTable();
-        }
-    });
+    if ($('#form').valid()) {
+        var customerObj = {};
+        customerObj.CustomerId = parseInt($('#CustomerId').val());
+        customerObj.Name = $('#Name').val();
+        customerObj.Email = $('#Email').val();
+        customerObj.PhoneNumber = $('#PhoneNumber').val();
+        $.ajax({
+            url: `/Customer/Save/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(customerObj),
+            success: function (data) {
+                $('#mediumModal').modal('hide');
+                bootbox.alert(data.result.message);
+                customer.drawTable();
+            }
+        });
+    }
 }
 
 customer.delete = function (id, name) {

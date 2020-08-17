@@ -6,8 +6,37 @@ $(document).ready(function () {
 
 facility.init = function () {
     facility.drawTable();
+    facility.validation();
 }
-
+facility.validation = function () {
+    $.validator.addMethod(
+        "regex",
+        function (value, element, regexp) {
+            return this.optional(element) || regexp.test(value);
+        },
+        "Please check your input."
+    );
+    $('#form').validate({
+        rules: {
+            FacilityName: {
+                required: true,
+                regex: /^[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+(([',. -][a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ ])?[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]*)*$/
+            },
+            FacilityImage: {
+                required: true,
+            }
+        },
+        messages: {
+            FacilityName: {
+                required: "Bạn phải nhập tên tiện nghi",
+                regex: "Tên tiện nghi chứa chữ số và kí tự đặc biệt"
+            },
+            FacilityImage: {
+                required: "Bạn phải đưa một đường dẫn ảnh"
+            }
+        }
+    })
+}
 facility.drawTable = function () {
     $('#facilitiesTable').empty();
     $.ajax({
@@ -54,22 +83,24 @@ facility.get = function (id) {
 }
 
 facility.save = function () {
-    var facilityObj = {};
-    facilityObj.FacilityName = $('#FacilityName').val();
-    facilityObj.FacilityId = parseInt($('#FacilityId').val());
-    facilityObj.FacilityImage = $('#FacilityImage').val();
-    $.ajax({
-        url: `/Facility/Save/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(facilityObj),
-        success: function (data) {
-            $('#mediumModal').modal('hide');
-            bootbox.alert(data.result.message);
-            facility.drawTable();
-        }
-    });
+    if ($('#form').valid) {
+        var facilityObj = {};
+        facilityObj.FacilityName = $('#FacilityName').val();
+        facilityObj.FacilityId = parseInt($('#FacilityId').val());
+        facilityObj.FacilityImage = $('#FacilityImage').val();
+        $.ajax({
+            url: `/Facility/Save/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(facilityObj),
+            success: function (data) {
+                $('#mediumModal').modal('hide');
+                bootbox.alert(data.result.message);
+                facility.drawTable();
+            }
+        });
+    }
 }
 
 facility.delete = function (id, name) {

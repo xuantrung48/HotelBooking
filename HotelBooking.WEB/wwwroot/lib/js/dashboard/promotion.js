@@ -6,8 +6,63 @@ $(document).ready(function () {
 
 promotion.init = function () {
     promotion.drawTable();
+    promotion.validation();
 }
-
+promotion.validation = function () {
+    $.validator.addMethod(
+        "regex",
+        function (value, element, regexp) {
+            return this.optional(element) || regexp.test(value);
+        },
+        "Please check your input."
+    );
+    jQuery.validator.addMethod("greaterThan",
+        function (value, element, params) {
+            if (!/Invalid|NaN/.test(new Date(value))) {
+                return new Date(value) > new Date($(params[0]).val());
+            }
+            return isNaN(value) && isNaN($(params[0]).val()) || (Number(value) > Number($(params[0]).val()));
+        },
+        'Must be greater than {1}.');
+    $('#form').validate({
+        rules: {
+            PromotionName: {
+                required: true,
+                regex: /^[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+(([',. -][a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ ])?[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]*)*$/
+            },
+            DiscountRates: {
+                required: true,
+                min: 1
+            },
+            StartDate: "required",
+            EndDate: {
+                required: true,
+                greaterThan: ["#CheckinDate", "CheckinDate"]
+            },
+            roomTypes: {
+                required: true
+            }
+        },
+        messages: {
+            PromotionName: {
+                required: "Bạn phải nhập tên khách hàng",
+                regex: "Tên khách hàng không chứa chữ số và kí tự đặc biệt"
+            },
+            DiscountRates: {
+                required: "Bạn phải nhập số mức giảm giá",
+                min: "Mức giảm giá tối thiểu là 1"
+            },
+            StartDate: "Bạn phải nhập ngày bắt đầu",
+            EndDate: {
+                required: "Bạn phải nhập ngày kêt thúc",
+                greaterThan: "Ngày kết thúc phải sau ngày bắt đầu"
+            },
+            roomTypes: {
+                required: "Chọn một loại phòng"
+            }
+        }
+    })
+}
 promotion.drawTable = function () {
     $('#promotionsTable').empty();
     $.ajax({
@@ -110,32 +165,34 @@ promotion.get = function (id) {
 }
 
 promotion.save = function () {
-    var promotionObj = {};
-    promotionObj.PromotionId = parseInt($('#PromotionId').val());
-    promotionObj.PromotionName = $('#PromotionName').val();
-    promotionObj.StartDate = new Date($('#StartDate').val());
-    promotionObj.EndDate = new Date($('#EndDate').val());
-    promotionObj.DiscountRates = parseFloat($('#DiscountRates').val() / 100);
-    promotionObj.RoomTypeIds = $('#roomTypes').val();
-    if (promotionObj.PromotionId != 0) {
+    if ($('#form').valid()) {
+        var promotionObj = {};
+        promotionObj.PromotionId = parseInt($('#PromotionId').val());
+        promotionObj.PromotionName = $('#PromotionName').val();
+        promotionObj.StartDate = new Date($('#StartDate').val());
+        promotionObj.EndDate = new Date($('#EndDate').val());
+        promotionObj.DiscountRates = parseFloat($('#DiscountRates').val() / 100);
+        promotionObj.RoomTypeIds = $('#roomTypes').val();
+        if (promotionObj.PromotionId != 0) {
+            $.ajax({
+                url: `/PromotionApply/DeleteByPromotionId/${promotionObj.PromotionId}`,
+                method: "GET",
+                dataType: "json"
+            });
+        }
         $.ajax({
-            url: `/PromotionApply/DeleteByPromotionId/${promotionObj.PromotionId}`,
-            method: "GET",
-            dataType: "json"
+            url: `/Promotion/Save/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(promotionObj),
+            success: function (data) {
+                $('#mediumModal').modal('hide');
+                bootbox.alert(data.result.message);
+                promotion.drawTable();
+            }
         });
     }
-    $.ajax({
-        url: `/Promotion/Save/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(promotionObj),
-        success: function (data) {
-            $('#mediumModal').modal('hide');
-            bootbox.alert(data.result.message);
-            promotion.drawTable();
-        }
-    });
 }
 
 promotion.delete = function (id, name) {
