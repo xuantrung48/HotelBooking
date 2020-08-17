@@ -26,7 +26,7 @@
                     );
                 }
             }
-            $(`#roomPrice`).append(`${digitGrouping(data.result.defaultPrice)}₫/đêm`);
+            $(`#roomPrice`).append(`${digitGrouping(data.result.defaultPrice)}₫<span class="text-secondary">/đêm</span>`);
             $.ajax({
                 url: `/Promotion/GetAvailable`,
                 method: "GET",
@@ -36,7 +36,7 @@
                         if (data.result.roomTypeId == v.roomTypeId) {
                             $('#roomPrice').empty();
                             $('#roomPrice').append(
-                                `<small><del class="text-danger">${digitGrouping(data.result.defaultPrice)}₫</del></small> ${digitGrouping(data.result.defaultPrice * (1 - v.discountRates))}₫/đêm<sup class="badge badge-danger">Khuyến mãi</sup>`
+                                `<small><del class="text-danger">${digitGrouping(data.result.defaultPrice)}₫</del></small> ${digitGrouping(data.result.defaultPrice * (1 - v.discountRates))}₫<span class="text-secondary">/đêm</span>&nbsp;<sup class="badge badge-danger">Khuyến mãi</sup>`
                             )
                         }
                     });
