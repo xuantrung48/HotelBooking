@@ -36,7 +36,7 @@ roomType.validation = function () {
             },
             DefaultPrice: {
                 required: true,
-                min: 10000
+                min: 1
             },
             adult: {
                 required: true,
@@ -44,10 +44,11 @@ roomType.validation = function () {
             },
             children: {
                 required: true,
-                min: 1
+                min: 0
             },
             people: {
                 required: true,
+                min: 1
             },
             Quantity: {
                 required: true,
@@ -75,10 +76,11 @@ roomType.validation = function () {
             },
             children: {
                 required: "Bạn phải nhập số lượng trẻ em",
-                min: "Số lượng trẻ em tối thiểu là 1"
+                min: "Số lượng trẻ em tối thiểu là 0"
             },
             people: {
                 required: "Bạn phải nhập số tổng số người",
+                min: "Tổng số người tối thiểu là 1"
             },
             Quantity: {
                 required: "Bạn phải nhập số lượng",
