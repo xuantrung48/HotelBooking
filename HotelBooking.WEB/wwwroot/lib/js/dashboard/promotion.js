@@ -45,8 +45,8 @@ promotion.validation = function () {
         },
         messages: {
             PromotionName: {
-                required: "Bạn phải nhập tên khách hàng",
-                regex: "Tên khách hàng không chứa chữ số và kí tự đặc biệt"
+                required: "Bạn phải nhập tên chương trình",
+                regex: "Tên chương trình không chứa chữ số và kí tự đặc biệt"
             },
             DiscountRates: {
                 required: "Bạn phải nhập số mức giảm giá",

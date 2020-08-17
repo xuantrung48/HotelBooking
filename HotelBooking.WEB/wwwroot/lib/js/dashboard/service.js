@@ -34,7 +34,7 @@ service.validation = function () {
             },
             Price: {
                 required: true,
-                min: 10000
+                min: 0
             },
             Description: {
                 required: true
@@ -47,7 +47,7 @@ service.validation = function () {
             },
             Price: {
                 required: "Bạn phải nhập giá",
-                min: "Giá tối thiểu là 10.000đ"
+                min: "Giá tối thiểu là 0đ"
             },
             Description: {
                 required: "Bạn phải nhập phần mô tả dịch vụ"
