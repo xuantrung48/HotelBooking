@@ -6,8 +6,50 @@ $(document).ready(function () {
 
 coupon.init = function () {
     coupon.drawTable();
+    coupon.validation();
 }
 
+coupon.validation = function () {
+    $.validator.addMethod(
+        "regex",
+        function (value, element, regexp) {
+            return this.optional(element) || regexp.test(value);
+        },
+        "Please check your input."
+    );
+    $('#form').validate({
+        rules: {
+            CouponCode: {
+                required: true,
+                regex: /^[A-Z]+$/
+            },
+            Remain: {
+                required: true,
+                min: 1
+            },
+            Reduction: {
+                required: true,
+                min: 1
+            },
+            EndDate: "required"
+        },
+        messages: {
+            CouponCode: {
+                required: "Bạn phải nhập code",
+                regex: "Bạn phải nhập chữ hoa không có khoảng trắng"
+            },
+            Remain: {
+                required: "Bạn phải nhập số lượnng",
+                min: "Số lượng phải là số lớn hơn 1"
+            },
+            Reduction: {
+                required: "Bạn phải nhập mức giảm giá",
+                min: "Mức giảm giá là số lớn hơn 1"
+            },
+            EndDate: "Bạn phải nhập ngày tháng"
+        }
+    })
+}
 coupon.drawTable = function () {
     $('#couponsTable').empty();
     $.ajax({
@@ -72,24 +114,26 @@ coupon.get = function (id) {
 }
 
 coupon.save = function () {
-    var couponObj = {};
-    couponObj.CouponId = parseInt($('#CouponId').val());
-    couponObj.CouponCode = $('#CouponCode').val();
-    couponObj.Remain = parseInt($('#Remain').val());
-    couponObj.EndDate = new Date ($('#EndDate').val());
-    couponObj.Reduction = parseFloat($('#Reduction').val() / 100);
-    $.ajax({
-        url: `/Coupon/Save/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(couponObj),
-        success: function (data) {
-            $('#mediumModal').modal('hide');
-            bootbox.alert(data.result.message);
-            coupon.drawTable();
-        }
-    });
+    if ($('#form').valid()) {
+        var couponObj = {};
+        couponObj.CouponId = parseInt($('#CouponId').val());
+        couponObj.CouponCode = $('#CouponCode').val();
+        couponObj.Remain = parseInt($('#Remain').val());
+        couponObj.EndDate = new Date($('#EndDate').val());
+        couponObj.Reduction = parseFloat($('#Reduction').val() / 100);
+        $.ajax({
+            url: `/Coupon/Save/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(couponObj),
+            success: function (data) {
+                $('#mediumModal').modal('hide');
+                bootbox.alert(data.result.message);
+                coupon.drawTable();
+            }
+        });
+    }
 }
 
 coupon.delete = function (id, name) {

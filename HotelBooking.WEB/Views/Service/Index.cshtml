@@ -38,53 +38,55 @@
             </div>
             <div class="modal-body">
                 <input type="number" id="ServiceId" name="ServiceId" class="form-control" hidden>
-                <div class="row form-group">
-                    <div class="col-3">
-                    </div>
-                    <div class="col-9" id="imgsData">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-3">
-                    </div>
-                    <div class="col-9" id="imgsPreview">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Hình ảnh:</label>
-                    </div>
-                    <div class="col-9">
-                        <div class="custom-file">
-                            <input id="ServiceImages" name="ServiceImages" type="file" class="custom-file-input form-control" data-rule-required="true" multiple>
-                            <label class="custom-file-label" for="ServiceImages">Chọn tập tin</label>
+                <form id="form">
+                    <div class="row form-group">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-9" id="imgsData">
                         </div>
                     </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Tên dịch vụ:</label>
+                    <div class="row form-group">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-9" id="imgsPreview">
+                        </div>
                     </div>
-                    <div class="col-9">
-                        <input type="text" id="ServiceName" name="ServiceName" class="form-control" data-rule-required="true">
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Hình ảnh:</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="custom-file">
+                                <input id="ServiceImages" name="ServiceImages" type="file" class="custom-file-input form-control" data-rule-required="true" multiple>
+                                <label class="custom-file-label" for="ServiceImages">Chọn tập tin</label>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Giá dịch vụ:</label>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Tên dịch vụ:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="ServiceName" name="ServiceName" class="form-control" data-rule-required="true">
+                        </div>
                     </div>
-                    <div class="col-9">
-                        <input type="number" id="Price" name="Price" class="form-control" data-rule-required="true">
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Giá dịch vụ:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="Price" name="Price" class="form-control" data-rule-required="true">
+                        </div>
                     </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Mô tả:</label>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Mô tả:</label>
+                        </div>
+                        <div class="col-9">
+                            <textarea id="Description" name="Description" class="form-control" data-rule-required="true"></textarea>
+                        </div>
                     </div>
-                    <div class="col-9">
-                        <textarea id="Description" name="Description" class="form-control" data-rule-required="true"></textarea>
-                    </div>
-                </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <a href="javascript:;" class="btn btn-primary" onclick="service.save()">Lưu</a>

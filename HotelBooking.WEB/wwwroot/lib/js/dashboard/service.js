@@ -8,8 +8,53 @@ digitGrouping = function (price) {
 }
 service.init = function () {
     service.drawTable();
+    service.validation();
 }
-
+service.validation = function () {
+    $.validator.addMethod(
+        "regex",
+        function (value, element, regexp) {
+            return this.optional(element) || regexp.test(value);
+        },
+        "Please check your input."
+    );
+    jQuery.validator.addMethod("greaterThan",
+        function (value, element, params) {
+            if (!/Invalid|NaN/.test(new Date(value))) {
+                return new Date(value) > new Date($(params[0]).val());
+            }
+            return isNaN(value) && isNaN($(params[0]).val()) || (Number(value) > Number($(params[0]).val()));
+        },
+        'Must be greater than {1}.');
+    $('#form').validate({
+        rules: {
+            ServiceName: {
+                required: true,
+                regex: /^[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+(([',. -][a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ ])?[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]*)*$/
+            },
+            Price: {
+                required: true,
+                min: 10000
+            },
+            Description: {
+                required: true
+            }
+        },
+        messages: {
+            ServiceName: {
+                required: "Bạn phải nhập tên dịch vụ",
+                regex: "Tên dịch vụ không chứa chữ số và kí tự đặc biệt"
+            },
+            Price: {
+                required: "Bạn phải nhập giá",
+                min: "Giá tối thiểu là 10.000đ"
+            },
+            Description: {
+                required: "Bạn phải nhập phần mô tả dịch vụ"
+            }
+        }
+    })
+}
 service.drawTable = function () {
     $('#serviceTable').empty();
     $.ajax({
@@ -77,28 +122,30 @@ service.get = function (id) {
 }
 
 service.save = function () {
-    var imgsNo = parseInt($("#imgsNo").val());
-    var serviceObj = {};
-    serviceObj.ServiceId = parseInt($('#ServiceId').val());
-    serviceObj.ServiceName = $('#ServiceName').val();
-    serviceObj.Price = parseInt($('#Price').val());
-    serviceObj.Description = $('#Description').val();
-    serviceObj.Images = [];
-    for (let i = 0; i < imgsNo; i++) {
-        serviceObj.Images[i] = $(`#img${i}`).val();
-    };
-    $.ajax({
-        url: `/Service/Save/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(serviceObj),
-        success: function (data) {
-            $('#mediumModal').modal('hide');
-            bootbox.alert(data.result.message);
-            service.drawTable();
-        }
-    });
+    if ($('#form').valid()) {
+        var imgsNo = parseInt($("#imgsNo").val());
+        var serviceObj = {};
+        serviceObj.ServiceId = parseInt($('#ServiceId').val());
+        serviceObj.ServiceName = $('#ServiceName').val();
+        serviceObj.Price = parseInt($('#Price').val());
+        serviceObj.Description = $('#Description').val();
+        serviceObj.Images = [];
+        for (let i = 0; i < imgsNo; i++) {
+            serviceObj.Images[i] = $(`#img${i}`).val();
+        };
+        $.ajax({
+            url: `/Service/Save/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(serviceObj),
+            success: function (data) {
+                $('#mediumModal').modal('hide');
+                bootbox.alert(data.result.message);
+                service.drawTable();
+            }
+        });
+    }
 }
 
 service.delete = function (id, name) {

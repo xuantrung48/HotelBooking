@@ -13,7 +13,8 @@ namespace HotelBooking.WEB.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            Coupon view = new Coupon();
+            return View(view);
         }
         public JsonResult Get(int id)
         {

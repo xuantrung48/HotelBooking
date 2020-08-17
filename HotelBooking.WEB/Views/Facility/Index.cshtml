@@ -37,27 +37,29 @@
             </div>
             <div class="modal-body">
                 <input type="number" id="FacilityId" name="FacilityId" class="form-control" hidden>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Tên tiện nghi:</label>
-                    </div>
-                    <div class="col-9">
-                        <input type="text" id="FacilityName" name="FacilityName" class="form-control" data-rule-required="true">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <input hidden id="FacilityImage" type="text">
-                    <div class="col-3">
-                        <label>Biểu tượng:</label>
-                    </div>
-                    <div class="col-6">
-                        <div class="custom-file">
-                            <input id="inp" type='file'>
+                <form id="form">
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Tên tiện nghi:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="FacilityName" name="FacilityName" class="form-control" data-rule-required="true">
                         </div>
                     </div>
-                    <div class="col-3" id="imgPreview">
+                    <div class="row form-group">
+                        <input hidden id="FacilityImage" type="text">
+                        <div class="col-3">
+                            <label>Biểu tượng:</label>
+                        </div>
+                        <div class="col-6">
+                            <div class="custom-file">
+                                <input id="inp" name="FacilityImage" type='file'>
+                            </div>
+                        </div>
+                        <div class="col-3" id="imgPreview">
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <a href="javascript:;" class="btn btn-primary" onclick="facility.save()">Lưu</a>

@@ -1,7 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Quản lý phiếu giảm giá";
 }
-
 <div class="text-center mb-3">
     <h2>@ViewData["Title"]</h2>
 </div>
@@ -38,41 +37,43 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <input type="number" id="CouponId" name="CouponId" class="form-control" hidden>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Mã giảm giá</label>
+            <Form id="form">
+                <div class="modal-body">
+                    <input type="number" id="CouponId" name="CouponId" class="form-control" hidden>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Mã giảm giá</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="CouponCode" name="CouponCode" class="form-control" data-rule-required="true">
+                        </div>
                     </div>
-                    <div class="col-9">
-                        <input type="text" id="CouponCode" name="CouponCode" class="form-control" data-rule-required="true">
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Số lượng</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="Remain" name="Remain" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Mức giảm giá</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="Reduction" name="Reduction" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Ngày kết thúc</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" id="EndDate" name="EndDate" class="form-control" data-rule-required="true">
+                        </div>
                     </div>
                 </div>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Số lượng</label>
-                    </div>
-                    <div class="col-9">
-                        <input type="number" id="Remain" name="Remain" class="form-control" data-rule-required="true">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Mức giảm giá</label>
-                    </div>
-                    <div class="col-9">
-                        <input type="number" id="Reduction" name="Reduction" class="form-control" data-rule-required="true">
-                    </div>
-                </div>
-                <div class="row form-group">
-                    <div class="col-3">
-                        <label>Ngày kết thúc</label>
-                    </div>
-                    <div class="col-9">
-                        <input type="date" id="EndDate" name="EndDate" class="form-control" data-rule-required="true">
-                    </div>
-                </div>
-            </div>
+            </Form>
             <div class="modal-footer">
                 <a href="javascript:;" class="btn btn-primary" onclick="coupon.save()">Lưu</a>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>

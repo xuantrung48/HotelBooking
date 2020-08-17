@@ -6,6 +6,107 @@ $(document).ready(function () {
 
 booking.init = function () {
     booking.drawTable();
+    booking.validation();
+}
+booking.validation = function () {
+    $.validator.addMethod(
+        "regex",
+        function (value, element, regexp) {
+            return this.optional(element) || regexp.test(value);
+        },
+        "Please check your input."
+    );
+    jQuery.validator.addMethod("greaterThan",
+        function (value, element, params) {
+        if (!/Invalid|NaN/.test(new Date(value))) {
+            return new Date(value) > new Date($(params[0]).val());
+        }
+        return isNaN(value) && isNaN($(params[0]).val()) || (Number(value) > Number($(params[0]).val()));
+    },
+        'Must be greater than {1}.');
+    $('#form').validate({
+        rules: {
+            Name: {
+                required: true,
+                regex:  /^[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+(([',. -][a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ ])?[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]*)*$/
+            },
+            PhoneNumber: {
+                required: true,
+                regex: /^\(?(0|[3|5|7|8|9])+([0-9]{8})$/
+            },
+            Email: {
+                required: true,
+                email: true
+            },
+            NumberofAdults: {
+                required: true,
+                min: 1
+            },
+            NumberofChildren: {
+                required: true,
+                min: 0
+            },
+            CheckinDate: "required",
+            CheckoutDate: {
+                required: true,
+                greaterThan: ["#CheckinDate", "CheckinDate"]
+            },
+            RoomType: {
+                required: true
+            },
+            RoomQuantity: {
+                required: true,
+                min: 1
+            },
+            ServiceType: {
+                required: true
+            },
+            ServiceQuantity: {
+                required: true,
+                min: 1
+            }
+        },
+        messages: {
+            Name: {
+                required: "Bạn phải nhập tên khách hàng",
+                regex: "Tên khách hàng không chứa chữ số và kí tự đặc biệt"
+            },
+            PhoneNumber: {
+                required: "Bạn phải nhập số điện thoại",
+                regex: "Số điện thoại không hợp lệ"
+            },
+            Email: {
+                required: "Bạn phải nhập địa chỉ email",
+                email: "Địa chỉ email không hợp lệ"
+            },
+            NumberofAdults: {
+                required: "Bạn phải nhập số lượng người lớn",
+                min: "Số lượng người lớn tối thiểu là 1"
+            },
+            NumberofChildren: {
+                min: "Số lượng trẻ em tối thiểu là 0"
+            },
+            CheckinDate: "Bạn phải nhập ngày đến",
+            CheckoutDate: {
+                required: "Bạn phải nhập ngày ngày đi",
+                greaterThan: "Ngày đi phải sau ngày đến"
+            },
+            RoomQuantity: {
+                required: "Bạn phải nhập số lượng",
+                min: "Số lượng tối thiểu là 1"
+            },
+            ServiceQuantity: {
+                required: "Bạn phải nhập số lượng",
+                min: "Số lượng tối thiểu là 1"
+            },
+            RoomType: {
+                required: "Chọn một loại phòng"
+            },
+            ServiceType: {
+                required: "Chọn một loại dịch vụ"
+            }
+        }
+    })
 }
 booking.drawTable = function () {
     $('#bookingTable').empty();

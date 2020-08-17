@@ -10,8 +10,89 @@ digitGrouping = function (price) {
 
 roomType.init = function () {
     roomType.drawTable();
+    roomType.validation();
 }
-
+roomType.validation = function () {
+    $.validator.addMethod(
+        "regex",
+        function (value, element, regexp) {
+            return this.optional(element) || regexp.test(value);
+        },
+        "Please check your input."
+    );
+    jQuery.validator.addMethod("greaterThan",
+        function (value, element, params) {
+            if (!/Invalid|NaN/.test(new Date(value))) {
+                return new Date(value) > new Date($(params[0]).val());
+            }
+            return isNaN(value) && isNaN($(params[0]).val()) || (Number(value) > Number($(params[0]).val()));
+        },
+        'Must be greater than {1}.');
+    $('#form').validate({
+        rules: {
+            Name: {
+                required: true,
+                regex: /^[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+(([',. -][a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ ])?[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]*)*$/
+            },
+            DefaultPrice: {
+                required: true,
+                min: 10000
+            },
+            adult: {
+                required: true,
+                min: 1
+            },
+            children: {
+                required: true,
+                min: 1
+            },
+            people: {
+                required: true,
+            },
+            Quantity: {
+                required: true,
+                min: 1
+            },
+            facilities: {
+                required: true
+            },
+            Description: {
+                required: true
+            }
+        },
+        messages: {
+            Name: {
+                required: "Bạn phải nhập tên loại phòng",
+                regex: "Tên loại phòng không chứa chữ số và kí tự đặc biệt"
+            },
+            DefaultPrice: {
+                required: "Phải nhập giá",
+                min: "Giá tối thiểu là 10.000đ"
+            },
+            adult: {
+                required: "Bạn phải nhập số lượng người lớn",
+                min: "Số lượng người lớn tối thiểu là 1"
+            },
+            children: {
+                required: "Bạn phải nhập số lượng trẻ em",
+                min: "Số lượng trẻ em tối thiểu là 1"
+            },
+            people: {
+                required: "Bạn phải nhập số tổng số người",
+            },
+            Quantity: {
+                required: "Bạn phải nhập số lượng",
+                min: "Số lượng tối thiểu là 1"
+            },
+            facilities: {
+                required: "Chọn một loại phòng"
+            },
+            Description: {
+                required: "Chọn một loại dịch vụ"
+            }
+        }
+    })
+}
 roomType.drawTable = function () {
     $('#roomTypesTable').empty();
     $.ajax({
@@ -86,40 +167,42 @@ roomType.get = function (id) {
 }
 
 roomType.save = function () {
-    var imgsNo = parseInt($("#imgsNo").val());
-    var roomTypeObj = {};
-    roomTypeObj.Name = $('#Name').val();
-    roomTypeObj.RoomTypeId = parseInt($('#RoomTypeId').val());
-    roomTypeObj.DefaultPrice = parseInt($('#DefaultPrice').val());
-    roomTypeObj.MaxAdult = parseInt($('#adult').val());
-    roomTypeObj.MaxChildren = parseInt($('#children').val());
-    roomTypeObj.MaxPeople = parseInt($('#people').val());
-    roomTypeObj.Quantity = parseInt($('#Quantity').val());
-    roomTypeObj.Description = $('#Description').val();
-    roomTypeObj.Facilities = $('#facilities').val();
-    roomTypeObj.Images = [];
-    for (let i = 0; i < imgsNo; i++) {
-        roomTypeObj.Images[i] = $(`#img${i}`).val();
-    };
-    if (roomTypeObj.RoomTypeId != 0) {
+    if ($('#form').valid()) {
+        var imgsNo = parseInt($("#imgsNo").val());
+        var roomTypeObj = {};
+        roomTypeObj.Name = $('#Name').val();
+        roomTypeObj.RoomTypeId = parseInt($('#RoomTypeId').val());
+        roomTypeObj.DefaultPrice = parseInt($('#DefaultPrice').val());
+        roomTypeObj.MaxAdult = parseInt($('#adult').val());
+        roomTypeObj.MaxChildren = parseInt($('#children').val());
+        roomTypeObj.MaxPeople = parseInt($('#people').val());
+        roomTypeObj.Quantity = parseInt($('#Quantity').val());
+        roomTypeObj.Description = $('#Description').val();
+        roomTypeObj.Facilities = $('#facilities').val();
+        roomTypeObj.Images = [];
+        for (let i = 0; i < imgsNo; i++) {
+            roomTypeObj.Images[i] = $(`#img${i}`).val();
+        };
+        if (roomTypeObj.RoomTypeId != 0) {
+            $.ajax({
+                url: `/FacilityApply/DeleteByRoomTypeId/${roomTypeObj.RoomTypeId}`,
+                method: "GET",
+                dataType: "json"
+            });
+        }
         $.ajax({
-            url: `/FacilityApply/DeleteByRoomTypeId/${roomTypeObj.RoomTypeId}`,
-            method: "GET",
-            dataType: "json"
+            url: `/RoomType/Save/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(roomTypeObj),
+            success: function (data) {
+                $('#mediumModal').modal('hide');
+                bootbox.alert(data.result.message);
+                roomType.drawTable();
+            }
         });
     }
-    $.ajax({
-        url: `/RoomType/Save/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(roomTypeObj),
-        success: function (data) {
-            $('#mediumModal').modal('hide');
-            bootbox.alert(data.result.message);
-            roomType.drawTable();
-        }
-    });
 }
 
 roomType.delete = function (id, name) {
