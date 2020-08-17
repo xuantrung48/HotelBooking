@@ -24,7 +24,8 @@ customer.validation = function () {
             },
             PhoneNumber: {
                 required: true,
-                regex: /^\(?(0|[3|5|7|8|9])+([0-9]{8})$/
+                regex: /^\(?(0|[3|5|7|8|9])+([0-9]{8})$/,
+                range: [9, 10]
             },
             Email: {
                 required: true,
@@ -38,7 +39,8 @@ customer.validation = function () {
             },
             PhoneNumber: {
                 required: "Bạn phải nhập số điện thoại",
-                regex: "Số điện thoại không hợp lệ"
+                regex: "Số điện thoại không hợp lệ",
+                range: "Số điện thoại không quá 10 số"
             },
             Email: {
                 required: "Bạn phải nhập địa chỉ email",
