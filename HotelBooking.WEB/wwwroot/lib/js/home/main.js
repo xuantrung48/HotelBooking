@@ -22,9 +22,9 @@ showRoomTypes = function () {
                                 `<div class="carousel-item active">
                                     <img src="${data.result[i].image}" alt="${data.result[i].name}" width="100%" height="auto">
                                     <div class="carousel-caption">
-                                        <h3 class="text-success">${data.result[i].name}</h3>
+                                        <h3><a href="/Rooms/Details/${data.result[i].roomTypeId}">${data.result[i].name}</a></h3>
                                         <p class="text-warning" id="price${data.result[i].roomTypeId}">${digitGrouping(data.result[i].defaultPrice)}₫<span>/đêm</span></p>
-                                        <a href="/#bookroom">Đặt ngay</a>
+                                        <a href="#bookroom">Đặt ngay</a>
                                     </div>
                                 </div>`
                             );
@@ -36,20 +36,18 @@ showRoomTypes = function () {
                                 `<div class="carousel-item">
                             <img src="${data.result[i].image}" alt="${data.result[i].name}" width="100%" height="auto">
                             <div class="carousel-caption">
-                                <h3 class="text-success">${data.result[i].name}</h3>
+                                <h3><a href="/Rooms/Details/${data.result[i].roomTypeId}">${data.result[i].name}</a></h3>
                                 <p class="text-warning" id="price${data.result[i].roomTypeId}">${digitGrouping(data.result[i].defaultPrice)}₫<span>/đêm</span></p>
-                                <a href="/#bookroom">Đặt ngay</a>
+                                <a href="#bookroom">Đặt ngay</a>
                             </div>
                         </div>`
                             );
                         }
-                    }
-                    for (let j = 0; j < data.result.length; j++) {
                         for (let k = 0; k < roomTypePromotions.result.length; k++) {
-                            if (data.result[j].roomTypeId == roomTypePromotions.result[k].roomTypeId) {
-                                $(`#price${data.result[j].roomTypeId}`).empty();
-                                $(`#price${data.result[j].roomTypeId}`).append(
-                                    `<small><del class="text-danger">${digitGrouping(data.result[j].defaultPrice)}₫</del></small> ${digitGrouping(data.result[j].defaultPrice * (1 - roomTypePromotions.result[k].discountRates))}₫/đêm`
+                            if (data.result[i].roomTypeId == roomTypePromotions.result[k].roomTypeId) {
+                                $(`#price${data.result[i].roomTypeId}`).empty();
+                                $(`#price${data.result[i].roomTypeId}`).append(
+                                    `<small><del class="text-danger">${digitGrouping(data.result[i].defaultPrice)}₫</del></small> ${digitGrouping(data.result[i].defaultPrice * (1 - roomTypePromotions.result[k].discountRates))}₫/đêm`
                                 )
                             }
                         }
@@ -73,7 +71,7 @@ showRoomTypes = function () {
                             <img src="${data.result[i].image}" alt="${data.result[i].serviceName}" width="100%" height="auto">
                             <div class="carousel-caption">
                                 <h3 class="text-success">${data.result[i].serviceName}</h3>
-                                <p class="text-warning" id="price${data.result[i].serviceId}">${digitGrouping(data.result[i].price)}₫<span></span></p>
+                                <p class="text-warning"">${digitGrouping(data.result[i].price)}₫<span></span></p>
                             </div>
                         </div>`
                     );
@@ -86,7 +84,7 @@ showRoomTypes = function () {
                             <img src="${data.result[i].image}" alt="${data.result[i].serviceName}" width="100%" height="auto">
                             <div class="carousel-caption">
                                 <h3 class="text-success">${data.result[i].serviceName}</h3>
-                                <p class="text-warning" id="price${data.result[i].serviceId}">${digitGrouping(data.result[i].price)}₫<span></span></p>
+                                <p class="text-warning">${digitGrouping(data.result[i].price)}₫<span></span></p>
                             </div>
                         </div>`
                     );

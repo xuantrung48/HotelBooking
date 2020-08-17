@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Danh sách dịch vụ";
+}
+<div class="container">
+    <h2 class="my-5 text-center">@ViewData["Title"]</h2>
+    <div class="row" id="services">
+    </div>
+</div>
+@section styles{
+    <style>
+        .roomInfo {
+            text-shadow: 0 0 1px #ffffff;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+}
+@section scripts{
+    <script src="~/lib/js/home/services.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            showServices();
+        });
+    </script>
+}

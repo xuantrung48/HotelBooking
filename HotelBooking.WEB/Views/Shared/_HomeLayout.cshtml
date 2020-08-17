@@ -31,7 +31,7 @@
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__logo">
-            <a href="./index.html"><img src="~/lib/hiroto/img/logo.png" alt=""></a>
+            <a asp-action="Index" asp-controller="Home"><img src="~/lib/hiroto/img/logo.png" alt=""></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__btn__widget">
@@ -45,8 +45,8 @@
         </div>
         <div class="offcanvas__auth">
             <ul>
-                <li><a href="#">Đăng nhập</a></li>
-                <li><a href="#">Đăng ký</a></li>
+                <li><a asp-controller="User" asp-action="Login" method="get">Đăng nhập</a></li>
+                <li><a asp-controller="User" asp-action="Register" method="get">Đăng ký</a></li>
             </ul>
         </div>
     </div>
@@ -81,15 +81,16 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="header__logo">
-                            <a href="./index.html"><img src="~/lib/hiroto/img/logo.png" alt=""></a>
+                            <a asp-action="Index" asp-controller="Home"><img src="~/lib/hiroto/img/logo.png" alt=""></a>
                         </div>
                     </div>
                     <div class="col-lg-10">
                         <div class="header__nav">
                             <nav class="header__menu">
                                 <ul class="menu__class">
-                                    <li class="active"><a href="./index.html">Home</a></li>
-                                    <li><a href="./rooms.html">Rooms</a></li>
+                                    <li class="active"><a asp-action="Index" asp-controller="Home">Trang chủ</a></li>
+                                    <li><a asp-action="Index" asp-controller="Rooms">Phòng</a></li>
+                                    <li><a asp-action="Index" asp-controller="Services">Dịch vụ</a></li>
                                     <li><a href="./about.html">About Us</a></li>
                                     <li>
                                         <a href="#">Pages</a>
