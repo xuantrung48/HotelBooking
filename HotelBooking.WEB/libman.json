@@ -7,14 +7,6 @@
       "destination": "wwwroot/lib/bootstrap/"
     },
     {
-      "library": "jquery@3.5.1",
-      "destination": "wwwroot/lib/jquery/"
-    },
-    {
-      "library": "jquery-validate@1.19.2",
-      "destination": "wwwroot/lib/jquery-validate/"
-    },
-    {
       "library": "jquery-validation-unobtrusive@3.2.11",
       "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
     },
@@ -45,6 +37,14 @@
     {
       "library": "select2@4.0.13",
       "destination": "wwwroot/lib/select2/"
+    },
+    {
+      "library": "jquery@3.5.1",
+      "destination": "wwwroot/lib/jquery3.5.1/"
+    },
+    {
+      "library": "jquery-validate@1.19.2",
+      "destination": "wwwroot/lib/jquery-validate1.19.2/"
     }
   ]
 }
