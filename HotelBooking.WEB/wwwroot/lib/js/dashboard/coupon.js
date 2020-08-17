@@ -13,7 +13,7 @@ coupon.validation = function () {
     $.validator.addMethod(
         "regex",
         function (value, element, regexp) {
-            return this.optional(element) || regexp.test(value);
+            return this.optional(element) || regexp.test(value.trim());
         },
         "Please check your input."
     );
@@ -117,7 +117,7 @@ coupon.save = function () {
     if ($('#form').valid()) {
         var couponObj = {};
         couponObj.CouponId = parseInt($('#CouponId').val());
-        couponObj.CouponCode = $('#CouponCode').val();
+        couponObj.CouponCode = $('#CouponCode').val().trim();
         couponObj.Remain = parseInt($('#Remain').val());
         couponObj.EndDate = new Date($('#EndDate').val());
         couponObj.Reduction = parseFloat($('#Reduction').val() / 100);

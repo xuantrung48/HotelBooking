@@ -298,6 +298,7 @@
             $(`.rowService_${id}`).remove();
         };
         save = function () {
+            
             if ($('#form').valid()) {
                 var bookingObj = {};
                 var customerObj = {};
@@ -329,9 +330,9 @@
                 //bookingObj.BookingCustomer.PhoneNumber = $('#PhoneNumber').val();
                 //bookingObj.BookingCustomer.Email = $('#Email').val();
                 //bookingObj.BookingCustomer.CustomerId = parseInt($('#CustomerId').val());
-                customerObj.Name = $('#Name').val();
-                customerObj.PhoneNumber = $('#PhoneNumber').val();
-                customerObj.Email = $('#Email').val();
+                customerObj.Name = $('#Name').val().trim();
+                customerObj.PhoneNumber = $('#PhoneNumber').val().trim();
+                customerObj.Email = $('#Email').val().trim();
                 customerObj.CustomerId = parseInt($('#CustomerId').val());
                 bookingObj.NumberofChildren = parseInt($('#NumberofChildren').val());
                 bookingObj.NumberofAdults = parseInt($('#NumberofAdults').val());

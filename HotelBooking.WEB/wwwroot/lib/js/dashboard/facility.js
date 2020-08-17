@@ -12,7 +12,7 @@ facility.validation = function () {
     $.validator.addMethod(
         "regex",
         function (value, element, regexp) {
-            return this.optional(element) || regexp.test(value);
+            return this.optional(element) || regexp.test(value.trim());
         },
         "Please check your input."
     );
@@ -23,7 +23,7 @@ facility.validation = function () {
                 regex: /^[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+(([',. -][a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ ])?[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]*)*$/
             },
             FacilityImage: {
-                required: true,
+                extension: "jpg,jpeg,png"
             }
         },
         messages: {
@@ -32,7 +32,7 @@ facility.validation = function () {
                 regex: "Tên tiện nghi chứa chữ số và kí tự đặc biệt"
             },
             FacilityImage: {
-                required: "Bạn phải đưa một đường dẫn ảnh"
+                extension: "Bạn phải đưa một đường dẫn ảnh"
             }
         }
     })
@@ -70,7 +70,7 @@ facility.get = function (id) {
         dataType: "json",
         success: function (data) {
             $('.modal-title').text('Đổi thông tin tiện nghi');
-            $('#FacilityName').val(data.result.facilityName);
+            $('#FacilityName').val(data.result.facilityName).trim();
             $('#FacilityId').val(data.result.facilityId);
             $('#FacilityImage').val(data.result.facilityImage);
             $('#imgPreview').append(
@@ -85,7 +85,7 @@ facility.get = function (id) {
 facility.save = function () {
     if ($('#form').valid) {
         var facilityObj = {};
-        facilityObj.FacilityName = $('#FacilityName').val();
+        facilityObj.FacilityName = $('#FacilityName').val().trim();
         facilityObj.FacilityId = parseInt($('#FacilityId').val());
         facilityObj.FacilityImage = $('#FacilityImage').val();
         $.ajax({
