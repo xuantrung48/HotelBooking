@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Danh sách phòng";
+}
+
+<div class="container mt-5" id="bookroom" style="background-color:darkslategrey;padding-top: 1em; padding-bottom: 1em;">
+    <div class="row">
+        <div class="col-lg-12">
+            <form action="#" class="filter__form">
+                <div class="filter__form__item">
+                    <p>Nhận phòng</p>
+                    <div class="filter__form__datepicker">
+                        <span class="icon_calendar"></span>
+                        <input type="text" class="datepicker_pop check__in">
+                        <i class="arrow_carrot-down"></i>
+                    </div>
+                </div>
+                <div class="filter__form__item">
+                    <p>Trả phòng</p>
+                    <div class="filter__form__datepicker">
+                        <span class="icon_calendar"></span>
+                        <input type="text" class="datepicker_pop check__out">
+                        <i class="arrow_carrot-down"></i>
+                    </div>
+                </div>
+                <div class="filter__form__item filter__form__item--select">
+                    <p>Số người</p>
+                    <div class="filter__form__select">
+                        <span class="icon_group"></span>
+                        <select>
+                            <option value="">2 Adult, 1 Children</option>
+                            <option value="">2 Adult</option>
+                            <option value="">1 Adult</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit">Đặt phòng</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h2 class="my-5 text-center">@ViewData["Title"]</h2>
+    <div class="row" id="rooms">
+    </div>
+</div>
+@section styles{
+    <style>
+        .roomInfo {
+            text-shadow: 0 0 1px #ffffff;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+}
+@section scripts{
+    <script src="~/lib/js/home/rooms.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            showRoomTypes();
+        });
+    </script>
+}
