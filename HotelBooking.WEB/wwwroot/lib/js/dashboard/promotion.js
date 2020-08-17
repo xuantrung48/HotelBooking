@@ -37,7 +37,7 @@ promotion.validation = function () {
             StartDate: "required",
             EndDate: {
                 required: true,
-                greaterThan: ["#CheckinDate", "CheckinDate"]
+                greaterThan: ["#StartDate", "StartDate"]
             },
             roomTypes: {
                 required: true
