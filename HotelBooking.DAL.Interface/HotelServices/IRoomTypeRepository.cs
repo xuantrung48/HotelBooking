@@ -1,4 +1,5 @@
-﻿using HotelBooking.Domain.Response;
+﻿using HotelBooking.Domain.Request.Booking;
+using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,5 +15,6 @@ namespace HotelBooking.DAL.Interface.HotelServices
         Task<ActionsResult> Save(RoomType roomType);
 
         Task<ActionsResult> Delete(int id);
+        Task<IEnumerable<RoomType>> Search(CreateBookingRequest request);
     }
 }
