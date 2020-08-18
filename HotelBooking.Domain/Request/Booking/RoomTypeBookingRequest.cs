@@ -1,8 +1,10 @@
-﻿namespace HotelBooking.Domain.Request.Booking
+﻿using HotelBooking.Domain.Response.HotelServices;
+
+namespace HotelBooking.Domain.Request.Booking
 {
     public class RoomTypeBookingRequest
     {
-        public int RoomTypeId { get; set; }
+        public RoomType RoomType { get; set; }
         public int Quantity { get; set; }
 
     }
