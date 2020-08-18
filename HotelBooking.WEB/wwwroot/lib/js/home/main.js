@@ -105,3 +105,70 @@ showRoomTypes = function () {
         }
     });
 }
+
+$('#minusRoom').click(function () {
+    if ($('#numberOfRooms').val() > 1) {
+        $('#numberOfRooms').val(parseInt($('#numberOfRooms').val()) - 1);
+    };
+    changeNumberOfRooms();
+});
+
+$('#addRoom').click(function () {
+    $('#numberOfRooms').val(parseInt($('#numberOfRooms').val()) + 1);
+    changeNumberOfRooms();
+});
+
+changeNumberOfRooms = function () {
+    var rooms = parseInt($('#numberOfRooms').val());
+    $('#selectRooms').empty();
+    for (let i = 0; i < rooms; i++) {
+        $('#selectRooms').append(
+            `<h5>Phòng ${i + 1}</h5>
+            <div class"row">
+                <p class="col-1">Người lớn:</p>
+                <input type="button" class="col-2" value="-" onclick="minusAdults(${i + 1})">
+                <input type="number" readonly value="1" step="1" min="1" id="adults${i + 1}" class="col-5" inputmode="numeric" />
+                <input type="button" class="col-2" value="+" onclick="addAdults(${i + 1})">
+            </div>
+            <div class"row">
+                <p class="col-1">Trẻ em:</p>
+                <input type="button" class="col-2" value="-" onclick="minusChildren(${i + 1})">
+                <input type="number" readonly value="0" step="1" min="1" id="children${i + 1}" class="col-5" inputmode="numeric" />
+                <input type="button" class="col-2" value="+" onclick="addChildren(${i + 1})">
+            </div>`
+        );
+    };
+}
+
+minusAdults = function (room) {
+    if ($(`#adults${room}`).val() > 1) {
+        $(`#adults${room}`).val(parseInt($(`#adults${room}`).val()) - 1);
+    };
+}
+
+addAdults = function (room) {
+    $(`#adults${room}`).val(parseInt($(`#adults${room}`).val()) + 1);
+}
+
+minusChildren = function (room) {
+    if ($(`#children${room}`).val() > 0) {
+        $(`#children${room}`).val(parseInt($(`#children${room}`).val()) - 1);
+    };
+}
+
+addChildren = function (room) {
+    $(`#children${room}`).val(parseInt($(`#children${room}`).val()) + 1);
+}
+
+Search = function () {
+    var searchRequest = {};
+    searchRequest.CheckInDate = new Date($('.check__in').val());
+    searchRequest.CheckOutDate = new Date($('.check__out').val());
+    searchRequest.Rooms = [];
+    for (let i = 0; i < parseInt($('#numberOfRooms').val()); i++) {
+        searchRequest.Rooms[i] = {};
+        searchRequest.Rooms[i].Adults = parseInt($(`#adults${i + 1}`).val());
+        searchRequest.Rooms[i].Children = parseInt($(`#children${i + 1}`).val());
+    }
+    console.log(searchRequest);
+}

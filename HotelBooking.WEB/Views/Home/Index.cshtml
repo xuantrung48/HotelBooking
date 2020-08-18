@@ -29,16 +29,28 @@
                     </div>
                     <div class="filter__form__item filter__form__item--select">
                         <p>Số phòng</p>
-                        <div class="filter__form__select">
-                            <span class="icon_group"></span>
-                            <select>
-                                <option value="">2 Adult, 1 Children</option>
-                                <option value="">2 Adult</option>
-                                <option value="">1 Adult</option>
-                            </select>
+                        <div class="filter__form__input dropdown row">
+                            <input type="button" class="col-2" value="-" id="minusRoom">
+                            <input type="number" readonly value="1" step="1" min="1" id="numberOfRooms" class="col-5" inputmode="numeric" />
+                            <input type="button" class="col-2" value="+" id="addRoom">
+                            <div class="dropdown-content" id="selectRooms">
+                                <h5>Phòng 1</h5>
+                                <div class"row">
+                                    <p class="col-4">Người lớn:</p>
+                                    <input type="button" class="col-1" value="-" onclick="minusAdults(1)">
+                                    <input type="number" readonly value="1" step="1" min="1" id="adults1" class="col-6" inputmode="numeric" />
+                                    <input type="button" class="col-1" value="+" onclick="addAdults(1)">
+                                </div>
+                                <div class"row">
+                                    <p class="col-4">Trẻ em:</p>
+                                    <input type="button" class="col-1" value="-" onclick="minusChildren(1)">
+                                    <input type="number" readonly value="0" step="1" min="1" id="children1" class="col-6" inputmode="numeric" />
+                                    <input type="button" class="col-1" value="+" onclick="addChildren(1)">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <button type="submit">Đặt phòng</button>
+                    <button type="button" onclick="Search()">Đặt phòng</button>
                 </form>
             </div>
         </div>
