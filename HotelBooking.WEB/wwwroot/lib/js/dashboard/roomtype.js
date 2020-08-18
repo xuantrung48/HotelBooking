@@ -90,7 +90,7 @@ roomType.validation = function () {
                 required: "Chọn một loại phòng"
             },
             Description: {
-                required: "Chọn một loại dịch vụ"
+                required: "Bạn phải nhập số mô tả"
             }
         }
     })
@@ -98,6 +98,9 @@ roomType.validation = function () {
 roomType.drawTable = function () {
     $('#roomTypesTable').empty();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: "/RoomType/GetAll",
         method: "GET",
         dataType: "json",
@@ -118,6 +121,9 @@ roomType.drawTable = function () {
                     </tr>`
                 );
             });
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -126,6 +132,9 @@ roomType.get = function (id) {
     roomType.reset();
 
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: `/RoomType/GetWithImagesAndFacilities/${id}`,
         method: "GET",
         dataType: "json",
@@ -164,6 +173,9 @@ roomType.get = function (id) {
             $('#Quantity').val(data.result.quantity);
             $('#mediumModal').appendTo("body");
             $('#mediumModal').modal('show');
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -193,6 +205,9 @@ roomType.save = function () {
             });
         }
         $.ajax({
+            beforeSend: function () {
+                $('#modal-loader').css("visibility", "visible");
+            },
             url: `/RoomType/Save/`,
             method: "POST",
             dataType: "json",
@@ -202,6 +217,9 @@ roomType.save = function () {
                 $('#mediumModal').modal('hide');
                 bootbox.alert(data.result.message);
                 roomType.drawTable();
+            },
+            complete: function () {
+                $('#modal-loader').css("visibility", "hidden");
             }
         });
     }
@@ -222,12 +240,18 @@ roomType.delete = function (id, name) {
         callback: function (result) {
             if (result) {
                 $.ajax({
+                    beforeSend: function () {
+                        $('.ajax-loader').css("visibility", "visible");
+                    },
                     url: `/RoomType/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
                         bootbox.alert(data.result.message);
                         roomType.drawTable();
+                    },
+                    complete: function () {
+                        $('.ajax-loader').css("visibility", "hidden");
                     }
                 });
             }
@@ -238,6 +262,9 @@ roomType.delete = function (id, name) {
 roomType.add = function () {
     roomType.reset();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: `/Facility/GetAll`,
         method: "GET",
         dataType: "json",
@@ -248,6 +275,9 @@ roomType.add = function () {
                 );
             });
             $('#facilities').select2();
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
     $('.modal-title').text('Thêm loại phòng');
@@ -314,6 +344,9 @@ roomType.deleteImage = function (roomTypeImageId) {
         callback: function (result) {
             if (result) {
                 $.ajax({
+                    beforeSend: function () {
+                        $('#modal-loader').css("visibility", "visible");
+                    },
                     url: `/RoomTypeImage/Delete/${roomTypeImageId}`,
                     method: "GET",
                     dataType: "json",
@@ -333,6 +366,9 @@ roomType.deleteImage = function (roomTypeImageId) {
                                 });
                             }
                         });
+                    },
+                    complete: function () {
+                        $('#modal-loader').css("visibility", "hidden");
                     }
                 });
             }

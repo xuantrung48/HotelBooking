@@ -114,6 +114,9 @@ booking.validation = function () {
 booking.drawTable = function () {
     $('#bookingTable').empty();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: "/Booking/GetAll",
         method: "GET",
         dataType: "json",
@@ -136,6 +139,9 @@ booking.drawTable = function () {
                     </tr>`
                 );
             });
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -164,6 +170,9 @@ booking.reset = function () {
 booking.get = function (id) {
     booking.reset();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: `/Booking/Get/${id}`,
         method: "GET",
         dataType: "json",
@@ -182,6 +191,9 @@ booking.get = function (id) {
             $('#CustomerId').val(data.result.customerId);
             //$('#mediumModal').appendTo("body");
             //$('#mediumModal').modal('show');
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 
@@ -209,6 +221,9 @@ booking.save = function () {
     bookingObj.bookingServiceDetails = $('#ServiceDetails').val();
     bookingObj.BookingCustomer = customerObj;
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: `/Booking/Save/`,
         method: "POST",
         dataType: "json",
@@ -219,6 +234,9 @@ booking.save = function () {
                 location.assign(`/Booking`);
             });
             booking.drawTable();
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -238,12 +256,18 @@ booking.delete = function (id, name) {
         callback: function (result) {
             if (result) {
                 $.ajax({
+                    beforeSend: function () {
+                        $('.ajax-loader').css("visibility", "visible");
+                    },
                     url: `/Booking/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
                         bootbox.alert(data.result.message);
                         booking.drawTable();
+                    },
+                    complete: function () {
+                        $('.ajax-loader').css("visibility", "hidden");
                     }
                 });
             }

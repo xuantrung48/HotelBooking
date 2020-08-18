@@ -40,6 +40,9 @@ facility.validation = function () {
 facility.drawTable = function () {
     $('#facilitiesTable').empty();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: "/Facility/GetAll",
         method: "GET",
         dataType: "json",
@@ -58,6 +61,9 @@ facility.drawTable = function () {
                     </tr>`
                 );
             });
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -65,6 +71,9 @@ facility.drawTable = function () {
 facility.get = function (id) {
     facility.reset();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: `/Facility/Get/${id}`,
         method: "GET",
         dataType: "json",
@@ -78,6 +87,9 @@ facility.get = function (id) {
             );
             $('#mediumModal').appendTo("body");
             $('#mediumModal').modal('show');
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -89,6 +101,9 @@ facility.save = function () {
         facilityObj.FacilityId = parseInt($('#FacilityId').val());
         facilityObj.FacilityImage = $('#FacilityImage').val();
         $.ajax({
+            beforeSend: function () {
+                $('#modal-loader').css("visibility", "visible");
+            },
             url: `/Facility/Save/`,
             method: "POST",
             dataType: "json",
@@ -98,6 +113,9 @@ facility.save = function () {
                 $('#mediumModal').modal('hide');
                 bootbox.alert(data.result.message);
                 facility.drawTable();
+            },
+            complete: function () {
+                $('#modal-loader').css("visibility", "hidden");
             }
         });
     }
@@ -118,12 +136,18 @@ facility.delete = function (id, name) {
         callback: function (result) {
             if (result) {
                 $.ajax({
+                    beforeSend: function () {
+                        $('.ajax-loader').css("visibility", "visible");
+                    },
                     url: `/Facility/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
                         bootbox.alert(data.result.message);
                         facility.drawTable();
+                    },
+                    complete: function () {
+                        $('.ajax-loader').css("visibility", "hidden");
                     }
                 });
             }

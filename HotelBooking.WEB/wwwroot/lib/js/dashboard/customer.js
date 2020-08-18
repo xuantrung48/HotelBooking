@@ -52,6 +52,9 @@ customer.validation = function () {
 customer.drawTable = function () {
     $('#customersTable').empty();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: "/Customer/GetAll",
         method: "GET",
         dataType: "json",
@@ -72,6 +75,9 @@ customer.drawTable = function () {
                     </tr>`
                 );
             });
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -93,6 +99,9 @@ customer.reset = function () {
 customer.get = function (id) {
     customer.reset();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: `/Customer/Get/${id}`,
         method: "GET",
         dataType: "json",
@@ -104,6 +113,9 @@ customer.get = function (id) {
             $('#Email').val(data.result.email);
             $('#mediumModal').appendTo("body");
             $('#mediumModal').modal('show');
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -116,6 +128,9 @@ customer.save = function () {
         customerObj.Email = $('#Email').val();
         customerObj.PhoneNumber = $('#PhoneNumber').val();
         $.ajax({
+            beforeSend: function () {
+                $('#modal-loader').css("visibility", "visible");
+            },
             url: `/Customer/Save/`,
             method: "POST",
             dataType: "json",
@@ -125,6 +140,9 @@ customer.save = function () {
                 $('#mediumModal').modal('hide');
                 bootbox.alert(data.result.message);
                 customer.drawTable();
+            },
+            complete: function () {
+                $('#modal-loader').css("visibility", "hidden");
             }
         });
     }
@@ -145,12 +163,18 @@ customer.delete = function (id, name) {
         callback: function (result) {
             if (result) {
                 $.ajax({
+                    beforeSend: function () {
+                        $('.ajax-loader').css("visibility", "visible");
+                    },
                     url: `/Customer/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
                         bootbox.alert(data.result.message);
                         customer.drawTable();
+                    },
+                    complete: function () {
+                        $('.ajax-loader').css("visibility", "hidden");
                     }
                 });
             }

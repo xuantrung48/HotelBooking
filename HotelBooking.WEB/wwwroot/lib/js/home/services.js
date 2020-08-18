@@ -4,6 +4,9 @@
 
 showServices = function () {
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: "/Service/GetAllWithImages",
         method: "GET",
         dataType: "json",
@@ -22,6 +25,9 @@ showServices = function () {
                     </div>`
                 );
             }
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }

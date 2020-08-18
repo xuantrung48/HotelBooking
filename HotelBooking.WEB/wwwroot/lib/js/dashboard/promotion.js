@@ -66,6 +66,9 @@ promotion.validation = function () {
 promotion.drawTable = function () {
     $('#promotionsTable').empty();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: "/Promotion/GetAll",
         method: "GET",
         dataType: "json",
@@ -87,6 +90,9 @@ promotion.drawTable = function () {
                     </tr>`
                 );
             });
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -95,6 +101,9 @@ promotion.add = function () {
     promotion.reset();
     $('.modal-title').text('Thêm chương trình khuyến mãi');
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: "/RoomType/GetAll",
         method: "GET",
         dataType: "json",
@@ -105,6 +114,9 @@ promotion.add = function () {
                 );
             });
             $('#roomTypes').select2();
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
     $('#mediumModal').appendTo("body");
@@ -123,6 +135,9 @@ promotion.reset = function () {
 promotion.get = function (id) {
     promotion.reset();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: `/Promotion/Get/${id}`,
         method: "GET",
         dataType: "json",
@@ -160,6 +175,9 @@ promotion.get = function (id) {
             $('#EndDate').val(dateToYMD(data.result.endDate));
             $('#mediumModal').appendTo("body");
             $('#mediumModal').modal('show');
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -181,6 +199,9 @@ promotion.save = function () {
             });
         }
         $.ajax({
+            beforeSend: function () {
+                $('#modal-loader').css("visibility", "visible");
+            },
             url: `/Promotion/Save/`,
             method: "POST",
             dataType: "json",
@@ -190,6 +211,9 @@ promotion.save = function () {
                 $('#mediumModal').modal('hide');
                 bootbox.alert(data.result.message);
                 promotion.drawTable();
+            },
+            complete: function () {
+                $('#modal-loader').css("visibility", "hidden");
             }
         });
     }
@@ -210,12 +234,18 @@ promotion.delete = function (id, name) {
         callback: function (result) {
             if (result) {
                 $.ajax({
+                    beforeSend: function () {
+                        $('.ajax-loader').css("visibility", "visible");
+                    },
                     url: `/Promotion/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
                         bootbox.alert(data.result.message);
                         promotion.drawTable();
+                    },
+                    complete: function () {
+                        $('.ajax-loader').css("visibility", "hidden");
                     }
                 });
             }
