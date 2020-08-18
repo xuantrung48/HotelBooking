@@ -15,6 +15,6 @@ namespace HotelBooking.BAL.Interface.HotelServices
         Task<RoomType> GetByIdWithImagesAndFacilities(int id);
         Task<ActionsResult> Save(CreateRoomTypeRequest roomType);
         Task<ActionsResult> Delete(int id);
-        Task<IEnumerable<int>> Search(CreateBookingRequest request);
+        Task<IEnumerable<RoomTypeSearchResult>> Search(SearchModel request);
     }
 }

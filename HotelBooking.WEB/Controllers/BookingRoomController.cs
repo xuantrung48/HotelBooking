@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HotelBooking.Domain.Response.HotelServices;
+using Microsoft.AspNetCore.Mvc;
+using ShopDienThoai.Web.Ultilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +14,11 @@ namespace HotelBooking.WEB.Controllers
         {
             return View();
         }
+        //public JsonResult GetRoomType(int id, int minRemain)
+        //{
+        //    var listRoomType = ApiHelper<List<RoomType>>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getall");
+        //    var result = (from 
+        //    return Json(new { result });
+        //}
     }
 }

@@ -33,7 +33,7 @@ booking.validation = function () {
             },
             PhoneNumber: {
                 required: true,
-                regex: /^\(?(0|[3|5|7|8|9])+([0-9]{5})$/,
+                regex: /^\(?(0|[3|5|7|8|9])+([0-9]{8})$/,
 
             },
             Email: {
