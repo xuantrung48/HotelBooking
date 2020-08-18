@@ -520,17 +520,17 @@ ol {
 }
 
 .filter__form__item {
-	width: 175px;
+	width: 300px;
 	float: left;
 	margin-right: 30px;
 }
 
 .filter__form__item.filter__form__item--search {
-	width: 260px;
+	width: 300px;
 }
 
 .filter__form__item.filter__form__item--select {
-	width: 230px;
+	width: 300px;
 }
 
 .filter__form__item p {
@@ -2672,7 +2672,7 @@ ol {
 		width: calc(21% - 20px);
 	}
 	.filter__form__item {
-		width: calc(20% - 20px);
+		width: calc(30% - 20px);
 		float: left;
 		margin-right: 20px;
 	}

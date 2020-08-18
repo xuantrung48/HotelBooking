@@ -123,7 +123,7 @@ changeNumberOfRooms = function () {
     $('#selectRooms').empty();
     for (let i = 0; i < rooms; i++) {
         $('#selectRooms').append(
-            `<h5>Phòng ${i + 1}</h5>
+            `<h4>Phòng ${i + 1}:</h4>
             <div class"row">
                 <p class="col-4 d-inline-block">Người lớn:</p>
                 <input type="button" class="col-1 d-inline-block" value="-" onclick="minusAdults(${i + 1})">
