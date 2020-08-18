@@ -1,6 +1,7 @@
 ﻿using HotelBooking.BAL.Interface.HotelServices;
 using HotelBooking.DAL.Interface.Facilities;
 using HotelBooking.DAL.Interface.HotelServices;
+using HotelBooking.Domain.Request.Booking;
 using HotelBooking.Domain.Request.HotelServices;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Facilities;
@@ -103,6 +104,11 @@ namespace HotelBooking.BAL.HotelServices
                 });
             }
             return createRoomtypeResult;
+        }
+
+        public Task<IEnumerable<RoomType>> Search(CreateBookingRequest request)
+        {
+            return roomTypeRepository.Search(request);
         }
     }
 }

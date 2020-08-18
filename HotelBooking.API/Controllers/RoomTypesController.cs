@@ -1,4 +1,5 @@
 ﻿using HotelBooking.BAL.Interface.HotelServices;
+using HotelBooking.Domain.Request.Booking;
 using HotelBooking.Domain.Request.HotelServices;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
@@ -55,6 +56,12 @@ namespace HotelBooking.API.Controllers
         public async Task<ActionsResult> Remove(int id)
         {
             return await roomTypeService.Delete(id);
+        }
+        [HttpPost]
+        [Route("api/roomtypes/search")]
+        public Task<IEnumerable<RoomType>> Search(CreateBookingRequest request)
+        {
+            return roomTypeService.Search(request);
         }
     }
 }

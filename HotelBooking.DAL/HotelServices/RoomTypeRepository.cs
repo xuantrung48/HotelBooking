@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using HotelBooking.DAL.Interface.HotelServices;
+using HotelBooking.Domain.Request.Booking;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
 using System;
@@ -53,6 +54,16 @@ namespace HotelBooking.DAL.HotelServices
                     Message = "Có lỗi xảy ra, xin thử lại!"
                 };
             }
+        }
+
+        public async Task<IEnumerable<RoomType>> Search(CreateBookingRequest request)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@Adult", request.NumberofAdults);
+            parameters.Add("@Children", request.NumberofChildren);
+            parameters.Add("@CheckInDate", request.CheckinDate);
+            parameters.Add("@CheckOutDate", request.CheckoutDate);
+            return await SqlMapper.QueryAsync<RoomType>(cnn: conn, sql: "RoomType_Search", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }
