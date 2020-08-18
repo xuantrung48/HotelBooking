@@ -59,7 +59,7 @@ namespace HotelBooking.API.Controllers
         }
         [HttpPost]
         [Route("api/roomtypes/search")]
-        public Task<IEnumerable<int>> Search(CreateBookingRequest request)
+        public Task<IEnumerable<RoomTypeSearchResult>> Search(SearchModel request)
         {
             return roomTypeService.Search(request);
         }

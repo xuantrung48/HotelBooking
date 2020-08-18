@@ -107,7 +107,7 @@ namespace HotelBooking.BAL.HotelServices
             return createRoomtypeResult;
         }
 
-        public async Task<IEnumerable<int>> Search(CreateBookingRequest request)
+        public async Task<IEnumerable<RoomTypeSearchResult>> Search(SearchModel request)
         {
             return await roomTypeRepository.Search(request);
         }
