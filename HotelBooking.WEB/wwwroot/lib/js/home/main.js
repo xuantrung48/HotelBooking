@@ -125,16 +125,16 @@ changeNumberOfRooms = function () {
         $('#selectRooms').append(
             `<h5>Phòng ${i + 1}</h5>
             <div class"row">
-                <p class="col-1">Người lớn:</p>
-                <input type="button" class="col-2" value="-" onclick="minusAdults(${i + 1})">
-                <input type="number" readonly value="1" step="1" min="1" id="adults${i + 1}" class="col-5" inputmode="numeric" />
-                <input type="button" class="col-2" value="+" onclick="addAdults(${i + 1})">
+                <p class="col-4 d-inline-block">Người lớn:</p>
+                <input type="button" class="col-1 d-inline-block" value="-" onclick="minusAdults(${i + 1})">
+                <input type="number" readonly value="1" step="1" min="1" id="adults${i + 1}" class="col-3 d-inline-block" inputmode="numeric" />
+                <input type="button" class="col-1 d-inline-block" value="+" onclick="addAdults(${i + 1})">
             </div>
             <div class"row">
-                <p class="col-1">Trẻ em:</p>
-                <input type="button" class="col-2" value="-" onclick="minusChildren(${i + 1})">
-                <input type="number" readonly value="0" step="1" min="1" id="children${i + 1}" class="col-5" inputmode="numeric" />
-                <input type="button" class="col-2" value="+" onclick="addChildren(${i + 1})">
+                <p class="col-4 d-inline-block">Trẻ em:</p>
+                <input type="button" class="col-1 d-inline-block" value="-" onclick="minusChildren(${i + 1})">
+                <input type="number" readonly value="0" step="1" min="1" id="children${i + 1}" class="col-3 d-inline-block" inputmode="numeric" />
+                <input type="button" class="col-1 d-inline-block" value="+" onclick="addChildren(${i + 1})">
             </div>`
         );
     };
