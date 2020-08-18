@@ -15,6 +15,6 @@ namespace HotelBooking.DAL.Interface.HotelServices
         Task<ActionsResult> Save(RoomType roomType);
 
         Task<ActionsResult> Delete(int id);
-        Task<IEnumerable<RoomType>> Search(CreateBookingRequest request);
+        Task<IEnumerable<int>> Search(CreateBookingRequest request);
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace HotelBooking.Domain.Response.HotelServices
+﻿using HotelBooking.Domain.Response.Facilities;
+using System.Collections.Generic;
+
+namespace HotelBooking.Domain.Response.HotelServices
 {
     public class RoomTypes
     {
@@ -11,5 +14,6 @@
         public int MaxChildren { get; set; }
         public int MaxPeople { get; set; }
         public string Image { get; set; }
+        public IEnumerable<Facility> Facilities { get; set; }
     }
 }

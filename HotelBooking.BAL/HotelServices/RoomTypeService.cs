@@ -8,6 +8,7 @@ using HotelBooking.Domain.Response.Facilities;
 using HotelBooking.Domain.Response.HotelServices;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace HotelBooking.BAL.HotelServices
@@ -54,7 +55,7 @@ namespace HotelBooking.BAL.HotelServices
         {
             var getRoomTypes = new List<RoomTypes>();
             var roomTypes = await roomTypeRepository.GetAll();
-            foreach(var roomType in roomTypes)
+            foreach (var roomType in roomTypes)
             {
                 getRoomTypes.Add(new RoomTypes()
                 {
@@ -106,9 +107,9 @@ namespace HotelBooking.BAL.HotelServices
             return createRoomtypeResult;
         }
 
-        public Task<IEnumerable<RoomType>> Search(CreateBookingRequest request)
+        public async Task<IEnumerable<int>> Search(CreateBookingRequest request)
         {
-            return roomTypeRepository.Search(request);
+            return await roomTypeRepository.Search(request);
         }
     }
 }
