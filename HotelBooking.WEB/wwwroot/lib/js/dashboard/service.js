@@ -71,6 +71,9 @@ service.validation = function () {
 service.drawTable = function () {
     $('#serviceTable').empty();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: "/Service/GetAll",
         method: "GET",
         dataType: "json",
@@ -90,6 +93,9 @@ service.drawTable = function () {
                     </tr>`
                 );
             });
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -114,6 +120,9 @@ service.reset = function () {
 service.get = function (id) {
     service.reset();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: `/Service/GetWithImages/${id}`,
         method: "GET",
         dataType: "json",
@@ -130,6 +139,9 @@ service.get = function (id) {
             $('#Description').val(data.result.description);
             $('#mediumModal').appendTo("body");
             $('#mediumModal').modal('show');
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -147,6 +159,9 @@ service.save = function () {
             serviceObj.Images[i] = $(`#img${i}`).val();
         };
         $.ajax({
+            beforeSend: function () {
+                $('#modal-loader').css("visibility", "visible");
+            },
             url: `/Service/Save/`,
             method: "POST",
             dataType: "json",
@@ -156,6 +171,9 @@ service.save = function () {
                 $('#mediumModal').modal('hide');
                 bootbox.alert(data.result.message);
                 service.drawTable();
+            },
+            complete: function () {
+                $('#modal-loader').css("visibility", "hidden");
             }
         });
     }
@@ -176,12 +194,18 @@ service.delete = function (id, name) {
         callback: function (result) {
             if (result) {
                 $.ajax({
+                    beforeSend: function () {
+                        $('.ajax-loader').css("visibility", "visible");
+                    },
                     url: `/Service/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
                         bootbox.alert(data.result.message);
                         service.drawTable();
+                    },
+                    complete: function () {
+                        $('.ajax-loader').css("visibility", "hidden");
                     }
                 });
             }
@@ -233,6 +257,9 @@ service.deleteImage = function (serviceImageId) {
         callback: function (result) {
             if (result) {
                 $.ajax({
+                    beforeSend: function () {
+                        $('#modal-loader').css("visibility", "visible");
+                    },
                     url: `/ServiceImage/Delete/${serviceImageId}`,
                     method: "GET",
                     dataType: "json",
@@ -252,6 +279,9 @@ service.deleteImage = function (serviceImageId) {
                                 });
                             }
                         });
+                    },
+                    complete: function () {
+                        $('#modal-loader').css("visibility", "hidden");
                     }
                 });
             }

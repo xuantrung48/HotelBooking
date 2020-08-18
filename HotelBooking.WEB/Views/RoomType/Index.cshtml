@@ -12,6 +12,9 @@
     </div>
 </div>
 
+<div class="ajax-loader">
+    <img src="~/images/loading.gif" class="img-responsive" />
+</div>
 <table class="table table-borderless table-striped table-earning">
     <thead>
         <tr>
@@ -30,6 +33,9 @@
 <div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
+            <div class="ajax-loader" id="modal-loader">
+                <img src="~/images/loading.gif" class="img-responsive" />
+            </div>
             <div class="modal-header">
                 <h3 class="modal-title" id="mediumModalLabel"></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -186,6 +192,7 @@
         .select2-search__field {
             width: 100% !important; /*makes the placeholder to be 100% of the width while there are no options selected*/
         }
+
         .remove-image {
             display: none;
             position: absolute;

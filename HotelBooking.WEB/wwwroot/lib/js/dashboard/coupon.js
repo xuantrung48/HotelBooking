@@ -53,6 +53,9 @@ coupon.validation = function () {
 coupon.drawTable = function () {
     $('#couponsTable').empty();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: "/Coupon/GetAll",
         method: "GET",
         dataType: "json",
@@ -75,6 +78,9 @@ coupon.drawTable = function () {
                     </tr>`
                 );
             });
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -97,6 +103,9 @@ coupon.reset = function () {
 coupon.get = function (id) {
     coupon.reset();
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: `/Coupon/Get/${id}`,
         method: "GET",
         dataType: "json",
@@ -109,6 +118,9 @@ coupon.get = function (id) {
             $('#Reduction').val(data.result.reduction * 100);
             $('#mediumModal').appendTo("body");
             $('#mediumModal').modal('show');
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -122,6 +134,9 @@ coupon.save = function () {
         couponObj.EndDate = new Date($('#EndDate').val());
         couponObj.Reduction = parseFloat($('#Reduction').val() / 100);
         $.ajax({
+            beforeSend: function () {
+                $('#modal-loader').css("visibility", "visible");
+            },
             url: `/Coupon/Save/`,
             method: "POST",
             dataType: "json",
@@ -131,6 +146,9 @@ coupon.save = function () {
                 $('#mediumModal').modal('hide');
                 bootbox.alert(data.result.message);
                 coupon.drawTable();
+            },
+            complete: function () {
+                $('#modal-loader').css("visibility", "hidden");
             }
         });
     }
@@ -151,12 +169,18 @@ coupon.delete = function (id, name) {
         callback: function (result) {
             if (result) {
                 $.ajax({
+                    beforeSend: function () {
+                        $('.ajax-loader').css("visibility", "visible");
+                    },
                     url: `/Coupon/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
                         bootbox.alert(data.result.message);
                         coupon.drawTable();
+                    },
+                    complete: function () {
+                        $('.ajax-loader').css("visibility", "hidden");
                     }
                 });
             }

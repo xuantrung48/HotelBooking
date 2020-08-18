@@ -4,6 +4,9 @@
 
 showRoomTypes = function () {
     $.ajax({
+        beforeSend: function () {
+            $('#ajax-loader-roomTypes').css("visibility", "visible");
+        },
         url: "/RoomType/GetAllWithImages",
         method: "GET",
         dataType: "json",
@@ -54,9 +57,15 @@ showRoomTypes = function () {
                     }
                 }
             })
+        },
+        complete: function () {
+            $('#ajax-loader-roomTypes').css("visibility", "hidden");
         }
     });
     $.ajax({
+        beforeSend: function () {
+            $('#ajax-loader-services').css("visibility", "visible");
+        },
         url: "/Service/GetAllWithImages",
         method: "GET",
         dataType: "json",
@@ -90,6 +99,9 @@ showRoomTypes = function () {
                     );
                 }
             }
+        },
+        complete: function () {
+            $('#ajax-loader-services').css("visibility", "hidden");
         }
     });
 }

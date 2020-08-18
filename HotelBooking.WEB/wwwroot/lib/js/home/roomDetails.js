@@ -1,5 +1,8 @@
 ﻿showRoomDetails = function (id) {
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: `/RoomType/GetWithImagesAndFacilities/${id}`,
         method: "GET",
         dataType: "json",
@@ -60,6 +63,9 @@
                     </div>`
                 )
             });
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
