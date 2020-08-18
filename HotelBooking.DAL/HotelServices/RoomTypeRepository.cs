@@ -56,14 +56,14 @@ namespace HotelBooking.DAL.HotelServices
             }
         }
 
-        public async Task<IEnumerable<RoomType>> Search(CreateBookingRequest request)
+        public async Task<IEnumerable<int>> Search(CreateBookingRequest request)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@Adult", request.NumberofAdults);
             parameters.Add("@Children", request.NumberofChildren);
             parameters.Add("@CheckInDate", request.CheckinDate);
             parameters.Add("@CheckOutDate", request.CheckoutDate);
-            return await SqlMapper.QueryAsync<RoomType>(cnn: conn, sql: "RoomType_Search", param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryAsync<int>(cnn: conn, sql: "RoomType_Search", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }
