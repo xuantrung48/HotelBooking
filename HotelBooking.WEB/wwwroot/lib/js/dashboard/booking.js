@@ -12,7 +12,7 @@ booking.validation = function () {
     $.validator.addMethod(
         "regex",
         function (value, element, regexp) {
-            return this.optional(element) || regexp.test(value);
+            return this.optional(element) || regexp.test(value.trim());
         },
         "Please check your input."
     );
@@ -24,6 +24,7 @@ booking.validation = function () {
         return isNaN(value) && isNaN($(params[0]).val()) || (Number(value) > Number($(params[0]).val()));
     },
         'Must be greater than {1}.');
+    //$('#Name').val(`${$('#Name').val().trim()}`);
     $('#form').validate({
         rules: {
             Name: {
@@ -32,13 +33,12 @@ booking.validation = function () {
             },
             PhoneNumber: {
                 required: true,
-                regex: /^\(?(0|[3|5|7|8|9])+([0-9]{8})$/,
-                range:[9, 10]
+                regex: /^\(?(0|[3|5|7|8|9])+([0-9]{5})$/,
 
             },
             Email: {
                 required: true,
-                email: true
+                regex: /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/
             },
             NumberofAdults: {
                 required: true,
@@ -80,7 +80,7 @@ booking.validation = function () {
             },
             Email: {
                 required: "Bạn phải nhập địa chỉ email",
-                email: "Địa chỉ email không hợp lệ"
+                regex: "Địa chỉ email không hợp lệ"
             },
             NumberofAdults: {
                 required: "Bạn phải nhập số lượng người lớn",
@@ -182,9 +182,9 @@ booking.get = function (id) {
             $('#BookingId').val(data.result.bookingId);
             $('#CheckinDate').val(dateToYMD(data.result.checkinDate));
             $('#CheckoutDate').val(dateToYMD(data.result.checkoutDate));
-            $('#Name').val(data.result.bookingCustomer.name);
-            $('#PhoneNumber').val(data.result.bookingCustomer.phoneNumber);
-            $('#Email').val(data.result.bookingCustomer.email);
+            $('#Name').val(data.result.bookingCustomer.name).trim();
+            $('#PhoneNumber').val(data.result.bookingCustomer.phoneNumber).trim();
+            $('#Email').val(data.result.bookingCustomer.email).trim();
             $('#NumberofAdults').val(data.result.numberofAdults);
             $('#NumberofChildren').val(data.result.numberofChildren);
             $('#CouponId').val(data.result.couponId);

@@ -14,7 +14,7 @@ service.validation = function () {
     $.validator.addMethod(
         "regex",
         function (value, element, regexp) {
-            return this.optional(element) || regexp.test(value);
+            return this.optional(element) || regexp.test(value.trim());
         },
         "Please check your input."
     );
@@ -25,7 +25,15 @@ service.validation = function () {
             }
             return isNaN(value) && isNaN($(params[0]).val()) || (Number(value) > Number($(params[0]).val()));
         },
-        'Must be greater than {1}.');
+        'Must be greater than {1}.'
+    );
+    //jQuery.validator.addMethod("fileExtensions",
+    //    function (file) {
+    //        const acceptedImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+    //        return file && $.inArray(file['type'], acceptedImageTypes)
+    //    },
+    //    'Must be image'
+    //);
     $('#form').validate({
         rules: {
             ServiceName: {
@@ -38,6 +46,9 @@ service.validation = function () {
             },
             Description: {
                 required: true
+            },
+            ServiceImages: {
+                extension: "jpg,jpeg,png"
             }
         },
         messages: {
@@ -51,7 +62,9 @@ service.validation = function () {
             },
             Description: {
                 required: "Bạn phải nhập phần mô tả dịch vụ"
-            }
+            },
+            ServiceImages: "Bạn phải đưa ảnh vào"
+
         }
     })
 }
@@ -138,7 +151,7 @@ service.save = function () {
         var imgsNo = parseInt($("#imgsNo").val());
         var serviceObj = {};
         serviceObj.ServiceId = parseInt($('#ServiceId').val());
-        serviceObj.ServiceName = $('#ServiceName').val();
+        serviceObj.ServiceName = $('#ServiceName').val().trim();
         serviceObj.Price = parseInt($('#Price').val());
         serviceObj.Description = $('#Description').val();
         serviceObj.Images = [];

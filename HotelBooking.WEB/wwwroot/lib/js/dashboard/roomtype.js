@@ -32,7 +32,7 @@ roomType.validation = function () {
         rules: {
             Name: {
                 required: true,
-                regex: /^[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+(([',. -][a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ ])?[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]*)*$/
+                regex: /^[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ ]+(([',. -][a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ ])?[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]*)*$/
             },
             DefaultPrice: {
                 required: true,
@@ -59,6 +59,9 @@ roomType.validation = function () {
             },
             Description: {
                 required: true
+            },
+            RoomTypeImages: {
+                extension: "jpg,jpeg,png"
             }
         },
         messages: {
@@ -87,10 +90,13 @@ roomType.validation = function () {
                 min: "Số lượng tối thiểu là 1"
             },
             facilities: {
-                required: "Chọn một loại phòng"
+                required: "Chọn một tiện nghi"
             },
             Description: {
-                required: "Bạn phải nhập số mô tả"
+                required: "Chọn một loại dịch vụ"
+            },
+            RoomTypeImages: {
+                extension: "Bạn phải đưa ảnh vào"
             }
         }
     })
@@ -98,9 +104,6 @@ roomType.validation = function () {
 roomType.drawTable = function () {
     $('#roomTypesTable').empty();
     $.ajax({
-        beforeSend: function () {
-            $('.ajax-loader').css("visibility", "visible");
-        },
         url: "/RoomType/GetAll",
         method: "GET",
         dataType: "json",
@@ -121,9 +124,6 @@ roomType.drawTable = function () {
                     </tr>`
                 );
             });
-        },
-        complete: function () {
-            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -132,9 +132,6 @@ roomType.get = function (id) {
     roomType.reset();
 
     $.ajax({
-        beforeSend: function () {
-            $('.ajax-loader').css("visibility", "visible");
-        },
         url: `/RoomType/GetWithImagesAndFacilities/${id}`,
         method: "GET",
         dataType: "json",
@@ -173,9 +170,6 @@ roomType.get = function (id) {
             $('#Quantity').val(data.result.quantity);
             $('#mediumModal').appendTo("body");
             $('#mediumModal').modal('show');
-        },
-        complete: function () {
-            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
@@ -184,7 +178,7 @@ roomType.save = function () {
     if ($('#form').valid()) {
         var imgsNo = parseInt($("#imgsNo").val());
         var roomTypeObj = {};
-        roomTypeObj.Name = $('#Name').val();
+        roomTypeObj.Name = $('#Name').val().trim();
         roomTypeObj.RoomTypeId = parseInt($('#RoomTypeId').val());
         roomTypeObj.DefaultPrice = parseInt($('#DefaultPrice').val());
         roomTypeObj.MaxAdult = parseInt($('#adult').val());
@@ -205,9 +199,6 @@ roomType.save = function () {
             });
         }
         $.ajax({
-            beforeSend: function () {
-                $('#modal-loader').css("visibility", "visible");
-            },
             url: `/RoomType/Save/`,
             method: "POST",
             dataType: "json",
@@ -217,9 +208,6 @@ roomType.save = function () {
                 $('#mediumModal').modal('hide');
                 bootbox.alert(data.result.message);
                 roomType.drawTable();
-            },
-            complete: function () {
-                $('#modal-loader').css("visibility", "hidden");
             }
         });
     }
@@ -240,18 +228,12 @@ roomType.delete = function (id, name) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    beforeSend: function () {
-                        $('.ajax-loader').css("visibility", "visible");
-                    },
                     url: `/RoomType/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
                         bootbox.alert(data.result.message);
                         roomType.drawTable();
-                    },
-                    complete: function () {
-                        $('.ajax-loader').css("visibility", "hidden");
                     }
                 });
             }
@@ -262,9 +244,6 @@ roomType.delete = function (id, name) {
 roomType.add = function () {
     roomType.reset();
     $.ajax({
-        beforeSend: function () {
-            $('.ajax-loader').css("visibility", "visible");
-        },
         url: `/Facility/GetAll`,
         method: "GET",
         dataType: "json",
@@ -275,9 +254,6 @@ roomType.add = function () {
                 );
             });
             $('#facilities').select2();
-        },
-        complete: function () {
-            $('.ajax-loader').css("visibility", "hidden");
         }
     });
     $('.modal-title').text('Thêm loại phòng');
@@ -344,9 +320,6 @@ roomType.deleteImage = function (roomTypeImageId) {
         callback: function (result) {
             if (result) {
                 $.ajax({
-                    beforeSend: function () {
-                        $('#modal-loader').css("visibility", "visible");
-                    },
                     url: `/RoomTypeImage/Delete/${roomTypeImageId}`,
                     method: "GET",
                     dataType: "json",
@@ -366,9 +339,6 @@ roomType.deleteImage = function (roomTypeImageId) {
                                 });
                             }
                         });
-                    },
-                    complete: function () {
-                        $('#modal-loader').css("visibility", "hidden");
                     }
                 });
             }

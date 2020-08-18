@@ -12,7 +12,7 @@ promotion.validation = function () {
     $.validator.addMethod(
         "regex",
         function (value, element, regexp) {
-            return this.optional(element) || regexp.test(value);
+            return this.optional(element) || regexp.test(value.trim());
         },
         "Please check your input."
     );
@@ -186,7 +186,7 @@ promotion.save = function () {
     if ($('#form').valid()) {
         var promotionObj = {};
         promotionObj.PromotionId = parseInt($('#PromotionId').val());
-        promotionObj.PromotionName = $('#PromotionName').val();
+        promotionObj.PromotionName = $('#PromotionName').val().trim();
         promotionObj.StartDate = new Date($('#StartDate').val());
         promotionObj.EndDate = new Date($('#EndDate').val());
         promotionObj.DiscountRates = parseFloat($('#DiscountRates').val() / 100);

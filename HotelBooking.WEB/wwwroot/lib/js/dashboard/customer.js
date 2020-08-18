@@ -12,7 +12,7 @@ customer.validation = function () {
     $.validator.addMethod(
         "regex",
         function (value, element, regexp) {
-            return this.optional(element) || regexp.test(value);
+            return this.optional(element) || regexp.test(value.trim());
         },
         "Please check your input."
     );
@@ -24,12 +24,11 @@ customer.validation = function () {
             },
             PhoneNumber: {
                 required: true,
-                regex: /^\(?(0|[3|5|7|8|9])+([0-9]{8})$/,
-                range: [9, 10]
+                regex: /^\(?(0|[3|5|7|8|9])+([0-9]{5})$/,
             },
             Email: {
                 required: true,
-                email: true
+                regex: /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/
             }
         },
         messages: {
@@ -44,7 +43,7 @@ customer.validation = function () {
             },
             Email: {
                 required: "Bạn phải nhập địa chỉ email",
-                email: "Địa chỉ email không hợp lệ"
+                regex: "Địa chỉ email không hợp lệ"
             }
         }
     })
@@ -124,9 +123,9 @@ customer.save = function () {
     if ($('#form').valid()) {
         var customerObj = {};
         customerObj.CustomerId = parseInt($('#CustomerId').val());
-        customerObj.Name = $('#Name').val();
-        customerObj.Email = $('#Email').val();
-        customerObj.PhoneNumber = $('#PhoneNumber').val();
+        customerObj.Name = $('#Name').val().trim();
+        customerObj.Email = $('#Email').val().trim();
+        customerObj.PhoneNumber = $('#PhoneNumber').val().trim();
         $.ajax({
             beforeSend: function () {
                 $('#modal-loader').css("visibility", "visible");
