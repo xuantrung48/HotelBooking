@@ -4,6 +4,9 @@
 
 showRoomTypes = function () {
     $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
         url: "/RoomType/GetAllWithImages",
         method: "GET",
         dataType: "json",
@@ -37,6 +40,9 @@ showRoomTypes = function () {
                     }
                 }
             })
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
         }
     });
 }
