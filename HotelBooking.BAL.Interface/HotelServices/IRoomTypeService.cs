@@ -11,6 +11,7 @@ namespace HotelBooking.BAL.Interface.HotelServices
     {
         Task<IEnumerable<RoomType>> GetAll();
         Task<IEnumerable<RoomTypes>> GetAllRoomTypeWithImages();
+        Task<IEnumerable<RoomTypes>> GetAllRoomTypeWithImagesAndFacilities();
         Task<RoomType> GetById(int id);
         Task<RoomType> GetByIdWithImagesAndFacilities(int id);
         Task<ActionsResult> Save(CreateRoomTypeRequest roomType);

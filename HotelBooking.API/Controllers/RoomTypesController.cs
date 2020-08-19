@@ -32,6 +32,12 @@ namespace HotelBooking.API.Controllers
             return await roomTypeService.GetAllRoomTypeWithImages();
         }
         [HttpGet]
+        [Route("api/roomtypes/getallroomtypewithimagesandfacilities")]
+        public async Task<IEnumerable<RoomTypes>> GetAllRoomTypeWithImagesAndFacilities()
+        {
+            return await roomTypeService.GetAllRoomTypeWithImagesAndFacilities();
+        }
+        [HttpGet]
         [Route("api/roomtypes/getbyid/{id}")]
         public async Task<RoomType> GetById(int id)
         {

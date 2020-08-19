@@ -77,6 +77,33 @@ namespace HotelBooking.BAL.HotelServices
             return await roomTypeRepository.Delete(id);
         }
 
+        public async Task<IEnumerable<RoomTypes>> GetAllRoomTypeWithImagesAndFacilities()
+        {
+            var getRoomTypes = new List<RoomTypes>();
+            var roomTypes = await roomTypeRepository.GetAll();
+            foreach (var roomType in roomTypes)
+            {
+                var facilitiesApply = await facilityApplyRepository.GetByRoomTypeId(roomType.RoomTypeId);
+                var facilities = new List<Facility>();
+                foreach (var facility in facilitiesApply)
+                    facilities.Add(await facilityRepository.GetById(facility.FacilityId));
+                getRoomTypes.Add(new RoomTypes()
+                {
+                    MaxAdult = roomType.MaxAdult,
+                    DefaultPrice = roomType.DefaultPrice,
+                    Description = roomType.Description,
+                    MaxChildren = roomType.MaxChildren,
+                    MaxPeople = roomType.MaxPeople,
+                    Name = roomType.Name,
+                    Quantity = roomType.Quantity,
+                    RoomTypeId = roomType.RoomTypeId,
+                    Image = (await roomTypeImageRepository.GetByRoomTypeId(roomType.RoomTypeId)).FirstOrDefault().ImageData,
+                    Facilities = facilities
+                });
+            }
+            return getRoomTypes;
+        }
+
         public async Task<ActionsResult> Save(CreateRoomTypeRequest roomType)
         {
             var createRoomtype = new RoomType()

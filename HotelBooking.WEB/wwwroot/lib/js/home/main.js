@@ -170,8 +170,6 @@ Search = function () {
         searchRequest.Rooms[i].Adults = parseInt($(`#adults${i + 1}`).val());
         searchRequest.Rooms[i].Children = parseInt($(`#children${i + 1}`).val());
     }
-    localStorage.setItem('booking', JSON.stringify(searchRequest));
-    var cart = JSON.parse(localStorage.getItem('booking'))
-    console.log(cart);
-    console.log(searchRequest);
+    localStorage.setItem('searchRequest', JSON.stringify(searchRequest));
+    location.replace("/BookingRoom")
 }
