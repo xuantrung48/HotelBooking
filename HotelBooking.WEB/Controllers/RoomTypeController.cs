@@ -24,6 +24,11 @@ namespace HotelBooking.WEB.Controllers
             List<RoomTypes> result = ApiHelper<List<RoomTypes>>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getallroomtypewithimages");
             return Json(new { result });
         }
+        public JsonResult GetAllWithImagesAndFacilities()
+        {
+            List<RoomTypes> result = ApiHelper<List<RoomTypes>>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getallroomtypewithimagesandfacilities");
+            return Json(new { result });
+        }
         public JsonResult Get(int id)
         {
             RoomType result = ApiHelper<RoomType>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getbyid/{id}");
@@ -44,6 +49,11 @@ namespace HotelBooking.WEB.Controllers
         {
             ActionsResult result;
             result = ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/roomtypes/save", model);
+            return Json(new { result });
+        }
+        public JsonResult Search([FromBody] SearchRoomTypesRequest model)
+        {
+            var result = ApiHelper<List<RoomTypeSearchResult>>.HttpPostAsync($"{Helper.ApiUrl}api/roomtypes/search", model);
             return Json(new { result });
         }
     }
