@@ -117,7 +117,7 @@ booking.drawTable = function () {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: "/Booking/GetAll",
+        url: "/BookingsManager/GetAll",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -131,7 +131,7 @@ booking.drawTable = function () {
                         <td>${dateToDMY(v.checkoutDate)}</td>
                         <td>${digitGrouping(v.serviceAmount + v.roomAmount)}₫</td>
                         <td>
-                            <a href="Booking/BookingDetails/${v.bookingId}" class="btn btn-primary"
+                            <a href="BookingsManager/BookingDetails/${v.bookingId}" class="btn btn-primary"
                                        ><i class="fas fa-edit"></i></a> 
                             <a href="javascripts:;" class="btn btn-danger"
                                         onclick="booking.delete(${v.bookingId}, '${v.bookingCustomer.name}')"><i class="fas fa-trash"></i></a>
@@ -173,7 +173,7 @@ booking.get = function (id) {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: `/Booking/Get/${id}`,
+        url: `/BookingsManager/Get/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -224,7 +224,7 @@ booking.save = function () {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: `/Booking/Save/`,
+        url: `/BookingsManager/Save/`,
         method: "POST",
         dataType: "json",
         contentType: "application/json",
@@ -259,7 +259,7 @@ booking.delete = function (id, name) {
                     beforeSend: function () {
                         $('.ajax-loader').css("visibility", "visible");
                     },
-                    url: `/Booking/Delete/${id}`,
+                    url: `/BookingsManager/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {

@@ -1,0 +1,94 @@
+﻿@{
+    ViewData["Title"] = "Quản lý phiếu giảm giá";
+}
+<div class="text-center mb-3">
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<div class="row">
+    <div class="col-12 mb-3">
+        <a href="javascript:void(0);" class="btn btn-info"
+           onclick="coupon.add()"><i class="fas fa-plus"></i>Thêm phiếu giảm giá</a>
+    </div>
+</div>
+
+<div class="ajax-loader">
+    <img src="~/images/loading.gif" class="img-responsive" />
+</div>
+<table class="table table-borderless table-striped table-earning table-responsive">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>mã giảm giá</th>
+            <th>số lượng</th>
+            <th>mức giảm giá</th>
+            <th>ngày kết thúc</th>
+            <th>hành động</th>
+        </tr>
+    </thead>
+    <tbody id="couponsTable">
+    </tbody>
+</table>
+
+<!-- modal medium -->
+<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="ajax-loader" id="modal-loader">
+                <img src="~/images/loading.gif" class="img-responsive" />
+            </div>
+            <div class="modal-header">
+                <h3 class="modal-title" id="mediumModalLabel"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <Form id="form">
+                <div class="modal-body">
+                    <input type="number" id="CouponId" name="CouponId" class="form-control" hidden>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Mã giảm giá</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="CouponCode" name="CouponCode" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Số lượng</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="Remain" name="Remain" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Mức giảm giá</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="Reduction" name="Reduction" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Ngày kết thúc</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" id="EndDate" name="EndDate" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                </div>
+            </Form>
+            <div class="modal-footer">
+                <a href="javascript:;" class="btn btn-primary" onclick="coupon.save()">Lưu</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal medium -->
+
+@section scripts{
+    <script src="~/lib/js/dashboard/coupon.js" asp-append-version="true"></script>
+}

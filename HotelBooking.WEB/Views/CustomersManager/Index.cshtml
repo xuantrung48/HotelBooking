@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Quản lý khách hàng";
+}
+
+<div class="text-center mb-3">
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<div class="row">
+    <div class="col-12 mb-3">
+        <a href="javascript:void(0);" class="btn btn-info"
+           onclick="customer.add()"><i class="fas fa-plus"></i>Thêm khách hàng</a>
+    </div>
+</div>
+
+<div class="ajax-loader">
+    <img src="~/images/loading.gif" class="img-responsive" />
+</div>
+<table class="table table-borderless table-striped table-earning table-responsive">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>tên khách hàng</th>
+            <th>số điện thoại</th>
+            <th>email</th>
+            <th>hành động</th>
+        </tr>
+    </thead>
+    <tbody id="customersTable">
+    </tbody>
+</table>
+
+<!-- modal medium -->
+<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="ajax-loader" id="modal-loader">
+                <img src="~/images/loading.gif" class="img-responsive" />
+            </div>
+            <div class="modal-header">
+                <h3 class="modal-title" id="mediumModalLabel"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <input type="number" id="CustomerId" name="CustomerId" class="form-control" hidden>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Tên khách hàng</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="Name" name="Name" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Số điện thoại</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Địa chỉ email</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="Email" name="Email" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="btn btn-primary" onclick="customer.save()">Lưu</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal medium -->
+
+@section scripts{
+    <script src="~/lib/js/dashboard/customer.js" asp-append-version="true"></script>
+}

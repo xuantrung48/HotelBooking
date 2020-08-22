@@ -1,0 +1,113 @@
+﻿@{
+    ViewData["Title"] = "Quản lý chương trình khuyến mãi";
+}
+
+<div class="text-center mb-3">
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<div class="row">
+    <div class="col-12 mb-3">
+        <a href="javascript:void(0);" class="btn btn-info"
+           onclick="promotion.add()"><i class="fas fa-plus"></i> Thêm khuyến mãi</a>
+    </div>
+</div>
+
+<div class="ajax-loader">
+    <img src="~/images/loading.gif" class="img-responsive" />
+</div>
+<table class="table table-borderless table-striped table-earning table-responsive">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>tên chương trình</th>
+            <th>ngày bắt đầu</th>
+            <th>ngày kết thúc</th>
+            <th>mức giảm giá</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody id="promotionsTable">
+    </tbody>
+</table>
+
+<!-- modal medium -->
+<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="ajax-loader" id="modal-loader">
+                <img src="~/images/loading.gif" class="img-responsive" />
+            </div>
+            <div class="modal-header">
+                <h3 class="modal-title" id="mediumModalLabel"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="number" id="PromotionId" name="PromotionId" class="form-control" hidden>
+                <form id="form">
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Tên chương trình:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="PromotionName" name="PromotionName" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Ngày bắt đầu:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" id="StartDate" name="StartDate" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Ngày kết thúc:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="date" id="EndDate" name="EndDate" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Mức giảm giá (%):</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="DiscountRates" name="DiscountRates" class="form-control" data-rule-required="true" min="1" max="100">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Loại phòng áp dụng:</label>
+                        </div>
+                        <div class="col-9">
+                            <select id="roomTypes" name="roomTypes" multiple="multiple" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="btn btn-primary" onclick="promotion.save()">Lưu</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal medium -->
+
+@section scripts{
+    <script src="~/lib/js/dashboard/promotion.js" asp-append-version="true"></script>
+    <script src="~/lib/select2/js/select2.min.js"></script>
+}
+@section styles{
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-search__field {
+            width: 100% !important; /*makes the placeholder to be 100% of the width while there are no options selected*/
+        }
+    </style>
+}
