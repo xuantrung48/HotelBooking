@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Đặt Phòng";
+}
+<div class="container mb-5">
+    <div class="text-center my-3">
+        <h2>@ViewData["Title"]</h2>
+    </div>
+    <div class="card">
+        <div class="form">
+            <div class="row p-3" style="background-color:#f1be0d">
+                <div id="checkInDate" class="col-3"></div>
+                <div id="checkOutDate" class="col-3"></div>
+            </div>
+            <div class="modal-body bg-light">
+                <div class="row">
+                    <div class="col-10" id="tbRoomBooking">
+                    </div>
+                    <div class="col-2 mt-3">
+                        <a class="btn btn-success" style="width:150px; background-color:#f1be0d"><h4>Đặt Phòng</h4></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/lib/js/home/search.js"></script>
+}

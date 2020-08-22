@@ -6,6 +6,5 @@ namespace HotelBooking.Domain.Request.Booking
     {
         public RoomType RoomType { get; set; }
         public int Quantity { get; set; }
-
     }
 }

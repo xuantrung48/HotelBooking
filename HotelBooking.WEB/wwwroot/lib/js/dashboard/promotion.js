@@ -69,7 +69,7 @@ promotion.drawTable = function () {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: "/Promotion/GetAll",
+        url: "/PromotionsManager/GetAll",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -104,7 +104,7 @@ promotion.add = function () {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: "/RoomType/GetAll",
+        url: "/RoomTypesManager/GetAll",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -138,7 +138,7 @@ promotion.get = function (id) {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: `/Promotion/Get/${id}`,
+        url: `/PromotionsManager/Get/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -148,7 +148,7 @@ promotion.get = function (id) {
                 dataType: "json",
                 success: function (promotionApply) {
                     $.ajax({
-                        url: "/RoomType/GetAll",
+                        url: "/RoomTypesManager/GetAll",
                         method: "GET",
                         dataType: "json",
                         success: function (roomTypes) {
@@ -202,7 +202,7 @@ promotion.save = function () {
             beforeSend: function () {
                 $('#modal-loader').css("visibility", "visible");
             },
-            url: `/Promotion/Save/`,
+            url: `/PromotionsManager/Save/`,
             method: "POST",
             dataType: "json",
             contentType: "application/json",
@@ -237,7 +237,7 @@ promotion.delete = function (id, name) {
                     beforeSend: function () {
                         $('.ajax-loader').css("visibility", "visible");
                     },
-                    url: `/Promotion/Delete/${id}`,
+                    url: `/PromotionsManager/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {

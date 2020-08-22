@@ -7,12 +7,12 @@ showRoomTypes = function () {
         beforeSend: function () {
             $('#ajax-loader-roomTypes').css("visibility", "visible");
         },
-        url: "/RoomType/GetAllWithImages",
+        url: "/RoomTypesManager/GetAllWithImages",
         method: "GET",
         dataType: "json",
         success: function (data) {
             $.ajax({
-                url: `/Promotion/GetAvailable`,
+                url: `/PromotionsManager/GetAvailable`,
                 method: "GET",
                 dataType: "json",
                 success: function (roomTypePromotions) {
@@ -66,7 +66,7 @@ showRoomTypes = function () {
         beforeSend: function () {
             $('#ajax-loader-services').css("visibility", "visible");
         },
-        url: "/Service/GetAllWithImages",
+        url: "/ServicesManager/GetAllWithImages",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -171,5 +171,5 @@ Search = function () {
         searchRequest.Rooms[i].Children = parseInt($(`#children${i + 1}`).val());
     }
     localStorage.setItem('searchRequest', JSON.stringify(searchRequest));
-    location.replace("/BookingRoom")
+    location.replace("/Search")
 }

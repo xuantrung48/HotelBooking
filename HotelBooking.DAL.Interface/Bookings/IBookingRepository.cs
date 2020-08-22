@@ -15,6 +15,7 @@ namespace HotelBooking.DAL.Interface.Bookings
         Task<ActionsResult> Save(Booking booking);
 
         Task<ActionsResult> Delete(int id);
+
         Task<IEnumerable<DateTime>> GetListDate(int id);
     }
 }

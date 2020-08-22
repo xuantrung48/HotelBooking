@@ -7,7 +7,7 @@ showServices = function () {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: "/Service/GetAllWithImages",
+        url: "/ServicesManager/GetAllWithImages",
         method: "GET",
         dataType: "json",
         success: function (data) {

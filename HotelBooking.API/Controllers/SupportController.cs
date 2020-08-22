@@ -2,13 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelBooking.API.Controllers
 {
     [ApiController]
-    public class SupportController: ControllerBase
+    public class SupportController : ControllerBase
     {
         private readonly ISupportService supportService;
 
@@ -16,6 +15,7 @@ namespace HotelBooking.API.Controllers
         {
             this.supportService = supportService;
         }
+
         // bắt đầu nể nể rồi ddosoo là rg =.=
         [HttpGet]
         [Route("api/support/CreateDateTable")]

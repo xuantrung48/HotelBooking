@@ -1,0 +1,150 @@
+﻿@{
+    ViewData["Title"] = "Quản lý dịch vụ";
+}
+
+<div class="text-center mb-3">
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<div class="row">
+    <div class="col-12 mb-3">
+        <a href="javascript:void(0);" class="btn btn-info"
+           onclick="service.add()"><i class="fas fa-plus"></i> Thêm dịch vụ</a>
+    </div>
+</div>
+
+<div class="ajax-loader">
+    <img src="~/images/loading.gif" class="img-responsive" />
+</div>
+<table class="table table-borderless table-striped table-earning">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>Tên dịch vụ</th>
+            <th>Giá dịch vụ</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody id="serviceTable">
+    </tbody>
+</table>
+
+<!-- modal medium -->
+<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="ajax-loader" id="modal-loader">
+                <img src="~/images/loading.gif" class="img-responsive" />
+            </div>
+            <div class="modal-header">
+                <h3 class="modal-title" id="mediumModalLabel"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="number" id="ServiceId" name="ServiceId" class="form-control" hidden>
+                <form id="form">
+                    <div class="row form-group">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-9" id="imgsData">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-9" id="imgsPreview">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Hình ảnh:</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="custom-file">
+                                <input id="ServiceImages" name="ServiceImages" type="file" multiple>
+                                @*<label for="ServiceImages">Chọn tập tin</label>*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Tên dịch vụ:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="ServiceName" name="ServiceName" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Giá dịch vụ:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="Price" name="Price" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Mô tả:</label>
+                        </div>
+                        <div class="col-9">
+                            <textarea id="Description" name="Description" class="form-control" data-rule-required="true"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="btn btn-primary" onclick="service.save()">Lưu</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal medium -->
+
+@section scripts{
+    <script src="~/lib/js/dashboard/service.js" asp-append-version="true"></script>
+    <script>
+        document.getElementById("ServiceImages").addEventListener("change", readFiles);
+
+        $('#ServiceImages').on('change', function () {
+            var fileLabel = $(this).next('.custom-file-label');
+            var files = $(this)[0].files;
+            if (files.length > 1) {
+                fileLabel.html(files.length + ' tập tin được chọn');
+            }
+            else if (files.length == 1) {
+                fileLabel.html(files[0].name);
+            }
+        });
+    </script>
+}
+@section styles{
+    <style>
+        .remove-image {
+            display: none;
+            position: absolute;
+            border-radius: 10em;
+            padding: 2px 6px 3px;
+            text-decoration: none;
+            font: 700 21px/20px sans-serif;
+            background: #555;
+            border: 3px solid #fff;
+            color: #FFF;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            -webkit-transition: background 0.5s;
+            transition: background 0.5s;
+        }
+
+            .remove-image:hover {
+                background: #E54E4E;
+                padding: 3px 7px 5px;
+            }
+
+            .remove-image:active {
+                background: #E54E4E;
+            }
+    </style>
+}

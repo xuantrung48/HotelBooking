@@ -107,7 +107,7 @@ roomType.drawTable = function () {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: "/RoomType/GetAll",
+        url: "/RoomTypesManager/GetAll",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -141,7 +141,7 @@ roomType.get = function (id) {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: `/RoomType/GetWithImagesAndFacilities/${id}`,
+        url: `/RoomTypesManager/GetWithImagesAndFacilities/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -151,7 +151,7 @@ roomType.get = function (id) {
                 );
             });
             $.ajax({
-                url: `/Facility/GetAll`,
+                url: `/FacilitiesManager/GetAll`,
                 method: "GET",
                 dataType: "json",
                 success: function (facilities) {
@@ -214,7 +214,7 @@ roomType.save = function () {
             beforeSend: function () {
                 $('#modal-loader').css("visibility", "visible");
             },
-            url: `/RoomType/Save/`,
+            url: `/RoomTypesManager/Save/`,
             method: "POST",
             dataType: "json",
             contentType: "application/json",
@@ -249,7 +249,7 @@ roomType.delete = function (id, name) {
                     beforeSend: function () {
                         $('.ajax-loader').css("visibility", "visible");
                     },
-                    url: `/RoomType/Delete/${id}`,
+                    url: `/RoomTypesManager/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
@@ -271,7 +271,7 @@ roomType.add = function () {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: `/Facility/GetAll`,
+        url: `/FacilitiesManager/GetAll`,
         method: "GET",
         dataType: "json",
         success: function (facilities) {

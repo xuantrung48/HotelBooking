@@ -2,9 +2,7 @@
 using HotelBooking.DAL.Interface.Coupons;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Coupons;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HotelBooking.BAL.Coupons

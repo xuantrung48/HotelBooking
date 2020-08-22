@@ -1,0 +1,375 @@
+﻿@{
+    ViewData["Title"] = "Quản lý đặt phòng";
+    var listCoupon = ViewBag.Coupon as List<HotelBooking.Domain.Response.Coupons.Coupon>;
+    var listRoomtype = ViewBag.RoomType as List<HotelBooking.Domain.Response.HotelServices.RoomType>;
+    var listService = ViewBag.Service as List<HotelBooking.Domain.Response.HotelServices.Service>;
+    //var booking = ViewBag.Result as HotelBooking.Domain.Response.Bookings.Booking;
+}
+@model int
+<div class="ajax-loader">
+    <img src="~/images/loading.gif" class="img-responsive" />
+</div>
+<Form id="form">
+    <div class="modal-header">
+        <div class="text-center mb-3">
+            <h2>@ViewData["Title"]</h2>
+        </div>
+    </div>
+    <div class="modal-body modal_details">
+        <input type="number" id="BookingId" name="BookingId" value="@Model" class="form-control" hidden>
+        <h4 class="mb-3">Thông tin khách hàng </h4>
+        <input type="number" id="CustomerId" name="CustomerId" value="0" class="form-control" hidden>
+        <div class="row form-group">
+            <div class="col-3">
+                <label>Tên khách hàng</label>
+            </div>
+            <div class="col-9">
+                <input type="text" id="Name" name="Name" value="" class="form-control" data-rule-required="true">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label>Số điện thoại</label>
+            </div>
+            <div class="col-9">
+                <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" data-rule-required="true">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label>Địa chỉ email</label>
+            </div>
+            <div class="col-9">
+                <input type="text" id="Email" name="Email" class="form-control" data-rule-required="true">
+            </div>
+        </div>
+        <hr />
+        <h4 class="mb-3">Thông tin đặt phòng </h4>
+        <div class="row form-group">
+            <div class="col-3">
+                <label>Số lượng người lớn</label>
+            </div>
+            <div class="col-9">
+                <input type="number" id="NumberofAdults" name="NumberofAdults" class="form-control" data-rule-required="true">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label>Số lượng trẻ em</label>
+            </div>
+            <div class="col-9">
+                <input type="number" id="NumberofChildren" name="NumberofChildren" value="0" class="form-control" data-rule-required="true">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label>Ngày đến:</label>
+            </div>
+            <div class="col-9">
+                <input type="date" id="CheckinDate" name="CheckinDate" class="form-control" data-rule-required="true">
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-3">
+                <label>Ngày đi:</label>
+            </div>
+            <div class="col-9">
+                <input type="date" id="CheckoutDate" name="CheckoutDate" class="form-control" data-rule-required="true">
+            </div>
+        </div>
+        <hr />
+        <h4 class="mb-3">Chi tiết đặt phòng </h4>
+        <div>
+            <div class="row form-group">
+                <div class="col-3">
+                    <a href="javascripts:;" class="btn btn-info"
+                       onclick="addNewRoomTypeRow()">
+                        <i class="fas fa-plus"></i>Thêm
+                    </a>
+                </div>
+                <div class="col-9" id="RoomTypeDetails">
+                    <div class="row mb-3 rowRoomType_0">
+                        <div class="col-9">
+                            <select id="RoomTypeRow_0" name="RoomType" class="custom-select">
+                                <option value="">Chọn loại phòng</option>
+                                @if (listRoomtype != null)
+                                {
+                                    foreach (var item in listRoomtype)
+                                    {
+                                        <option value="@item.RoomTypeId">@item.Name</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="RoomQuantity_0" name="RoomQuantity" value="" placeholder="Số lượng" class="form-control" />
+                        </div>
+                        <div class="col-1">
+                            <a href="javascripts:;" class="btn btn-danger" onclick="deleteRoomTypeRow(0)"><i class="fas fa-minus"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <h4 class="mb-3">Chi tiết dịch vụ </h4>
+        <div>
+            <div class="row form-group">
+                <div class="col-3">
+                    <a href="javascripts:;" class="btn btn-info"
+                       onclick="addNewServiceRow()">
+                        <i class="fas fa-plus"></i>Thêm
+                    </a>
+                </div>
+                <div class="col-9" id="ServiceDetails">
+                </div>
+            </div>
+        </div>
+        <hr />
+        <h4 class="mb-3">Thông tin khuyến mãi </h4>
+        <div class="row form-group">
+            <div class="col-3">
+                <label>Mã giảm giá</label>
+            </div>
+            <div class="col-9">
+                <select id="CouponId" class="custom-select">
+                    <option value="">Chọm mã giảm giá</option>
+                    @if (listCoupon != null)
+                    {
+                        foreach (var item in listCoupon)
+                        {
+                            <option value="@item.CouponId">@item.CouponCode</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="javascripts:;" class="btn btn-primary" onclick="save()">Lưu</a>
+        <button class="btn btn-secondary" onclick="goBack()">Trở về</button>
+    </div>
+</Form>
+@section scripts{
+    <script src="~/lib/js/dashboard/booking.js" asp-append-version="true"></script>
+    <script>
+        var serviceRowId = 0;
+        var roomTypeRowId = 1;
+        if (@Model > 0) {
+            $('.rowRoomType_0').remove();
+            $(document).ready(function () {
+                $.ajax({
+                    url: `/BookingsManager/Get/@Model`,
+                    method: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        //location.assign(`Booking/BookingDetails/${id}`);
+                        //$('.modal-title').text('Đổi thông tin đặt phòng');
+                        $('#BookingId').val(data.result.bookingId);
+                        $('#CheckinDate').val(dateToYMD(data.result.checkinDate));
+                        $('#CheckoutDate').val(dateToYMD(data.result.checkoutDate));
+                        $('#Name').val(data.result.bookingCustomer.name);
+                        $('#PhoneNumber').val(data.result.bookingCustomer.phoneNumber);
+                        $('#Email').val(data.result.bookingCustomer.email);
+                        $('#NumberofAdults').val(data.result.numberofAdults);
+                        $('#NumberofChildren').val(data.result.numberofChildren);
+                        $('#CouponId').val(data.result.couponId);
+                        $('#CustomerId').val(data.result.customerId);
+                        //$('#mediumModal').appendTo("body");
+                        //$('#mediumModal').modal('show');
+                        for (let i = 0; i < data.result.bookingServiceDetails.length; i++) {
+                            $('#ServiceDetails').append(`
+                                <div class="row mb-3 rowService_${i}">
+                                    <div class="col-9">
+                                        <select id="Serivce_${i}" name="ServiceType" class="custom-select">
+                                            <option value="">Chọn dịch vụ</option>
+                                            @if (listService != null)
+                                            {
+                                                foreach (var item in listService)
+                                                {
+                                                    <option value="@item.ServiceId">@item.ServiceName</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="number" id="ServiceQuantity_${i}" name="ServiceQuantity" value="" placeholder="Số lượng" class="form-control" />
+                                    </div>
+                                    <div class="col-1">
+                                        <a href="javascripts:;" class="btn btn-danger" onclick="deleteServiceRow(${i})"><i class="fas fa-minus"></i></a>
+                                    </div>
+                                 </div>
+                                `);
+                            $(`#Serivce_${i}`).val(data.result.bookingServiceDetails[i].serviceId);
+                            $(`#ServiceQuantity_${i}`).val(parseInt(data.result.bookingServiceDetails[i].serviceQuantity))
+                            serviceRowId = i;
+                        }
+                        for (let i = 0; i < data.result.bookingRoomDetails.length; i++) {
+                                $('#RoomTypeDetails').append(`
+                                <div class="row mb-3 rowRoomType_${i}">
+                                    <div class="col-9">
+                                        <select id="RoomTypeRow_${i}" name="RoomType" class="custom-select">
+                                            <option value="">Chọn loại phòng</option>
+                                            @if (listRoomtype != null)
+                                            {
+                                                foreach (var item in listRoomtype)
+                                                {
+                                                    <option value="@item.RoomTypeId">@item.Name</option>
+                                                }
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="number" id="RoomQuantity_${i}" name="RoomQuantity" value="" placeholder="Số lượng" class="form-control" />
+                                    </div>
+                                    <div class="col-1">
+                                        <a href="javascripts:;" class="btn btn-danger" onclick="deleteRoomTypeRow(${i})"><i class="fas fa-minus"></i></a>
+                                    </div>
+                                </div>
+                                `);
+                                $(`#RoomTypeRow_${i}`).val(data.result.bookingRoomDetails[i].roomTypeId);
+                                $(`#RoomQuantity_${i}`).val(parseInt(data.result.bookingRoomDetails[i].roomQuantity))
+                        }
+                    }
+                });
+            })
+        };
+        function goBack() {
+            window.history.back();
+        }
+
+        function addNewRoomTypeRow() {
+            $('#RoomTypeDetails').append(
+                `
+                <div class="row mb-3 rowRoomType_${roomTypeRowId+1}">
+                            <div class="col-9">
+                                <select id="RoomTypeRow_${roomTypeRowId + 1}" name="RoomType" class="custom-select">
+                                    <option value="">Chọn loại phòng</option>
+                                    @if (listRoomtype != null)
+                                    {
+                                        foreach (var item in listRoomtype)
+                                        {
+                                            <option value="@item.RoomTypeId">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <input type="number" id="RoomQuantity_${roomTypeRowId + 1}" name="RoomQuantity" value="" placeholder="Số lượng" class="form-control" />
+                            </div>
+                            <div class="col-1">
+                                <a href="javascripts:;" class="btn btn-danger" onclick="deleteRoomTypeRow(${roomTypeRowId+1})"><i class="fas fa-minus"></i></a>
+                            </div>
+                </div>
+            `
+            );
+            roomTypeRowId++;
+        };
+        function deleteRoomTypeRow(id) {
+            $(`.rowRoomType_${id}`).remove();
+        }
+
+        function addNewServiceRow() {
+            $('#ServiceDetails').append(
+                `
+                <div class="row mb-3 rowService_${serviceRowId+1}">
+                            <div class="col-9">
+                                <select id="Serivce_${serviceRowId + 1}" name="ServiceType" class="custom-select">
+                                    <option value="">Chọn dịch vụ</option>
+                                    @if (listService != null)
+                                    {
+                                        foreach (var item in listService)
+                                        {
+                                            <option value="@item.ServiceId">@item.ServiceName</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <input type="number" id="ServiceQuantity_${serviceRowId + 1}" name="ServiceQuantitye" value="" placeholder="Số lượng" class="form-control" />
+                            </div>
+                            <div class="col-1">
+                                <a href="javascripts:;" class="btn btn-danger" onclick="deleteServiceRow(${serviceRowId+1})"><i class="fas fa-minus"></i></a>
+                            </div>
+                </div>
+            `
+            );
+            serviceRowId++;
+        };
+        function deleteServiceRow(id) {
+            $(`.rowService_${id}`).remove();
+        };
+        save = function () {
+
+            if ($('#form').valid()) {
+                var bookingObj = {};
+                var customerObj = {};
+                var serviceDetails = new Array();
+
+                for (let i = 0; i <= serviceRowId; i++) {
+                    var serviceDetail = {};
+                    serviceDetail.ServiceId = parseInt($(`#Serivce_${i}`).val());
+                    serviceDetail.ServiceQuantity = parseInt($(`#ServiceQuantity_${i}`).val());
+
+                    if (!Number.isNaN(serviceDetail.ServiceId)) {
+                        serviceDetail.BookingId = parseInt($('#BookingId').val())
+                        serviceDetails.push(serviceDetail);
+                    }
+                }
+                var roomDetails = new Array();
+                for (let i = 0; i <= roomTypeRowId; i++) {
+                    var roomDetail = {};
+                    roomDetail.RoomTypeId = parseInt($(`#RoomTypeRow_${i}`).val());
+                    roomDetail.RoomQuantity = parseInt($(`#RoomQuantity_${i}`).val());
+                    if (!Number.isNaN(roomDetail.RoomTypeId)) {
+                        roomDetail.BookingId = parseInt($('#BookingId').val())
+                        roomDetails.push(roomDetail);
+                    }
+                }
+                bookingObj.BookingId = parseInt($('#BookingId').val());
+                //bookingObj.BookingCustomer.Name = $('#Name').val();
+                //bookingObj.BookingCustomer.PhoneNumber = $('#PhoneNumber').val();
+                //bookingObj.BookingCustomer.Email = $('#Email').val();
+                //bookingObj.BookingCustomer.CustomerId = parseInt($('#CustomerId').val());
+                customerObj.Name = $('#Name').val().trim();
+                customerObj.PhoneNumber = $('#PhoneNumber').val().trim();
+                customerObj.Email = $('#Email').val().trim();
+                customerObj.CustomerId = parseInt($('#CustomerId').val());
+                bookingObj.NumberofChildren = parseInt($('#NumberofChildren').val());
+                bookingObj.NumberofAdults = parseInt($('#NumberofAdults').val());
+                bookingObj.CouponId = parseInt($('#CouponId').val());
+                bookingObj.CustomerId = parseInt($('#CustomerId').val());
+                bookingObj.CheckinDate = new Date($('#CheckinDate').val());
+                bookingObj.CheckoutDate = new Date($('#CheckoutDate').val());
+                bookingObj.bookingServiceDetails = serviceDetails;
+                bookingObj.bookingRoomDetails = roomDetails
+                bookingObj.BookingCustomer = customerObj;
+                if (bookingObj.BookingId != 0) {
+                    $.ajax({
+                        url: `/BookingServiceDetails/DeleteByBookingId/${bookingObj.BookingId}`,
+                        method: "GET",
+                        dataType: "json"
+                    });
+                    $.ajax({
+                        url: `/BookingRoomDetails/DeleteByBookingId/${bookingObj.BookingId}`,
+                        method: "GET",
+                        dataType: "json"
+                    });
+                }
+                $.ajax({
+                    url: `/BookingsManager/Save/`,
+                    method: "POST",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(bookingObj),
+                    success: function (data) {
+                        bootbox.alert(data.result.message, function () {
+                            location.assign(`/Booking`);
+                        });
+                        booking.drawTable();
+                    }
+                });
+            }
+        }
+    </script>
+}

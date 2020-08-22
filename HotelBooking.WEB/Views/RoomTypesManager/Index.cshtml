@@ -1,0 +1,221 @@
+﻿@{
+    ViewData["Title"] = "Quản lý loại phòng";
+}
+
+<div class="text-center mb-3">
+    <h2>@ViewData["Title"]</h2>
+</div>
+
+<div class="row">
+    <div class="col-12 mb-3">
+        <a href="javascript:void(0);" class="btn btn-info" onclick="roomType.add()"><i class="fas fa-plus"></i> Thêm loại phòng</a>
+    </div>
+</div>
+
+<div class="ajax-loader">
+    <img src="~/images/loading.gif" class="img-responsive" />
+</div>
+<table class="table table-borderless table-striped table-earning">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>loại phòng</th>
+            <th class="text-right">giá (₫)</th>
+            <th class="text-right">số lượng</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody id="roomTypesTable">
+    </tbody>
+</table>
+
+<!-- modal medium -->
+<div class="modal fade" id="mediumModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="ajax-loader" id="modal-loader">
+            <img src="~/images/loading.gif" class="img-responsive" />
+        </div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="mediumModalLabel"></h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="number" id="RoomTypeId" name="RoomTypeId" class="form-control" hidden>
+                <form id="form">
+                    <div class="row form-group">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-9" id="imgsData">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                        </div>
+                        <div class="col-9" id="imgsPreview">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Hình ảnh:</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="custom-file">
+                                <input id="RoomTypeImages" name="RoomTypeImages" type="file" class="custom-file-input form-control" multiple>
+                                <label class="custom-file-label" for="RoomTypeImages">Chọn tập tin</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Tên loại phòng:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" id="Name" name="Name" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Giá phòng (₫):</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="DefaultPrice" name="DefaultPrice" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Sức chứa:</label>
+                        </div>
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-4">
+                                    Max người lớn:
+                                </div>
+                                <div class="col-4">
+                                    <input type="number" id="adult" name="adult" class="form-control" />
+                                </div>
+                                <div class="col-4">
+                                    x <i class="fas fa-male" style="font-size: 1.5em"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                        </div>
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-4">
+                                    Max trẻ em:
+                                </div>
+                                <div class="col-4">
+                                    <input type="number" id="children" value="0" name="children" class="form-control" />
+                                </div>
+                                <div class="col-4">
+                                    x <i class="fas fa-child"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                        </div>
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-4">
+                                    Max tổng người:
+                                </div>
+                                <div class="col-4">
+                                    <input type="number" id="people" name="people" class="form-control" />
+                                </div>
+                                <div class="col-4">
+                                    x <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Số lượng phòng:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" id="Quantity" name="Quantity" class="form-control" data-rule-required="true">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Tiện nghi:</label>
+                        </div>
+                        <div class="col-9">
+                            <select name="facilities" id="facilities" multiple="multiple" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-3">
+                            <label>Mô tả:</label>
+                        </div>
+                        <div class="col-9">
+                            <textarea id="Description" name="Description" class="form-control" data-rule-required="true"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:;" class="btn btn-primary" onclick="roomType.save()">Lưu</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Huỷ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end modal medium -->
+@section scripts{
+    <script src="~/lib/js/dashboard/roomtype.js" asp-append-version="true"></script>
+    <script src="~/lib/select2/js/select2.min.js"></script>
+    <script>
+        document.getElementById("RoomTypeImages").addEventListener("change", readFiles);
+
+        $('#RoomTypeImages').on('change', function () {
+            var fileLabel = $(this).next('.custom-file-label');
+            var files = $(this)[0].files;
+            if (files.length > 1) {
+                fileLabel.html(files.length + ' tập tin được chọn');
+            }
+            else if (files.length == 1) {
+                fileLabel.html(files[0].name);
+            }
+        });
+    </script>
+}
+
+@section styles{
+    <link href="~/lib/select2/css/select2.min.css" rel="stylesheet" />
+    <style>
+        .select2-search__field {
+            width: 100% !important; /*makes the placeholder to be 100% of the width while there are no options selected*/
+        }
+
+        .remove-image {
+            display: none;
+            position: absolute;
+            border-radius: 10em;
+            padding: 2px 6px 3px;
+            text-decoration: none;
+            font: 700 21px/20px sans-serif;
+            background: #555;
+            border: 3px solid #fff;
+            color: #FFF;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            -webkit-transition: background 0.5s;
+            transition: background 0.5s;
+        }
+
+            .remove-image:hover {
+                background: #E54E4E;
+                padding: 3px 7px 5px;
+            }
+
+            .remove-image:active {
+                background: #E54E4E;
+            }
+    </style>
+}

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HotelBooking.Domain.Response.Promotions
+﻿namespace HotelBooking.Domain.Response.Promotions
 {
     public class GetMaxDiscountRatesPromotionAvailable
     {

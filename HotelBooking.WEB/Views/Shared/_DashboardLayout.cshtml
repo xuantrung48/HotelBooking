@@ -2,36 +2,36 @@
 <html lang="en">
 
 <head>
-	<!-- Required meta tags-->
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="au theme template">
-	<meta name="author" content="Hau Nguyen">
-	<meta name="keywords" content="au theme template">
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="au theme template">
+    <meta name="author" content="Hau Nguyen">
+    <meta name="keywords" content="au theme template">
 
-	<!-- Title Page-->
-	<title>@ViewData["Title"]</title>
+    <!-- Title Page-->
+    <title>@ViewData["Title"]</title>
 
-	<!-- Fontfaces CSS-->
-	<link href="~/lib/cooladmin/css/font-face.css" rel="stylesheet" media="all">
-	<link href="~/lib/cooladmin/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-	<link href="~/lib/cooladmin/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-	<link href="~/lib/cooladmin/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <!-- Fontfaces CSS-->
+    <link href="~/lib/cooladmin/css/font-face.css" rel="stylesheet" media="all">
+    <link href="~/lib/cooladmin/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <link href="~/lib/cooladmin/vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+    <link href="~/lib/cooladmin/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
-	<!-- Bootstrap CSS-->
-	<link href="~/lib/cooladmin/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <!-- Bootstrap CSS-->
+    <link href="~/lib/cooladmin/vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
 
-	<!-- Vendor CSS-->
-	<link href="~/lib/cooladmin/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-	<link href="~/lib/cooladmin/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-	<link href="~/lib/cooladmin/vendor/wow/animate.css" rel="stylesheet" media="all">
-	<link href="~/lib/cooladmin/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-	<link href="~/lib/cooladmin/vendor/slick/slick.css" rel="stylesheet" media="all">
-	<link href="~/lib/cooladmin/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-	<link href="~/lib/cooladmin/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <!-- Vendor CSS-->
+    <link href="~/lib/cooladmin/vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
+    <link href="~/lib/cooladmin/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
+    <link href="~/lib/cooladmin/vendor/wow/animate.css" rel="stylesheet" media="all">
+    <link href="~/lib/cooladmin/vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
+    <link href="~/lib/cooladmin/vendor/slick/slick.css" rel="stylesheet" media="all">
+    <link href="~/lib/cooladmin/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="~/lib/cooladmin/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
     <link href="~/lib/css/site.css" rel="stylesheet" />
-	<!-- Main CSS-->
-	<link href="~/lib/cooladmin/css/theme.css" rel="stylesheet" media="all">
+    <!-- Main CSS-->
+    <link href="~/lib/cooladmin/css/theme.css" rel="stylesheet" media="all">
     @RenderSection("styles", false)
 </head>
 
@@ -57,37 +57,37 @@
                 <div class="container-fluid">
                     <ul class="navbar-mobile__list list-unstyled">
                         <li>
-                            <a asp-controller="RoomType" asp-action="Index">
+                            <a asp-controller="RoomTypesManager" asp-action="Index">
                                 <i class="fas fa-bed"></i>Loại phòng
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Promotion" asp-action="Index">
+                            <a asp-controller="PromotionsManager" asp-action="Index">
                                 <i class="fas fa-tags"></i>Khuyến mãi
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Service" asp-action="Index">
+                            <a asp-controller="ServicesManager" asp-action="Index">
                                 <i class="fas fa-thumbs-up"></i>Dịch vụ
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Facility" asp-action="Index">
+                            <a asp-controller="FacilitiesManager" asp-action="Index">
                                 <i class="fas fa-tv"></i>Tiện nghi
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Customer" asp-action="Index">
+                            <a asp-controller="CustomersManager" asp-action="Index">
                                 <i class="fas fa-user" aria-hidden="true"></i>Khách hàng
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Coupon" asp-action="Index">
+                            <a asp-controller="CouponsManager" asp-action="Index">
                                 <i class="fas fa-gift" aria-hidden="true"></i>Phiếu giảm giá
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Booking" asp-action="Index">
+                            <a asp-controller="BookingsManager" asp-action="Index">
                                 <i class="fas fa-bookmark" aria-hidden="true"></i>Đặt phòng
                             </a>
                         </li>
@@ -107,37 +107,37 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li>
-                            <a asp-controller="RoomType" asp-action="Index">
+                            <a asp-controller="RoomTypesManager" asp-action="Index">
                                 <i class="fas fa-bed"></i>Loại phòng
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Promotion" asp-action="Index">
+                            <a asp-controller="PromotionsManager" asp-action="Index">
                                 <i class="fas fa-tags"></i>Khuyến mãi
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Service" asp-action="Index">
+                            <a asp-controller="ServicesManager" asp-action="Index">
                                 <i class="fas fa-thumbs-up"></i>Dịch vụ
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Facility" asp-action="Index">
+                            <a asp-controller="FacilitiesManager" asp-action="Index">
                                 <i class="fas fa-tv"></i>Tiện nghi
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Customer" asp-action="Index">
+                            <a asp-controller="CustomersManager" asp-action="Index">
                                 <i class="fas fa-user" aria-hidden="true"></i>Khách hàng
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Coupon" asp-action="Index">
+                            <a asp-controller="CouponsManager" asp-action="Index">
                                 <i class="fas fa-gift" aria-hidden="true"></i>Phiếu giảm giá
                             </a>
                         </li>
                         <li>
-                            <a asp-controller="Booking" asp-action="Index">
+                            <a asp-controller="BookingsManager" asp-action="Index">
                                 <i class="fas fa-bookmark" aria-hidden="true"></i>Đặt phòng
                             </a>
                         </li>

@@ -25,18 +25,21 @@ namespace HotelBooking.API.Controllers
         {
             return await roomTypeService.GetAll();
         }
+
         [HttpGet]
         [Route("api/roomtypes/getallroomtypewithimages")]
         public async Task<IEnumerable<RoomTypes>> GetAllRoomTypeWithImages()
         {
             return await roomTypeService.GetAllRoomTypeWithImages();
         }
+
         [HttpGet]
         [Route("api/roomtypes/getallroomtypewithimagesandfacilities")]
         public async Task<IEnumerable<RoomTypes>> GetAllRoomTypeWithImagesAndFacilities()
         {
             return await roomTypeService.GetAllRoomTypeWithImagesAndFacilities();
         }
+
         [HttpGet]
         [Route("api/roomtypes/getbyid/{id}")]
         public async Task<RoomType> GetById(int id)
@@ -50,6 +53,7 @@ namespace HotelBooking.API.Controllers
         {
             return await roomTypeService.GetByIdWithImagesAndFacilities(id);
         }
+
         [HttpPost]
         [Route("api/roomtypes/save")]
         public async Task<ActionsResult> Save(CreateRoomTypeRequest roomType)
@@ -63,6 +67,7 @@ namespace HotelBooking.API.Controllers
         {
             return await roomTypeService.Delete(id);
         }
+
         [HttpPost]
         [Route("api/roomtypes/search")]
         public Task<IEnumerable<RoomTypeSearchResult>> Search(SearchModel request)

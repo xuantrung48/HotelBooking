@@ -4,6 +4,7 @@ using HotelBooking.Domain.Response.Bookings;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 namespace HotelBooking.API.Controllers
 {
     /// <summary>
@@ -25,7 +26,7 @@ namespace HotelBooking.API.Controllers
         {
             return await bookingRoomDetailsService.Display(id);
         }
-        
+
         [HttpGet]
         [Route("api/bookingRoomDetails/get/{id}")]
         public async Task<IEnumerable<BookingRoomDetails>> Get(int id)
@@ -46,6 +47,7 @@ namespace HotelBooking.API.Controllers
         {
             return await bookingRoomDetailsService.Delete(id);
         }
+
         [HttpDelete]
         [Route("api/bookingRoomDetails/detetebyBookingId/{id}")]
         public async Task<ActionsResult> DeleteByBookingId(int id)

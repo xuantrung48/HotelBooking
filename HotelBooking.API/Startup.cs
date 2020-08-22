@@ -113,7 +113,8 @@ namespace HotelBooking.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Hotel Booking APIs");
                 c.RoutePrefix = string.Empty;
             });
-            app.Run(async (context) => {
+            app.Run(async (context) =>
+            {
                 await context.Response.WriteAsync("Could not find Anything.");
             });
         }

@@ -43,6 +43,8 @@ namespace HotelBooking.WEB
 
             app.UseAuthorization();
 
+            app.UseAuthentication();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

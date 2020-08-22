@@ -56,7 +56,7 @@ coupon.drawTable = function () {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: "/Coupon/GetAll",
+        url: "/CouponsManager/GetAll",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -106,7 +106,7 @@ coupon.get = function (id) {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: `/Coupon/Get/${id}`,
+        url: `/CouponsManager/Get/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -137,7 +137,7 @@ coupon.save = function () {
             beforeSend: function () {
                 $('#modal-loader').css("visibility", "visible");
             },
-            url: `/Coupon/Save/`,
+            url: `/CouponsManager/Save/`,
             method: "POST",
             dataType: "json",
             contentType: "application/json",
@@ -172,7 +172,7 @@ coupon.delete = function (id, name) {
                     beforeSend: function () {
                         $('.ajax-loader').css("visibility", "visible");
                     },
-                    url: `/Coupon/Delete/${id}`,
+                    url: `/CouponsManager/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {

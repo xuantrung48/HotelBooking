@@ -43,7 +43,7 @@ facility.drawTable = function () {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: "/Facility/GetAll",
+        url: "/FacilitiesManager/GetAll",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -69,17 +69,19 @@ facility.drawTable = function () {
 }
 
 facility.get = function (id) {
+    console.log(id);
     facility.reset();
     $.ajax({
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: `/Facility/Get/${id}`,
+        url: `/FacilitiesManager/Get/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
+            console.log(data);
             $('.modal-title').text('Đổi thông tin tiện nghi');
-            $('#FacilityName').val(data.result.facilityName).trim();
+            $('#FacilityName').val(data.result.facilityName.trim());
             $('#FacilityId').val(data.result.facilityId);
             $('#FacilityImage').val(data.result.facilityImage);
             $('#imgPreview').append(
@@ -104,7 +106,7 @@ facility.save = function () {
             beforeSend: function () {
                 $('#modal-loader').css("visibility", "visible");
             },
-            url: `/Facility/Save/`,
+            url: `/FacilitiesManager/Save/`,
             method: "POST",
             dataType: "json",
             contentType: "application/json",
@@ -139,7 +141,7 @@ facility.delete = function (id, name) {
                     beforeSend: function () {
                         $('.ajax-loader').css("visibility", "visible");
                     },
-                    url: `/Facility/Delete/${id}`,
+                    url: `/FacilitiesManager/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {

@@ -35,10 +35,12 @@ namespace HotelBooking.BAL.Promotions
         {
             return await promotionApplyRepository.GetByRoomTypeId(id);
         }
+
         public async Task<IEnumerable<PromotionApply>> GetByPromotionId(int id)
         {
             return await promotionApplyRepository.GetByPromotionId(id);
         }
+
         public async Task<ActionsResult> DeleteByPromotionId(int id)
         {
             return await promotionApplyRepository.DeleteByPromotionId(id);

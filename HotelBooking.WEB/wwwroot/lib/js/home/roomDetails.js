@@ -3,7 +3,7 @@
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: `/RoomType/GetWithImagesAndFacilities/${id}`,
+        url: `/RoomTypesManager/GetWithImagesAndFacilities/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -31,7 +31,7 @@
             }
             $(`#roomPrice`).append(`${digitGrouping(data.result.defaultPrice)}₫<span class="text-secondary">/đêm</span>`);
             $.ajax({
-                url: `/Promotion/GetAvailable`,
+                url: `/PromotionsManager/GetAvailable`,
                 method: "GET",
                 dataType: "json",
                 success: function (roomTypePromotions) {

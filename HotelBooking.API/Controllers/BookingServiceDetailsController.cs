@@ -47,6 +47,7 @@ namespace HotelBooking.API.Controllers
         {
             return await bookingServiceDetailsService.Delete(id);
         }
+
         [HttpDelete]
         [Route("api/bookingServiceDetails/deletebyBookingId/{id}")]
         public async Task<ActionsResult> DeleteByBookingId(int id)

@@ -16,11 +16,12 @@ namespace HotelBooking.Test
         private IRoomTypeRepository roomTypeRepository = new RoomTypeRepository();
         private IRoomTypeImageRepository roomTypeImageRepository = new RoomTypeImageRepository();
         private IFacilityApplyRepository facilityApplyRepository = new FacilityApplyRepository();
+        private IFacilityRepository facilityRepository = new FacilityRepository();
 
         [SetUp]
         public void Setup()
         {
-            roomTypeService = new RoomTypeService(roomTypeRepository, roomTypeImageRepository, facilityApplyRepository);
+            roomTypeService = new RoomTypeService(facilityRepository, roomTypeRepository, roomTypeImageRepository, facilityApplyRepository);
         }
 
         [Test]
@@ -37,9 +38,8 @@ namespace HotelBooking.Test
                 MaxChildren = 1,
                 MaxPeople = 4
             };
-            var result = Task.Run(async() => await roomTypeService.Save(request)).Result;
+            var result = Task.Run(async () => await roomTypeService.Save(request)).Result;
             Assert.IsTrue(result.Id != 0);
         }
     }
 }
-

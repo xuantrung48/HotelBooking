@@ -17,7 +17,7 @@
     <link href="~/lib/jqueryui/jquery-ui.min.css" rel="stylesheet" />
     <link href="~/lib/owl-carousel/owl.carousel.min.css" rel="stylesheet" />
     <link href="~/lib/SlickNav/slicknav.min.css" rel="stylesheet" />
-    <link href="~/lib/hiroto/css/style.css" rel="stylesheet" asp-append-version="true"/>
+    <link href="~/lib/hiroto/css/style.css" rel="stylesheet" asp-append-version="true" />
     @RenderSection("styles", false)
 </head>
 
@@ -68,7 +68,7 @@
                                 <ul>
                                     <li><a asp-controller="User" asp-action="Login" method="get">Đăng nhập</a></li>
                                     <li><a asp-controller="User" asp-action="Register" method="get">Đăng ký</a></li>
-                                    <li><a asp-controller="RoomType" asp-action="Index">Dashboard</a></li>
+                                    <li><a asp-controller="RoomTypesManager" asp-action="Index">Dashboard</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -239,5 +239,4 @@
     <script src="~/lib/js/home/main.js" asp-append-version="true"></script>
     @RenderSection("scripts", false)
 </body>
-
 </html>

@@ -12,7 +12,6 @@ namespace HotelBooking.DAL.HotelServices
 {
     public class RoomTypeImageRepository : BaseRepository, IRoomTypeImageRepository
     {
-
         public async Task<IEnumerable<RoomTypeImage>> GetByRoomTypeId(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
@@ -32,7 +31,7 @@ namespace HotelBooking.DAL.HotelServices
             try
             {
                 var result = new ActionsResult();
-                foreach(var imgData in uploadRoomTypeImagesRequest.Images)
+                foreach (var imgData in uploadRoomTypeImagesRequest.Images)
                 {
                     DynamicParameters parameters = new DynamicParameters();
                     parameters.Add("@RoomTypeId", uploadRoomTypeImagesRequest.RoomTypeId);

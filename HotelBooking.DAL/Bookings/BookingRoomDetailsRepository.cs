@@ -54,7 +54,7 @@ namespace HotelBooking.DAL.Bookings
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@BookingId", id);
-            return await SqlMapper.QueryAsync<BookingRoomDetails>(cnn: conn, sql: "BookingRoomDetails_DisplayBookingRoomTypesByBookingId",param: parameters, commandType: CommandType.StoredProcedure);
+            return await SqlMapper.QueryAsync<BookingRoomDetails>(cnn: conn, sql: "BookingRoomDetails_DisplayBookingRoomTypesByBookingId", param: parameters, commandType: CommandType.StoredProcedure);
         }
 
         public async Task<ActionsResult> DeleteByBookingId(int id)

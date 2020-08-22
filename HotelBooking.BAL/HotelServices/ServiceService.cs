@@ -24,12 +24,14 @@ namespace HotelBooking.BAL.HotelServices
         {
             return await serviceRepository.Get(id);
         }
+
         public async Task<Service> GetByIdWithImages(int id)
         {
             var service = await serviceRepository.Get(id);
             service.Images = await serviceImageRepository.GetByServiceId(id);
             return service;
         }
+
         public async Task<IEnumerable<Service>> Get()
         {
             return await serviceRepository.Get();
@@ -71,7 +73,7 @@ namespace HotelBooking.BAL.HotelServices
         {
             var services = await serviceRepository.Get();
             var servicesResult = new List<Services>();
-            foreach(var service in services)
+            foreach (var service in services)
             {
                 servicesResult.Add(new Services()
                 {
@@ -82,7 +84,6 @@ namespace HotelBooking.BAL.HotelServices
                     ServiceName = service.ServiceName,
                     Image = (await serviceImageRepository.GetByServiceId(service.ServiceId)).FirstOrDefault().ImageData
                 });
-                
             }
             return servicesResult;
         }

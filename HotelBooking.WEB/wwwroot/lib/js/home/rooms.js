@@ -7,12 +7,12 @@ showRoomTypes = function () {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: "/RoomType/GetAllWithImages",
+        url: "/RoomTypesManager/GetAllWithImages",
         method: "GET",
         dataType: "json",
         success: function (data) {
             $.ajax({
-                url: `/Promotion/GetAvailable`,
+                url: `/PromotionsManager/GetAvailable`,
                 method: "GET",
                 dataType: "json",
                 success: function (roomTypePromotions) {

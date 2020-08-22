@@ -54,7 +54,7 @@ customer.drawTable = function () {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: "/Customer/GetAll",
+        url: "/CustomersManager/GetAll",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -101,7 +101,7 @@ customer.get = function (id) {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: `/Customer/Get/${id}`,
+        url: `/CustomersManager/Get/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -130,7 +130,7 @@ customer.save = function () {
             beforeSend: function () {
                 $('#modal-loader').css("visibility", "visible");
             },
-            url: `/Customer/Save/`,
+            url: `/CustomersManager/Save/`,
             method: "POST",
             dataType: "json",
             contentType: "application/json",
@@ -165,7 +165,7 @@ customer.delete = function (id, name) {
                     beforeSend: function () {
                         $('.ajax-loader').css("visibility", "visible");
                     },
-                    url: `/Customer/Delete/${id}`,
+                    url: `/CustomersManager/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
