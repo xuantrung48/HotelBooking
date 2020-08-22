@@ -7,6 +7,21 @@ $(document).ready(function () {
 bookingRoom.init = function () {
     showSelections();
 }
+
+formatDate = function (date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [day, month, year].join('-');
+}
+
 showSelections = function () {
     var rooms;
     $.ajax({
@@ -16,19 +31,6 @@ showSelections = function () {
         success: function (data) {
             rooms = data.result;
             var searchRequest = JSON.parse(localStorage.getItem('searchRequest'));
-            formatDate = function (date) {
-                var d = new Date(date),
-                    month = '' + (d.getMonth() + 1),
-                    day = '' + d.getDate(),
-                    year = d.getFullYear();
-
-                if (month.length < 2)
-                    month = '0' + month;
-                if (day.length < 2)
-                    day = '0' + day;
-
-                return [day, month, year].join('-');
-            }
             $('#checkInDate').append(`Ngày nhận phòng: ${formatDate(new Date(searchRequest.CheckInDate))}`)
             $('#checkOutDate').append(`Ngày trả phòng: ${formatDate(new Date(searchRequest.CheckOutDate))}`)
             for (let i = 0; i < searchRequest.Rooms.length; i++) {

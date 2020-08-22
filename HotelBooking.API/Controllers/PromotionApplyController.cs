@@ -43,12 +43,14 @@ namespace HotelBooking.API.Controllers
         {
             return await promotionApplyService.GetByRoomTypeId(id);
         }
+
         [HttpGet]
         [Route("api/promotionapply/getbypromotionid/{id}")]
         public async Task<IEnumerable<PromotionApply>> GetByPromotionId(int id)
         {
             return await promotionApplyService.GetByPromotionId(id);
         }
+
         [HttpDelete]
         [Route("api/promotionapply/deletebypromotionid/{id}")]
         public async Task<ActionsResult> RemoveByRoomTypeId(int id)

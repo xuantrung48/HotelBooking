@@ -1,7 +1,4 @@
-﻿using HotelBooking.Domain.Response.HotelServices;
-using Microsoft.AspNetCore.Mvc;
-using ShopDienThoai.Web.Ultilities;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace HotelBooking.WEB.Controllers
 {
@@ -11,6 +8,7 @@ namespace HotelBooking.WEB.Controllers
         {
             return View();
         }
+
         public IActionResult Details(int id)
         {
             return View(id);

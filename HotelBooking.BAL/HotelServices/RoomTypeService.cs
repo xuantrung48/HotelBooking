@@ -8,7 +8,6 @@ using HotelBooking.Domain.Response.Facilities;
 using HotelBooking.Domain.Response.HotelServices;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace HotelBooking.BAL.HotelServices
@@ -19,10 +18,12 @@ namespace HotelBooking.BAL.HotelServices
         private IRoomTypeImageRepository roomTypeImageRepository;
         private IFacilityApplyRepository facilityApplyRepository;
         private IFacilityRepository facilityRepository;
+
         public RoomTypeService(IRoomTypeRepository roomTypeRepository)
         {
             this.roomTypeRepository = roomTypeRepository;
         }
+
         public RoomTypeService(IFacilityRepository facilityRepository, IRoomTypeRepository roomTypeRepository, IRoomTypeImageRepository roomTypeImageRepository, IFacilityApplyRepository facilityApplyRepository)
         {
             this.roomTypeRepository = roomTypeRepository;
@@ -35,6 +36,7 @@ namespace HotelBooking.BAL.HotelServices
         {
             return await roomTypeRepository.GetById(id);
         }
+
         public async Task<RoomType> GetByIdWithImagesAndFacilities(int id)
         {
             var roomType = await roomTypeRepository.GetById(id);
@@ -51,6 +53,7 @@ namespace HotelBooking.BAL.HotelServices
         {
             return await roomTypeRepository.GetAll();
         }
+
         public async Task<IEnumerable<RoomTypes>> GetAllRoomTypeWithImages()
         {
             var getRoomTypes = new List<RoomTypes>();
@@ -72,6 +75,7 @@ namespace HotelBooking.BAL.HotelServices
             }
             return getRoomTypes;
         }
+
         public async Task<ActionsResult> Delete(int id)
         {
             return await roomTypeRepository.Delete(id);

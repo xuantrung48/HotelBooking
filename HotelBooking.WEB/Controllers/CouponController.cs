@@ -2,20 +2,18 @@
 using HotelBooking.Domain.Response.Coupons;
 using Microsoft.AspNetCore.Mvc;
 using ShopDienThoai.Web.Ultilities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace HotelBooking.WEB.Controllers
 {
-    public class CouponController: Controller
+    public class CouponController : Controller
     {
         public IActionResult Index()
         {
             Coupon view = new Coupon();
             return View(view);
         }
+
         public JsonResult Get(int id)
         {
             Coupon result = ApiHelper<Coupon>.HttpGetAsync($"{Helper.ApiUrl}api/coupon/getbyid/{id}");

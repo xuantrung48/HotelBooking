@@ -12,11 +12,11 @@ namespace HotelBooking.API.Controllers
     [Route("[controller]")]
     public class AccountController : ControllerBase
     {
-
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IWebHostEnvironment webHostEnvironment;
+
         public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment)
         {
             this.userManager = userManager;
@@ -78,7 +78,5 @@ namespace HotelBooking.API.Controllers
             }
             return result;
         }
-
     }
 }
-

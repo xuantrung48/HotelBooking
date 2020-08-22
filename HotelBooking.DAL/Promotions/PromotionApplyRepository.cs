@@ -22,12 +22,14 @@ namespace HotelBooking.DAL.Promotions
             parameters.Add("@PromotionApplyId", id);
             return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "PromotionApply_Delete", param: parameters, commandType: CommandType.StoredProcedure);
         }
+
         public async Task<ActionsResult> DeleteByPromotionId(int id)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@PromotionId", id);
             return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "PromotionApply_DeleteByPromotionId", param: parameters, commandType: CommandType.StoredProcedure);
         }
+
         public async Task<ActionsResult> Save(PromotionApply promotionApply)
         {
             try
@@ -54,6 +56,7 @@ namespace HotelBooking.DAL.Promotions
             parameters.Add("@RoomTypeId", id);
             return await SqlMapper.QueryAsync<PromotionApply>(cnn: conn, sql: "PromotionApply_GetByRoomTypeId", param: parameters, commandType: CommandType.StoredProcedure);
         }
+
         public async Task<IEnumerable<PromotionApply>> GetByPromotionId(int id)
         {
             DynamicParameters parameters = new DynamicParameters();

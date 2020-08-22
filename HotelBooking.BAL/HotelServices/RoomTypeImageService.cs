@@ -3,9 +3,7 @@ using HotelBooking.DAL.Interface.HotelServices;
 using HotelBooking.Domain.Request.HotelServices;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HotelBooking.BAL.HotelServices

@@ -9,7 +9,8 @@ namespace HotelBooking.DAL.Interface.Promotions
     {
         Task<IEnumerable<PromotionApply>> GetAll();
 
-        Task<IEnumerable<PromotionApply>>GetByRoomTypeId(int id);
+        Task<IEnumerable<PromotionApply>> GetByRoomTypeId(int id);
+
         Task<IEnumerable<PromotionApply>> GetByPromotionId(int id);
 
         Task<ActionsResult> Save(PromotionApply promotionApply);

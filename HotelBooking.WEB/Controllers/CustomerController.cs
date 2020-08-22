@@ -1,5 +1,4 @@
 ﻿using HotelBooking.Domain.Response;
-using HotelBooking.Domain.Response.Promotions;
 using Microsoft.AspNetCore.Mvc;
 using ShopDienThoai.Web.Ultilities;
 using System.Collections.Generic;

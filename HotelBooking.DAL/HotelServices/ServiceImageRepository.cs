@@ -12,7 +12,6 @@ namespace HotelBooking.DAL.HotelServices
 {
     public class ServiceImageRepository : BaseRepository, IServiceImageRepository
     {
-
         public async Task<IEnumerable<ServiceImage>> GetByServiceId(int id)
         {
             DynamicParameters parameters = new DynamicParameters();

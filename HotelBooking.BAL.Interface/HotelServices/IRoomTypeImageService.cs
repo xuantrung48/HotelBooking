@@ -10,7 +10,6 @@ namespace HotelBooking.BAL.Interface.HotelServices
     {
         Task<IEnumerable<RoomTypeImage>> GetByRoomTypeId(int id);
 
-
         Task<ActionsResult> Save(UploadRoomTypeImagesRequest roomTypeImage);
 
         Task<ActionsResult> Delete(int id);

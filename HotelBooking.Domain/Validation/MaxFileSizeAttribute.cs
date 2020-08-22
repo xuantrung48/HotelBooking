@@ -6,6 +6,7 @@ namespace ShopDienThoai.Models.Validation
     public class MaxFileSizeAttribute : ValidationAttribute
     {
         private readonly int _maxFileSize;
+
         public MaxFileSizeAttribute(int maxFileSize)
         {
             _maxFileSize = maxFileSize;

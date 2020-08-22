@@ -31,7 +31,7 @@ namespace HotelBooking.DAL.Facilities
             try
             {
                 var result = new ActionsResult();
-                foreach(var facility in facilitysApply.FacilitieIds)
+                foreach (var facility in facilitysApply.FacilitieIds)
                 {
                     DynamicParameters parameters = new DynamicParameters();
                     parameters.Add("@FacilityId", int.Parse(facility));

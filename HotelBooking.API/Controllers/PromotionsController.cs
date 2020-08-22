@@ -45,6 +45,7 @@ namespace HotelBooking.API.Controllers
         {
             return await promotionService.Delete(id);
         }
+
         [HttpGet]
         [Route("api/promotions/getavailable")]
         public async Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailable()

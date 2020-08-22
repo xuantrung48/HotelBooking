@@ -9,6 +9,7 @@ namespace ShopDienThoai.Models.Validation
     public class AllowedExtensionsAttribute : ValidationAttribute
     {
         private readonly string[] _extensions;
+
         public AllowedExtensionsAttribute(string[] extensions)
         {
             _extensions = extensions;

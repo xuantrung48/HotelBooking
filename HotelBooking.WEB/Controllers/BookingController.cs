@@ -2,24 +2,20 @@
 using HotelBooking.Domain.Response.Bookings;
 using HotelBooking.Domain.Response.Coupons;
 using HotelBooking.Domain.Response.HotelServices;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using ShopDienThoai.Web.Ultilities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 
 namespace HotelBooking.WEB.Controllers
 {
-    public class BookingController: Controller
+    public class BookingController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
+
         public IActionResult BookingDetails(int id)
         {
             ViewBag.RoomType = GetAllRoomType();
@@ -27,6 +23,7 @@ namespace HotelBooking.WEB.Controllers
             ViewBag.Service = GetAllService();
             return View(id);
         }
+
         public JsonResult Get(int id)
         {
             Booking result = ApiHelper<Booking>.HttpGetAsync($"{Helper.ApiUrl}api/booking/get/{id}");
@@ -66,18 +63,22 @@ namespace HotelBooking.WEB.Controllers
             ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/booking/save", model);
             return Json(new { result });
         }
+
         private List<Coupon> GetAllCoupon()
         {
             return ApiHelper<List<Coupon>>.HttpGetAsync($"{Helper.ApiUrl}api/coupon/getall");
         }
+
         private List<RoomType> GetAllRoomType()
         {
             return ApiHelper<List<RoomType>>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypes/getall");
         }
+
         private List<Service> GetAllService()
         {
             return ApiHelper<List<Service>>.HttpGetAsync($"{Helper.ApiUrl}api/service/get");
         }
+
         private List<DateTime> GetListDate(int id)
         {
             return ApiHelper<List<DateTime>>.HttpGetAsync($"{Helper.ApiUrl}api/booking/getListDate/{id}");

@@ -8,7 +8,6 @@ namespace HotelBooking.DAL.Interface.HotelServices
 {
     public interface IRoomTypeImageRepository
     {
-
         Task<ActionsResult> Save(UploadRoomTypeImagesRequest roomTypeImagesRequest);
 
         Task<IEnumerable<RoomTypeImage>> GetByRoomTypeId(int id);

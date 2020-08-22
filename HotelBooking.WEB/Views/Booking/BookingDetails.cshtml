@@ -122,7 +122,6 @@
                     </a>
                 </div>
                 <div class="col-9" id="ServiceDetails">
-                    
                 </div>
             </div>
         </div>
@@ -301,12 +300,11 @@
             $(`.rowService_${id}`).remove();
         };
         save = function () {
-            
+
             if ($('#form').valid()) {
                 var bookingObj = {};
                 var customerObj = {};
                 var serviceDetails = new Array();
-
 
                 for (let i = 0; i <= serviceRowId; i++) {
                     var serviceDetail = {};

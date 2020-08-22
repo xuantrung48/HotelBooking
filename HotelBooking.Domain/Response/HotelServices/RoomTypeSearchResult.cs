@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HotelBooking.Domain.Response.HotelServices
+﻿namespace HotelBooking.Domain.Response.HotelServices
 {
     public class RoomTypeSearchResult
     {

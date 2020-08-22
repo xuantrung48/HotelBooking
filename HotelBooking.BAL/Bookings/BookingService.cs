@@ -8,7 +8,6 @@ using HotelBooking.Domain.Response.Bookings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace HotelBooking.BAL.Bookings
@@ -24,11 +23,11 @@ namespace HotelBooking.BAL.Bookings
 
         public BookingService(
              IBookingRepository bookingRepository
-            ,IBookingRoomDetailsRepository bookingRoomDetailsRepository
-            ,IBookingServiceDetailsRepository bookingServiceDetailsRepository
-            ,ICustomerRepository customerRepository
-            ,ICouponRepository couponRepository
-            ,ISupportRepository supportRepository)
+            , IBookingRoomDetailsRepository bookingRoomDetailsRepository
+            , IBookingServiceDetailsRepository bookingServiceDetailsRepository
+            , ICustomerRepository customerRepository
+            , ICouponRepository couponRepository
+            , ISupportRepository supportRepository)
         {
             this.bookingRepository = bookingRepository;
             this.bookingRoomDetailsRepository = bookingRoomDetailsRepository;
@@ -46,14 +45,14 @@ namespace HotelBooking.BAL.Bookings
         public async Task<IEnumerable<Booking>> Get()
         {
             var bookings = (await bookingRepository.Get()).ToList();
-            foreach(var item in bookings)
+            foreach (var item in bookings)
             {
                 var bookingServiceDetails = (await bookingServiceDetailsRepository.Get(item.BookingId)).ToList();
                 item.bookingServiceDetails = bookingServiceDetails;
                 var bookingRoomDetails = (await bookingRoomDetailsRepository.Display(item.BookingId)).ToList();
                 item.bookingRoomDetails = bookingRoomDetails;
             }
-            
+
             var customers = await customerRepository.Get();
             var coupons = await couponRepository.GetAll();
             var data = (from b in bookings
@@ -85,7 +84,6 @@ namespace HotelBooking.BAL.Bookings
 
         public async Task<Booking> Get(int id)
         {
-            
             var booking = await bookingRepository.Get(id);
             var bookingServiceDetails = (await bookingServiceDetailsRepository.Get(booking.BookingId)).ToList();
             var bookingRoomDetails = (await bookingRoomDetailsRepository.Display(booking.BookingId)).ToList();
@@ -121,9 +119,9 @@ namespace HotelBooking.BAL.Bookings
         {
             return bookingRepository.Save(booking);
         }
+
         //public Task<ActionsResult> Save(Booking booking)
         //{
-
         //}
     }
 }

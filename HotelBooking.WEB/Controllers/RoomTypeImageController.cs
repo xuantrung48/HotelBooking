@@ -14,7 +14,6 @@ namespace HotelBooking.WEB.Controllers
             return Json(new { result });
         }
 
-
         public JsonResult Delete(int id)
         {
             ActionsResult result = ApiHelper<ActionsResult>.HttpGetAsync($"{Helper.ApiUrl}api/roomtypeimages/delete/{id}", "DELETE");
