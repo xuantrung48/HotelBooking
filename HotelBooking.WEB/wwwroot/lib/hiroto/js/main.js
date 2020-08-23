@@ -180,51 +180,63 @@
         Datepicker
     ----------------------------*/
     var today = new Date(); 
-    var ci = today.getDate(); 
-    var mm = today.getMonth() + 1; 
+    var idd = today.getDate(); 
+    if (idd < 10)
+        idd = '0' + idd;
+    var imm = today.getMonth() + 1; 
+    if (imm < 10)
+        imm = '0' + imm;
+    var iyyyy = today.getFullYear();
 
-    var yyyy = today.getFullYear(); 
-    if (ci < 10) { 
-        ci = '0' + ci; 
-    }
-    var mS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-    var month;
-
-    for (let i = 0; i <= 12; i++) {
-        const element = mS[i];
-        if (mm == mS.indexOf(mS[i])) {
-            month = mS[i-1];
-        }
-    }
-
-    var today = ci + ' ' + month + ' ' + yyyy; 
+    today = idd + '-' + imm + '-' + iyyyy; 
 
     $(".check__in").val(today);
 
     var tomorrow = new Date();
-
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    var co = tomorrow.getDate();
-
-    if (co < 10) {
-        co = '0' + co;
-    }
-
-    var tomorrow = co + ' ' + month + ' ' + yyyy;
+    var odd = tomorrow.getDate();
+    if (odd < 10)
+        odd = '0' + odd;
+    var omm = tomorrow.getMonth() + 1;
+    if (omm < 10)
+        omm = '0' + omm;
+    var oyyyy = tomorrow.getFullYear();
+    tomorrow = odd + '-' + omm + '-' + oyyyy;
 
     $(".check__in").val(today);
     $(".check__out").val(tomorrow);
 
     $(".check__in").datepicker({
-        dateFormat: 'dd M yy',
+        dateFormat: 'dd-mm-yy',
         minDate: 0
     });
 
     $(".check__out").datepicker({
-        dateFormat: 'dd M yy',
+        dateFormat: 'dd-mm-yy',
         minDate: 1
     });
+
+    $(".check__in").on('change', function () {
+        var checkInDate = new Date(convertDateFormat($(".check__in").val()));
+
+        var checkOutDate = new Date();
+        checkOutDate.setDate(checkInDate.getDate() + 1);
+
+        var dd = checkOutDate.getDate();
+        if (dd < 10)
+            dd = '0' + dd;
+        var mm = checkOutDate.getMonth() + 1;
+        if (mm < 10)
+            mm = '0' + mm;
+        var yyyy = checkOutDate.getFullYear();
+        var date = dd + '-' + mm + '-' + yyyy;
+
+        $(".check__out").datepicker("option", {
+            minDate: checkOutDate
+        });
+
+        $(".check__out").val(date);
+    })
 
 })(jQuery);

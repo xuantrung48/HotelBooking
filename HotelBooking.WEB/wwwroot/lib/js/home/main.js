@@ -162,8 +162,8 @@ addChildren = function (room) {
 
 Search = function () {
     var searchRequest = {};
-    searchRequest.CheckInDate = new Date($('.check__in').val());
-    searchRequest.CheckOutDate = new Date($('.check__out').val());
+    searchRequest.CheckInDate = new Date(convertDateFormat($('.check__in').val()));
+    searchRequest.CheckOutDate = new Date(convertDateFormat($('.check__out').val()));
     searchRequest.Rooms = [];
     for (let i = 0; i < parseInt($('#numberOfRooms').val()); i++) {
         searchRequest.Rooms[i] = {};
@@ -172,4 +172,9 @@ Search = function () {
     }
     localStorage.setItem('searchRequest', JSON.stringify(searchRequest));
     location.replace("/Search")
+}
+
+convertDateFormat = function (date) {
+    var ddSplit = date.split('-');
+    return (ddSplit[1] + '-' + ddSplit[0] + '-' + ddSplit[2]);
 }
