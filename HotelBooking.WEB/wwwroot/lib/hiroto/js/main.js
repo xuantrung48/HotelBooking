@@ -219,24 +219,26 @@
     $(".check__in").on('change', function () {
         var checkInDate = new Date(convertDateFormat($(".check__in").val()));
         var checkOutDate = new Date(convertDateFormat($(".check__out").val()));
+        var minCheckOutDate = new Date((checkInDate).valueOf() + 1000 * 3600 * 24);
+        var dateString;
         if (checkInDate >= checkOutDate) {
-            var newCheckOutDate = new Date((checkInDate).valueOf() + 1000 * 3600 * 24);
-
-            var dd = newCheckOutDate.getDate();
+            var dd = minCheckOutDate.getDate();
             if (dd < 10)
                 dd = '0' + dd;
-            var mm = newCheckOutDate.getMonth() + 1;
+            var mm = minCheckOutDate.getMonth() + 1;
             if (mm < 10)
                 mm = '0' + mm;
-            var yyyy = newCheckOutDate.getFullYear();
-            var date = dd + '-' + mm + '-' + yyyy;
+            var yyyy = minCheckOutDate.getFullYear();
 
-            $(".check__out").datepicker("option", {
-                minDate: newCheckOutDate
-            });
+            dateString = dd + '-' + mm + '-' + yyyy;
 
-            $(".check__out").val(date);
+            $(".check__out").val(dateString);
         }
+
+        $(".check__out").datepicker("option", {
+            minDate: minCheckOutDate
+        });
+
     })
 
 })(jQuery);
