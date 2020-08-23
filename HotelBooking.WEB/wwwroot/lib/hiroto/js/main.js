@@ -192,8 +192,7 @@
 
     $(".check__in").val(today);
 
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    var tomorrow = new Date((new Date()).valueOf() + 1000 * 3600 * 24);
 
     var odd = tomorrow.getDate();
     if (odd < 10)
@@ -219,24 +218,27 @@
 
     $(".check__in").on('change', function () {
         var checkInDate = new Date(convertDateFormat($(".check__in").val()));
+        var checkOutDate = new Date(convertDateFormat($(".check__out").val()));
+        var minCheckOutDate = new Date((checkInDate).valueOf() + 1000 * 3600 * 24);
+        var dateString;
+        if (checkInDate >= checkOutDate) {
+            var dd = minCheckOutDate.getDate();
+            if (dd < 10)
+                dd = '0' + dd;
+            var mm = minCheckOutDate.getMonth() + 1;
+            if (mm < 10)
+                mm = '0' + mm;
+            var yyyy = minCheckOutDate.getFullYear();
 
-        var checkOutDate = new Date();
-        checkOutDate.setDate(checkInDate.getDate() + 1);
+            dateString = dd + '-' + mm + '-' + yyyy;
 
-        var dd = checkOutDate.getDate();
-        if (dd < 10)
-            dd = '0' + dd;
-        var mm = checkOutDate.getMonth() + 1;
-        if (mm < 10)
-            mm = '0' + mm;
-        var yyyy = checkOutDate.getFullYear();
-        var date = dd + '-' + mm + '-' + yyyy;
+            $(".check__out").val(dateString);
+        }
 
         $(".check__out").datepicker("option", {
-            minDate: checkOutDate
+            minDate: minCheckOutDate
         });
 
-        $(".check__out").val(date);
     })
 
 })(jQuery);
