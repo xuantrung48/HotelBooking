@@ -180,12 +180,12 @@
         Datepicker
     ----------------------------*/
     var today = new Date(); 
-    var dd = today.getDate(); 
+    var ci = today.getDate(); 
     var mm = today.getMonth() + 1; 
 
     var yyyy = today.getFullYear(); 
-    if (dd < 10) { 
-        dd = '0' + dd; 
+    if (ci < 10) { 
+        ci = '0' + ci; 
     }
     var mS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -197,14 +197,34 @@
             month = mS[i-1];
         }
     }
-    var today = dd + ' ' + month + ' ' + yyyy; 
+
+    var today = ci + ' ' + month + ' ' + yyyy; 
 
     $(".check__in").val(today);
-    $(".check__out").val(today);
 
-    $( ".datepicker_pop" ).datepicker({ 
+    var tomorrow = new Date();
+
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    var co = tomorrow.getDate();
+
+    if (co < 10) {
+        co = '0' + co;
+    }
+
+    var tomorrow = co + ' ' + month + ' ' + yyyy;
+
+    $(".check__in").val(today);
+    $(".check__out").val(tomorrow);
+
+    $(".check__in").datepicker({
         dateFormat: 'dd M yy',
         minDate: 0
+    });
+
+    $(".check__out").datepicker({
+        dateFormat: 'dd M yy',
+        minDate: 1
     });
 
 })(jQuery);
