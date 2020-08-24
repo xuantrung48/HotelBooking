@@ -3406,3 +3406,7 @@ ol {
 .dropdown:hover .dropdown-content {
 	display: block;
 }
+
+.facilities {
+	width: 20px;
+}

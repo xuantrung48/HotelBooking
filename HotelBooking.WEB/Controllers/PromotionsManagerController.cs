@@ -3,6 +3,7 @@ using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Promotions;
 using Microsoft.AspNetCore.Mvc;
 using ShopDienThoai.Web.Ultilities;
+using System;
 using System.Collections.Generic;
 
 namespace HotelBooking.WEB.Controllers
@@ -42,6 +43,11 @@ namespace HotelBooking.WEB.Controllers
         public JsonResult GetAvailable()
         {
             List<GetMaxDiscountRatesPromotionAvailable> result = ApiHelper<List<GetMaxDiscountRatesPromotionAvailable>>.HttpGetAsync($"{Helper.ApiUrl}api/promotions/getavailable");
+            return Json(new { result });
+        }
+        public JsonResult GetAvailableForDate([FromBody] DateTime date)
+        {
+            List<GetMaxDiscountRatesPromotionAvailable> result = ApiHelper<List<GetMaxDiscountRatesPromotionAvailable>>.HttpPostAsync($"{Helper.ApiUrl}api/promotions/getavailablefordate", date);
             return Json(new { result });
         }
     }

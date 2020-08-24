@@ -30,7 +30,6 @@ showSelections = function () {
         dataType: "json",
         success: function (data) {
             rooms = data.result;
-            console.log(rooms);
             var searchRequest = JSON.parse(localStorage.getItem('searchRequest'));
             $('#checkInDate').append(`Ngày nhận phòng: ${formatDate(new Date(searchRequest.CheckInDate))}`)
             $('#checkOutDate').append(`Ngày trả phòng: ${formatDate(new Date(searchRequest.CheckOutDate))}`)
@@ -38,7 +37,7 @@ showSelections = function () {
                 $('#tbRoomBooking').append(
                     `<div class="card my-2">
                         <div class="row">
-                            <div class="col-3 text-center my-auto"">
+                            <div class="col-3 text-center my-auto">
                                 <h4>Phòng ${i + 1}</h4>
                                 <p>(${searchRequest.Rooms[i].Adults} người lớn, ${searchRequest.Rooms[i].Children} trẻ em)</p>
                             </div>
@@ -60,12 +59,25 @@ showSelections = function () {
                     contentType: "application/json",
                     data: JSON.stringify(searchRequestObj),
                     success: function (data) {
-                        console.log(data.result);
+                        /*console.log(data.result);*/
+                        for (let d = new Date(searchRequest.CheckInDate); d < new Date(searchRequest.CheckOutDate); d.setDate(d.getDate() + 1)) {
+                            console.log(JSON.stringify(d));
+                            $.ajax({
+                                url: `/PromotionsManager/GetAvailableForDate/`,
+                                method: "POST",
+                                dataType: "json",
+                                contentType: "application/json",
+                                data: JSON.stringify(d),
+                                success: function (data) {
+                                    console.log(data);
+                                }
+                            });
+                        }
                         for (let j = 0; j < data.result.length; j++) {
                             for (let k = 0; k < rooms.length; k++) {
                                 let facilities = '';
                                 for (let l = 0; l < rooms[k].facilities.length; l++) {
-                                    facilities += `<img src=${rooms[k].facilities[l].facilityImage} class="mx-1">`
+                                    facilities += `<img src=${rooms[k].facilities[l].facilityImage} class="mx-1 facilities">`
                                 }
                                 if (data.result[j].roomTypeId == rooms[k].roomTypeId) {
                                     $(`#room${i}`).append(

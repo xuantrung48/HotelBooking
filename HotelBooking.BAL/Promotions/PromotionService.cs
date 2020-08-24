@@ -3,6 +3,7 @@ using HotelBooking.DAL.Interface.Promotions;
 using HotelBooking.Domain.Request.Promotions;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Promotions;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -62,6 +63,10 @@ namespace HotelBooking.BAL
         public async Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailable()
         {
             return await promotionRepository.GetAvailable();
+        }
+        public async Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailableForDate(DateTime date)
+        {
+            return await promotionRepository.GetAvailableForDate(date);
         }
     }
 }

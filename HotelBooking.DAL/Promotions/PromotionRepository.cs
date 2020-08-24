@@ -56,5 +56,11 @@ namespace HotelBooking.DAL.Promotions
         {
             return await SqlMapper.QueryAsync<GetMaxDiscountRatesPromotionAvailable>(conn, "Promotion_GetAvailable", commandType: CommandType.StoredProcedure);
         }
+        public async Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailableForDate(DateTime date)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@Date", date);
+            return await SqlMapper.QueryAsync<GetMaxDiscountRatesPromotionAvailable>(conn, "Promotion_GetAvailableForDate", param: parameters, commandType: CommandType.StoredProcedure);
+        }
     }
 }
