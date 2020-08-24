@@ -162,8 +162,8 @@ addChildren = function (room) {
 
 Search = function () {
     var searchRequest = {};
-    searchRequest.CheckInDate = new Date(convertDateFormat($('.check__in').val()));
-    searchRequest.CheckOutDate = new Date(convertDateFormat($('.check__out').val()));
+    searchRequest.CheckInDate = (new Date(convertDateFormat($('.check__in').val()))).getTime() + (7 * 60 * 60 * 1000);
+    searchRequest.CheckOutDate = (new Date(convertDateFormat($('.check__out').val()))).getTime() + (7 * 60 * 60 * 1000);
     searchRequest.Rooms = [];
     for (let i = 0; i < parseInt($('#numberOfRooms').val()); i++) {
         searchRequest.Rooms[i] = {};

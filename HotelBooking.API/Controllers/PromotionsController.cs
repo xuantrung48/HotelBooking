@@ -1,4 +1,5 @@
 ﻿using HotelBooking.BAL.Interface.Promotions;
+using HotelBooking.Domain.Request.Booking;
 using HotelBooking.Domain.Request.Promotions;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Promotions;
@@ -55,9 +56,15 @@ namespace HotelBooking.API.Controllers
         }
         [HttpPost]
         [Route("api/promotions/getavailablefordate")]
-        public async Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailableForDate(DateTime date)
+        public async Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailableForDate([FromBody] DateTime date)
         {
             return await promotionService.GetAvailableForDate(date);
+        }
+        [HttpPost]
+        [Route("api/promotions/getavailablefordateandroomtypeid")]
+        public async Task<GetAvailablePromotionForDateAndRoomIdResponse> GetAvailablePromotionForDateAndRoomId([FromBody] GetAvailablePromotionForDateAndRoomIdRequest request)
+        {
+            return await promotionService.GetAvailablePromotionForDateAndRoomId(request);
         }
     }
 }
