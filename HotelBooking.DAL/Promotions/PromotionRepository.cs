@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using HotelBooking.DAL.Interface.Promotions;
+using HotelBooking.Domain.Request.Booking;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Promotions;
 using System;
@@ -61,6 +62,14 @@ namespace HotelBooking.DAL.Promotions
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@Date", date);
             return await SqlMapper.QueryAsync<GetMaxDiscountRatesPromotionAvailable>(conn, "Promotion_GetAvailableForDate", param: parameters, commandType: CommandType.StoredProcedure);
+        }
+
+        public async Task<float> GetAvailablePromotionForDateAndRoomId(GetAvailablePromotionForDateAndRoomIdRequest request)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@RoomTypeId", request.RoomTypeId);
+            parameters.Add("@Date", request.Date);
+            return await SqlMapper.QueryFirstOrDefaultAsync<float>(conn, "Promotion_GetAvailableForDateAndRoomId", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }
