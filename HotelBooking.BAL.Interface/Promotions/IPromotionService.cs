@@ -1,6 +1,7 @@
 ﻿using HotelBooking.Domain.Request.Promotions;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Promotions;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -17,5 +18,7 @@ namespace HotelBooking.BAL.Interface.Promotions
         Task<ActionsResult> Delete(int id);
 
         Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailable();
+
+        Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailableForDate(DateTime date);
     }
 }

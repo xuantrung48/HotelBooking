@@ -3,6 +3,7 @@ using HotelBooking.Domain.Request.Promotions;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Promotions;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -51,6 +52,12 @@ namespace HotelBooking.API.Controllers
         public async Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailable()
         {
             return await promotionService.GetAvailable();
+        }
+        [HttpPost]
+        [Route("api/promotions/getavailablefordate")]
+        public async Task<IEnumerable<GetMaxDiscountRatesPromotionAvailable>> GetAvailableForDate(DateTime date)
+        {
+            return await promotionService.GetAvailableForDate(date);
         }
     }
 }

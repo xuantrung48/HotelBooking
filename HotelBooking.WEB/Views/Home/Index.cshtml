@@ -29,28 +29,15 @@
                     </div>
                     <div class="filter__form__item filter__form__item--select">
                         <p>Số phòng</p>
-                        <div class="filter__form__input dropdown row">
-                            <input type="button" class="col-2" value="-" id="minusRoom">
+                        <div class="filter__form__input dropdown row mx-auto">
+                            <input type="button" class="col-1 bg-dark text-light" value="  -" id="minusRoom">
                             <input type="number" readonly value="1" step="1" min="1" id="numberOfRooms" class="col-5" inputmode="numeric" />
-                            <input type="button" class="col-2" value="+" id="addRoom">
+                            <input type="button" class="col-1 bg-dark text-light" value="  +" id="addRoom">
                             <div class="dropdown-content" id="selectRooms">
-                                <h4>Phòng 1:</h4>
-                                <div class"row">
-                                    <p class="col-4 d-inline-block">Người lớn:</p>
-                                    <input type="button" class="col-1 d-inline-block" value="-" onclick="minusAdults(1)">
-                                    <input type="number" readonly value="1" step="1" min="1" id="adults1" class="col-3 d-inline-block" inputmode="numeric" />
-                                    <input type="button" class="col-1 d-inline-block" value="+" onclick="addAdults(1)">
-                                </div>
-                                <div class"row">
-                                    <p class="col-4 d-inline-block">Trẻ em:</p>
-                                    <input type="button" class="col-1 d-inline-block" value="-" onclick="minusChildren(1)">
-                                    <input type="number" readonly value="0" step="1" min="1" id="children1" class="col-3 d-inline-block" inputmode="numeric" />
-                                    <input type="button" class="col-1 d-inline-block" value="+" onclick="addChildren(1)">
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <button type="button" onclick="Search()">Đặt phòng</button>
+                    <button type="button" onclick="Search()">Tìm <i class="fas fa-search"></i></button>
                 </form>
             </div>
         </div>
@@ -146,6 +133,7 @@
     <script>
         $(document).ready(function () {
             showRoomTypes();
+            changeNumberOfRooms();
         })
     </script>
 }
