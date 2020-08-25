@@ -7,17 +7,21 @@
     </div>
     <div class="card">
         <div class="form">
-            <div class="row p-3" style="background-color:#f1be0d">
-                <div id="checkInDate" class="col-3"></div>
-                <div id="checkOutDate" class="col-3"></div>
-            </div>
-            <div class="modal-body bg-light">
+            <div class="p-3" style="background-color:#f1be0d">
                 <div class="row">
-                    <div class="col-10" id="tbRoomBooking">
+                    <div id="checkInDate" class="col-lg-4 col-md-6"></div>
+                    <div id="checkOutDate" class="col-lg-4 col-md-6"></div>
+                    <div id="totalPeople" class="col-lg-4 col-md-6"></div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="bg-secondary container" id="tbRoomBooking">
                     </div>
-                    <div class="col-2 mt-3">
-                        <a class="btn btn-success" style="width:150px; background-color:#f1be0d"><h4>Đặt Phòng</h4></a>
-                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <h4 class="my-5">Tổng tiền: <span class="text-danger" id="TotalAmount"></span></h4>
+                    <a class="btn btn-success bg-warning" style="width:150px;"><h4>Đặt Phòng</h4></a>
                 </div>
             </div>
         </div>
