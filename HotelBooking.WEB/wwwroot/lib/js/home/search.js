@@ -9,7 +9,9 @@ $(document).ready(function () {
 })
 
 bookingRoom.init = function () {
+    getRoomTypes();
     showSelections();
+    getRoomsValue();
 }
 
 formatDate = function (date) {
@@ -26,8 +28,11 @@ formatDate = function (date) {
     return [day, month, year].join('-');
 }
 
-showSelections = function () {
-    var roomTypes;
+var searchRequest = JSON.parse(localStorage.getItem('searchRequest'));
+
+var roomTypes;
+
+getRoomTypes = function () {
     $.ajax({
         url: "/RoomTypesManager/GetAllWithImagesAndFacilities",
         method: "GET",
@@ -37,28 +42,33 @@ showSelections = function () {
             roomTypes = roomTypesData.result;
         },
     });
-    var searchRequest = JSON.parse(localStorage.getItem('searchRequest'));
-    $('#checkInDate').append(`Ngày nhận phòng: ${formatDate(new Date(searchRequest.CheckInDate))}`)
-    $('#checkOutDate').append(`Ngày trả phòng: ${formatDate(new Date(searchRequest.CheckOutDate))}`)
+}
+
+showSelections = function () {
+    $('#checkInDate').text(`Ngày nhận phòng: ${formatDate(new Date(searchRequest.CheckInDate))}`)
+    $('#checkOutDate').text(`Ngày trả phòng: ${formatDate(new Date(searchRequest.CheckOutDate))}`)
+    var adults = 0;
+    var children = 0;
     for (let i = 0; i < searchRequest.Rooms.length; i++) {
         $('#tbRoomBooking').append(
-            `<div class="card my-2">
+            `<div class="card my-3">
                 <div class="row">
-                    <div class="col-3 text-center my-auto">
+                    <div class="col-md-3 col-sm-12 text-center my-auto">
                         <h4>Phòng ${i + 1}</h4>
                         <p>(${searchRequest.Rooms[i].Adults} người lớn, ${searchRequest.Rooms[i].Children} trẻ em)</p>
                     </div>
-                    <div class="col-9" id="room${i}">
+                    <div class="col-md-9 col-sm-12" id="room${i}">
                     </div>
                 </div>
-            </div>
-            <hr>`
+            </div>`
         )
         let searchRequestObj = {};
         searchRequestObj.CheckInDate = new Date(searchRequest.CheckInDate);
         searchRequestObj.CheckOutDate = new Date(searchRequest.CheckOutDate);
         searchRequestObj.NumberOfAdults = searchRequest.Rooms[i].Adults;
         searchRequestObj.NumberOfChildren = searchRequest.Rooms[i].Children;
+        adults += searchRequestObj.NumberOfAdults;
+        children += searchRequestObj.NumberOfChildren;
         var roomTypeResult;
         $.ajax({
             url: `/RoomTypesManager/Search/`,
@@ -78,13 +88,13 @@ showSelections = function () {
                     for (let l = 0; l < roomTypes[k].facilities.length; l++)
                         facilities += `<img src=${roomTypes[k].facilities[l].facilityImage} class="mx-1 facilities">`
 
-                    var roomPrice = '<div class="row"><div class="col-md-2 col-sm-4">Giá:</div><div class="col-lg-10 col-sm-8">';
+                    var roomPriceStr = '<div class="row"><div class="col-lg-2 col-md-12 col-sm-4">Giá:</div><div class="col-lg-10 col-md-12 col-sm-8">';
+                    var price = 0;
                     for (let d = searchRequestObj.CheckInDate.getTime(); d < searchRequestObj.CheckOutDate.getTime(); d += 86400000) {
                         var date = new Date(d);
                         var getPromotionRequest = {};
                         getPromotionRequest.RoomTypeId = roomTypeResult[j].roomTypeId;
                         getPromotionRequest.Date = date;
-                        console.log(getPromotionRequest);
                         $.ajax({
                             url: `/PromotionsManager/GetAvailableForDateAndRoomTypeId/`,
                             method: "POST",
@@ -93,35 +103,55 @@ showSelections = function () {
                             async: false,
                             data: JSON.stringify(getPromotionRequest),
                             success: function (promotionData) {
-                                console.log(promotionData);
                                 if (promotionData.result.discountRates == 0) {
-                                    roomPrice += `<div>${date.getDate()}/${date.getMonth() + 1}: ${digitGrouping(roomTypes[k].defaultPrice)}₫</div>`
+                                    roomPriceStr += `<div>${date.getDate()}/${date.getMonth() + 1}: ${digitGrouping(roomTypes[k].defaultPrice)}₫</div>`
+                                    price += roomTypes[k].defaultPrice;
                                 } else {
-                                    roomPrice += `<div>${date.getDate()}/${date.getMonth() + 1}: <del class="text-danger">${digitGrouping(roomTypes[k].defaultPrice)}₫</del> ${digitGrouping(roomTypes[k].defaultPrice * (1 - promotionData.result.discountRates))}₫</div>`
+                                    roomPriceStr += `<div>${date.getDate()}/${date.getMonth() + 1}: <del class="text-danger">${digitGrouping(roomTypes[k].defaultPrice)}₫</del> ${digitGrouping(roomTypes[k].defaultPrice * (1 - promotionData.result.discountRates))}₫</div>`
+                                    price += roomTypes[k].defaultPrice * (1 - promotionData.result.discountRates);
                                 }
                             },
                         });
                     }
-                    roomPrice += '</div></div>';
+                    roomPriceStr += '</div></div>';
                     $(`#room${i}`).append(
-                        `<div class="row mt-2">
-                            <div class="col-lg-3">
-                                <img class="w-75 my-auto" src="${roomTypes[k].image}">
+                        `<div class="row my-2">
+                            <div class="col-md-4">
+                                <img class="my-auto" src="${roomTypes[k].image}">
                             </div>
-                            <div class="col-lg-8">
+                            <div class="col-md-7">
                                 <h4>${roomTypes[k].name}</h4>
                                 <p>${roomTypes[k].description}</p>
-                                <p>Tiện nghi: ${facilities}</p>
-                                ${roomPrice}
+                                <p class="text-dark">Tiện nghi: ${facilities}</p>
+                                ${roomPriceStr}
+                                <p class="text-dark">Tổng giá phòng: ${digitGrouping(price)} ₫</p>
+                                <input type="number" hidden value="${price}" id="roomPrice-${i + 1}-${roomTypes[k].roomTypeId}">
                             </div>
-                            <div class="col-lg-1 my-auto">
-                                <input type="radio" name="room${i + 1}" value="${roomTypes[k].roomTypeId}">
+                            <div class="col-md-1 my-auto text-center">
+                                <input type="radio" value="${roomTypes[k].roomTypeId}" name="room-${i + 1}" id="room-${i + 1}-${roomTypes[k].roomTypeId}" onclick="getRoomsValue()">
                             </div>
-                        </div>
-                        <hr>`
+                        </div>`
                     )
+                    if (j < roomTypeResult.length - 1)
+                        $(`#room${i}`).append('<hr style="height:2px;">');
                 };
             }
         }
     }
+    $('#totalPeople').text(`Tổng số người: ${adults + children} (${adults} người lớn, ${children} trẻ em)`);
+}
+
+var roomSelected = [];
+
+getRoomsValue = function () {
+    var totalAmount = 0;
+    for (let i = 0; i < searchRequest.Rooms.length; i++) {
+        for (let j = 0; j < roomTypes.length; j++) {
+            if (document.querySelector(`input[id="room-${i + 1}-${roomTypes[j].roomTypeId}"]:checked`)) {
+                roomSelected.push(parseInt(document.querySelector(`input[id="room-${i + 1}-${roomTypes[j].roomTypeId}"]:checked`).value));
+                totalAmount += parseInt($(`#roomPrice-${i + 1}-${roomTypes[j].roomTypeId}`).val());
+            }
+        }
+    }
+    $('#TotalAmount').text(digitGrouping(totalAmount) + '₫');
 }

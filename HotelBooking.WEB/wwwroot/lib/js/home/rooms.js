@@ -24,7 +24,7 @@ showRoomTypes = function () {
                                         <h4>${data.result[i].name}</h4>
                                         <p class="text-warning" id="price${data.result[i].roomTypeId}">${digitGrouping(data.result[i].defaultPrice)}₫<span>/đêm</span></p>
                                     </div>
-                                    <a href="/BookingRoom/Index" class="roomInfo">Đặt ngay</a>
+                                    <a href="/" class="roomInfo">Đặt ngay</a>
                                 </div>
                             </div>`
                         );
