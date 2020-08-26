@@ -2,8 +2,8 @@
 using HotelBooking.Domain.Request.Promotions;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Promotions;
+using HotelBooking.Web.Ultilities;
 using Microsoft.AspNetCore.Mvc;
-using ShopDienThoai.Web.Ultilities;
 using System;
 using System.Collections.Generic;
 
