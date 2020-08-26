@@ -1,7 +1,7 @@
 ﻿using HotelBooking.Domain.Request.Account;
 using HotelBooking.Domain.Response.Account;
+using HotelBooking.Web.Ultilities;
 using Microsoft.AspNetCore.Mvc;
-using ShopDienThoai.Web.Ultilities;
 
 namespace HotelBooking.WEB.Controllers
 {

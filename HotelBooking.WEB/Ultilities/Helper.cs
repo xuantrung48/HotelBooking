@@ -1,4 +1,4 @@
-﻿namespace ShopDienThoai.Web.Ultilities
+﻿namespace HotelBooking.Web.Ultilities
 {
     public class Helper
     {

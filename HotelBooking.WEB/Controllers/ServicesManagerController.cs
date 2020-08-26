@@ -1,8 +1,8 @@
 ﻿using HotelBooking.Domain.Request.HotelServices;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
+using HotelBooking.Web.Ultilities;
 using Microsoft.AspNetCore.Mvc;
-using ShopDienThoai.Web.Ultilities;
 using System.Collections.Generic;
 
 namespace HotelBooking.WEB.Controllers
