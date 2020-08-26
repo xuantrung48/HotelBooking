@@ -1,4 +1,7 @@
 ﻿var bookingRoom = {} || bookingRoom;
+var searchRequest = JSON.parse(localStorage.getItem('searchRequest'));
+var roomSelected = [];
+var roomTypes;
 
 digitGrouping = function (price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -27,10 +30,6 @@ formatDate = function (date) {
 
     return [day, month, year].join('-');
 }
-
-var searchRequest = JSON.parse(localStorage.getItem('searchRequest'));
-
-var roomTypes;
 
 getRoomTypes = function () {
     $.ajax({
@@ -79,16 +78,21 @@ showSelections = function () {
             data: JSON.stringify(searchRequestObj),
             success: function (roomTypeResultData) {
                 roomTypeResult = roomTypeResultData.result;
+
+                for (let i = 0; i < roomTypes.length; i++)
+                    for (let j = 0; j < roomTypeResultData.result.length; j++)
+                        if (roomTypes[i].roomTypeId == roomTypeResultData.result[j].roomTypeId)
+                            roomTypes[i].minRemain = roomTypeResultData.result[j].minRemain;
             },
         });
-        for (let j = 0; j < roomTypeResult.length; j++) {
-            for (let k = 0; k < roomTypes.length; k++) {
+        for (let j = 0; j < roomTypeResult.length; j++)
+            for (let k = 0; k < roomTypes.length; k++)
                 if (roomTypeResult[j].roomTypeId == roomTypes[k].roomTypeId) {
                     let facilities = '';
                     for (let l = 0; l < roomTypes[k].facilities.length; l++)
                         facilities += `<img src=${roomTypes[k].facilities[l].facilityImage} class="mx-1 facilities">`
 
-                    var roomPriceStr = '<div class="row"><div class="col-lg-2 col-md-12 col-sm-4">Giá:</div><div class="col-lg-10 col-md-12 col-sm-8">';
+                    var roomPriceStr = '<div class="row"><div class="col-lg-2 col-md-12 col-4">Giá:</div><div class="col-lg-10 col-md-12 col-8">';
                     var price = 0;
                     for (let d = searchRequestObj.CheckInDate.getTime(); d < searchRequestObj.CheckOutDate.getTime(); d += 86400000) {
                         var date = new Date(d);
@@ -120,7 +124,7 @@ showSelections = function () {
                                 <img class="my-auto" src="${roomTypes[k].image}">
                             </div>
                             <div class="col-md-7">
-                                <h4>${roomTypes[k].name}</h4>
+                                <a href="/Rooms/Details/${roomTypes[k].roomTypeId}" target="_blank"><h4 class="text-warning">${roomTypes[k].name} <span class="text-danger" id="room-available-${i + 1}-${roomTypes[k].roomTypeId}"></span></h4></a>
                                 <p>${roomTypes[k].description}</p>
                                 <p class="text-dark">Tiện nghi: ${facilities}</p>
                                 ${roomPriceStr}
@@ -135,23 +139,56 @@ showSelections = function () {
                     if (j < roomTypeResult.length - 1)
                         $(`#room${i}`).append('<hr style="height:2px;">');
                 };
-            }
-        }
     }
     $('#totalPeople').text(`Tổng số người: ${adults + children} (${adults} người lớn, ${children} trẻ em)`);
 }
 
-var roomSelected = [];
-
 getRoomsValue = function () {
+    roomSelected = [];
     var totalAmount = 0;
-    for (let i = 0; i < searchRequest.Rooms.length; i++) {
-        for (let j = 0; j < roomTypes.length; j++) {
+    for (let j = 0; j < roomTypes.length; j++) {
+        var minRemain = roomTypes[j].minRemain;
+        for (let i = 0; i < searchRequest.Rooms.length; i++) {
             if (document.querySelector(`input[id="room-${i + 1}-${roomTypes[j].roomTypeId}"]:checked`)) {
                 roomSelected.push(parseInt(document.querySelector(`input[id="room-${i + 1}-${roomTypes[j].roomTypeId}"]:checked`).value));
                 totalAmount += parseInt($(`#roomPrice-${i + 1}-${roomTypes[j].roomTypeId}`).val());
+                $(`.minRemain${roomTypes[j].roomTypeId}`).val(minRemain - 1);
+                minRemain -= 1;
+                if (minRemain == 0) {
+                    disableUnavailableRoomTypes(roomTypes[j].roomTypeId);
+                }
+                if (minRemain ==1) {
+                    enableAvailableRoomTypes(roomTypes[j].roomTypeId);
+                }
             }
         }
     }
     $('#TotalAmount').text(digitGrouping(totalAmount) + '₫');
+}
+
+disableUnavailableRoomTypes = function (roomTypeId) {
+    for (let j = 0; j < searchRequest.Rooms.length; j++) {
+        if (document.getElementById(`room-${j + 1}-${roomTypeId}`).checked) {
+        } else {
+            document.getElementById(`room-${j + 1}-${roomTypeId}`).disabled = true;
+            $(`#room-available-${j + 1}-${roomTypeId}`).text('(Hết phòng)');
+        }
+    }
+}
+
+enableAvailableRoomTypes = function (roomTypeId) {
+    console.log(roomTypeId);
+    for (let j = 0; j < searchRequest.Rooms.length; j++) {
+        if (document.getElementById(`room-${j + 1}-${roomTypeId}`).checked) {
+        } else {
+            document.getElementById(`room-${j + 1}-${roomTypeId}`).disabled = false;
+            $(`#room-available-${j + 1}-${roomTypeId}`).text('');
+        }
+    }
+}
+
+bookRoom = function () {
+    var bookingRoomRequest = searchRequest;
+    bookingRoomRequest.bookingRoom = roomSelected;
+    console.log(bookingRoomRequest);
 }
