@@ -1,4 +1,5 @@
-﻿using HotelBooking.Domain.Request.Promotions;
+﻿using HotelBooking.Domain.Request.Booking;
+using HotelBooking.Domain.Request.Promotions;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Promotions;
 using Microsoft.AspNetCore.Mvc;
@@ -48,6 +49,11 @@ namespace HotelBooking.WEB.Controllers
         public JsonResult GetAvailableForDate([FromBody] DateTime date)
         {
             List<GetMaxDiscountRatesPromotionAvailable> result = ApiHelper<List<GetMaxDiscountRatesPromotionAvailable>>.HttpPostAsync($"{Helper.ApiUrl}api/promotions/getavailablefordate", date);
+            return Json(new { result });
+        }
+        public JsonResult GetAvailableForDateAndRoomTypeId([FromBody] GetAvailablePromotionForDateAndRoomIdRequest request)
+        {
+            var result = ApiHelper<GetAvailablePromotionForDateAndRoomIdResponse>.HttpPostAsync($"{Helper.ApiUrl}api/promotions/getavailablefordateandroomtypeid", request);
             return Json(new { result });
         }
     }

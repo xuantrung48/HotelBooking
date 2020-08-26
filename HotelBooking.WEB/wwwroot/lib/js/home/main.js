@@ -119,8 +119,8 @@ $('#addRoom').click(function () {
 });
 
 changeNumberOfRooms = function () {
-    var rooms = parseInt($('#numberOfRooms').val());
     $('#selectRooms').empty();
+    var rooms = parseInt($('#numberOfRooms').val());
     for (let i = 0; i < rooms; i++) {
         $('#selectRooms').append(
             `<h4>Phòng ${i + 1}:</h4>
@@ -138,32 +138,49 @@ changeNumberOfRooms = function () {
             </div>`
         );
     };
+    changePeople();
+}
+
+changePeople = function () {
+    var rooms = parseInt($('#numberOfRooms').val());
+    $('#NumberOfRooms').text(rooms);
+    var adults = 0;
+    var children = 0
+    for (let i = 0; i < rooms; i++) {
+        adults += parseInt($(`#adults${i + 1}`).val());
+        children += parseInt($(`#children${i + 1}`).val());
+    };
+    $('#totalPeople').text(`(${adults} người lớn, ${children} trẻ em)`);
 }
 
 minusAdults = function (room) {
     if ($(`#adults${room}`).val() > 1) {
         $(`#adults${room}`).val(parseInt($(`#adults${room}`).val()) - 1);
+        changePeople();
     };
 }
 
 addAdults = function (room) {
     $(`#adults${room}`).val(parseInt($(`#adults${room}`).val()) + 1);
+    changePeople();
 }
 
 minusChildren = function (room) {
     if ($(`#children${room}`).val() > 0) {
         $(`#children${room}`).val(parseInt($(`#children${room}`).val()) - 1);
+        changePeople();
     };
 }
 
 addChildren = function (room) {
     $(`#children${room}`).val(parseInt($(`#children${room}`).val()) + 1);
+    changePeople();
 }
 
 Search = function () {
     var searchRequest = {};
-    searchRequest.CheckInDate = new Date(convertDateFormat($('.check__in').val()));
-    searchRequest.CheckOutDate = new Date(convertDateFormat($('.check__out').val()));
+    searchRequest.CheckInDate = (new Date(convertDateFormat($('.check__in').val()))).getTime() + (7 * 60 * 60 * 1000);
+    searchRequest.CheckOutDate = (new Date(convertDateFormat($('.check__out').val()))).getTime() + (7 * 60 * 60 * 1000);
     searchRequest.Rooms = [];
     for (let i = 0; i < parseInt($('#numberOfRooms').val()); i++) {
         searchRequest.Rooms[i] = {};
