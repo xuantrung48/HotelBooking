@@ -191,4 +191,35 @@ bookRoom = function () {
     var bookingRoomRequest = searchRequest;
     bookingRoomRequest.bookingRoom = roomSelected;
     console.log(bookingRoomRequest);
+    reset();
+    $('.modal-title').text('Thông tin khách hàng');
+    $('#mediumModal').appendTo("body");
+    $('#mediumModal').modal('show');
+}
+
+confirm = function () {
+    //var bookingObj = {};
+    //var customerObj = {};
+    //var roomDetails = new Array();
+    for (i = 0; i < bookingRoomRequest.bookingRoom.length; i++) {
+        var roomDetail = {};
+        roomDetail.RoomTypeId = bookingRoom[i];
+        roomDetail.RoomQuantity = 1;
+        for (j = i + 1; j < bookingRoomRequest.bookingRoom.length; j++) {
+           
+            if (bookingRoom[i] == bookingRoom[j]) {
+                roomDetail.RoomQuantity;
+                break;
+            }
+            console.log(roomDetail)
+        }
+    }
+
+}
+
+reset = function () {
+    $('#Name').val('');
+    $('#CustomerId').val(0);
+    $('#PhoneNumber').val('');
+    $('#Email').val('');
 }
