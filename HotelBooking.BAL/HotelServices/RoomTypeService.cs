@@ -1,8 +1,8 @@
 ﻿using HotelBooking.BAL.Interface.HotelServices;
 using HotelBooking.DAL.Interface.Facilities;
 using HotelBooking.DAL.Interface.HotelServices;
-using HotelBooking.Domain.Request.Booking;
 using HotelBooking.Domain.Request.HotelServices;
+using HotelBooking.Domain.Request.Search;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Facilities;
 using HotelBooking.Domain.Response.HotelServices;
@@ -18,11 +18,6 @@ namespace HotelBooking.BAL.HotelServices
         private IRoomTypeImageRepository roomTypeImageRepository;
         private IFacilityApplyRepository facilityApplyRepository;
         private IFacilityRepository facilityRepository;
-
-        public RoomTypeService(IRoomTypeRepository roomTypeRepository)
-        {
-            this.roomTypeRepository = roomTypeRepository;
-        }
 
         public RoomTypeService(IFacilityRepository facilityRepository, IRoomTypeRepository roomTypeRepository, IRoomTypeImageRepository roomTypeImageRepository, IFacilityApplyRepository facilityApplyRepository)
         {

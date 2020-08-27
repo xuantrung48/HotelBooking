@@ -168,5 +168,14 @@ enableAvailableRoomTypes = function (roomTypeId) {
 bookRoom = function () {
     var bookingRoomRequest = searchRequest;
     bookingRoomRequest.bookingRoom = roomSelected;
-    console.log(bookingRoomRequest);
+    var allRoomSelected = true;
+    for (let i = 0; i < searchResult.roomSearchResults.length; i++) {
+        if ($(`input[name=room-${i + 1}]:checked`).length == 0) {
+            bootbox.alert(`Bạn chưa chọn loại phòng cho phòng ${i + 1}!`);
+            allRoomSelected = false;
+            break;
+        }
+    }
+    if (allRoomSelected)
+        console.log(bookingRoomRequest);
 }

@@ -1,6 +1,6 @@
 ﻿using Dapper;
 using HotelBooking.DAL.Interface.HotelServices;
-using HotelBooking.Domain.Request.Booking;
+using HotelBooking.Domain.Request.Search;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
 using System;

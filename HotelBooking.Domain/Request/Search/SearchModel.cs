@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HotelBooking.Domain.Request.Booking
+namespace HotelBooking.Domain.Request.Search
 {
     public class SearchModel
     {
