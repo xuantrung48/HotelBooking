@@ -1,5 +1,4 @@
-﻿using HotelBooking.Domain.Request.Coupon;
-using HotelBooking.Domain.Response;
+﻿using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Coupons;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,6 +15,6 @@ namespace HotelBooking.DAL.Interface.Coupons
 
         Task<ActionsResult> Delete(int id);
 
-        Task<CouponSearchResult> Search(CouponSearchRequest couponSearchRequest);
+        Task<CouponSearchResult> Search(string couponCode);
     }
 }

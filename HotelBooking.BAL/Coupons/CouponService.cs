@@ -1,6 +1,5 @@
 ﻿using HotelBooking.BAL.Interface.Coupons;
 using HotelBooking.DAL.Interface.Coupons;
-using HotelBooking.Domain.Request.Coupon;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Coupons;
 using System.Collections.Generic;
@@ -37,9 +36,9 @@ namespace HotelBooking.BAL.Coupons
             return await couponRepository.Save(coupon);
         }
 
-        public async Task<CouponSearchResult> Search(CouponSearchRequest couponSearchRequest)
+        public async Task<CouponSearchResult> Search(string couponCode)
         {
-            return await couponRepository.Search(couponSearchRequest);
+            return await couponRepository.Search(couponCode);
         }
     }
 }
