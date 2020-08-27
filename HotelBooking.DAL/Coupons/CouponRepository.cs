@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using HotelBooking.DAL.Interface.Coupons;
+using HotelBooking.Domain.Request.Coupon;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.Coupons;
 using System.Collections.Generic;
@@ -38,6 +39,14 @@ namespace HotelBooking.DAL.Coupons
             parameters.Add("@Remain", coupon.Remain);
             parameters.Add("@EndDate", coupon.EndDate);
             return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "Coupon_Save", param: parameters, commandType: CommandType.StoredProcedure);
+        }
+
+        public async Task<CouponSearchResult> Search(CouponSearchRequest couponSearchRequest)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@CouponCode", couponSearchRequest.CouponCode);
+            parameters.Add("@CreateDate", couponSearchRequest.CreateDate);
+            return await SqlMapper.QueryFirstOrDefaultAsync<CouponSearchResult>(cnn: conn, sql: "Coupon_Search", param: parameters, commandType: CommandType.StoredProcedure);
         }
     }
 }

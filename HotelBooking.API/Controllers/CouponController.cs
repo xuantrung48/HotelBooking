@@ -1,4 +1,5 @@
 ﻿using HotelBooking.BAL.Interface.Coupons;
+using HotelBooking.Domain.Request.Coupon;
 using HotelBooking.Domain.Response.Coupons;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -43,6 +44,13 @@ namespace HotelBooking.API.Controllers
         public async Task<ActionsResult> Delete(int id)
         {
             return await couponService.Delete(id);
+        }
+
+        [HttpPost]
+        [Route("api/coupon/search")]
+        public async Task<CouponSearchResult> Search(CouponSearchRequest couponSearchRequest)
+        {
+            return await couponService.Search(couponSearchRequest);
         }
     }
 }
