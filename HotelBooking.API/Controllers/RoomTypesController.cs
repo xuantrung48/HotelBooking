@@ -1,6 +1,6 @@
 ﻿using HotelBooking.BAL.Interface.HotelServices;
-using HotelBooking.Domain.Request.Booking;
 using HotelBooking.Domain.Request.HotelServices;
+using HotelBooking.Domain.Request.Search;
 using HotelBooking.Domain.Response;
 using HotelBooking.Domain.Response.HotelServices;
 using Microsoft.AspNetCore.Mvc;
@@ -70,9 +70,9 @@ namespace HotelBooking.API.Controllers
 
         [HttpPost]
         [Route("api/roomtypes/search")]
-        public Task<IEnumerable<RoomTypeSearchResult>> Search(SearchModel request)
+        public async Task<IEnumerable<RoomTypeSearchResult>> Search(SearchModel request)
         {
-            return roomTypeService.Search(request);
+            return await roomTypeService.Search(request);
         }
     }
 }

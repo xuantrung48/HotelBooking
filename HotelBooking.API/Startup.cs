@@ -10,8 +10,10 @@ using HotelBooking.BAL.Interface.Coupons;
 using HotelBooking.BAL.Interface.Facilities;
 using HotelBooking.BAL.Interface.HotelServices;
 using HotelBooking.BAL.Interface.Promotions;
+using HotelBooking.BAL.Interface.Search;
 using HotelBooking.BAL.Interface.Supports;
 using HotelBooking.BAL.Promotions;
+using HotelBooking.BAL.Search;
 using HotelBooking.BAL.Supports;
 using HotelBooking.DAL;
 using HotelBooking.DAL.Bookings;
@@ -84,6 +86,7 @@ namespace HotelBooking.API
             services.AddTransient<ISupportService, SupportService>();
             services.AddTransient<IServiceImageRepository, ServiceImageRepository>();
             services.AddTransient<IServiceImageService, ServiceImageService>();
+            services.AddTransient<ISearchService, SearchService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

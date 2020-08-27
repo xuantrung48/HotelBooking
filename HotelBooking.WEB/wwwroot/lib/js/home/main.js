@@ -181,11 +181,11 @@ Search = function () {
     var searchRequest = {};
     searchRequest.CheckInDate = (new Date(convertDateFormat($('.check__in').val()))).getTime() + (7 * 60 * 60 * 1000);
     searchRequest.CheckOutDate = (new Date(convertDateFormat($('.check__out').val()))).getTime() + (7 * 60 * 60 * 1000);
-    searchRequest.Rooms = [];
+    searchRequest.RoomTypeSearchRequests = [];
     for (let i = 0; i < parseInt($('#numberOfRooms').val()); i++) {
-        searchRequest.Rooms[i] = {};
-        searchRequest.Rooms[i].Adults = parseInt($(`#adults${i + 1}`).val());
-        searchRequest.Rooms[i].Children = parseInt($(`#children${i + 1}`).val());
+        searchRequest.RoomTypeSearchRequests[i] = {};
+        searchRequest.RoomTypeSearchRequests[i].Adults = parseInt($(`#adults${i + 1}`).val());
+        searchRequest.RoomTypeSearchRequests[i].Children = parseInt($(`#children${i + 1}`).val());
     }
     localStorage.setItem('searchRequest', JSON.stringify(searchRequest));
     location.replace("/Search")
