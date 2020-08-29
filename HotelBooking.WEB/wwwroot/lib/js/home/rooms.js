@@ -20,7 +20,7 @@
                                         <h4>${data.result[i].name}</h4>
                                         <p class="text-warning" id="price${data.result[i].roomTypeId}">${digitGrouping(data.result[i].defaultPrice)}<span>/đêm</span></p>
                                     </div>
-                                    <a href="/" class="roomInfo">Đặt ngay</a>
+                                    <a href="/Rooms/Details/${data.result[i].roomTypeId}" class="roomInfo">Chi tiết</a>
                                 </div>
                             </div>`
                         );
