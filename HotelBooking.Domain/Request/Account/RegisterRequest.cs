@@ -1,4 +1,4 @@
-﻿using HotelBooking.Domain.Response.Account;
+﻿using HotelBooking.Domain.User;
 
 namespace HotelBooking.Domain.Request.Account
 {

@@ -1,4 +1,4 @@
-﻿using HotelBooking.Domain;
+﻿using HotelBooking.Domain.User;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
