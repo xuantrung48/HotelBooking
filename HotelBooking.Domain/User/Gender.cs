@@ -1,4 +1,4 @@
-﻿namespace HotelBooking.Domain.Response.Account
+﻿namespace HotelBooking.Domain.User
 {
     public enum Gender
     {

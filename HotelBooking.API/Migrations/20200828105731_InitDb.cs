@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HotelBooking.API.Migrations
 {
-    public partial class InitUserDb : Migration
+    public partial class InitDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +40,11 @@ namespace HotelBooking.API.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Avatar = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 30, nullable: false),
+                    Avatar = table.Column<string>(nullable: true),
+                    Gender = table.Column<int>(nullable: false),
+                    Address = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

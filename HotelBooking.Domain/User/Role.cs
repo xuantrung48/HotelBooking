@@ -1,4 +1,4 @@
-﻿namespace HotelBooking.Domain
+﻿namespace HotelBooking.Domain.User
 {
     public class Role
     {

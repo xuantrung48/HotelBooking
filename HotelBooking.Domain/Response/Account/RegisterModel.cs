@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HotelBooking.Domain.User;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelBooking.Domain.Response.Account
 {

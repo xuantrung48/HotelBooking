@@ -1,6 +1,6 @@
-﻿using HotelBooking.Domain;
-using HotelBooking.Domain.Request.Account;
+﻿using HotelBooking.Domain.Request.Account;
 using HotelBooking.Domain.Response.Account;
+using HotelBooking.Domain.User;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
