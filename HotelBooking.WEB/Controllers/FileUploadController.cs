@@ -1,6 +1,6 @@
-﻿using HotelBooking.Domain.Response;
+﻿using HotelBooking.Domain;
+using HotelBooking.Domain.Response;
 using HotelBooking.Web.Ultilities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelBooking.WEB.Controllers
@@ -8,16 +8,16 @@ namespace HotelBooking.WEB.Controllers
     public class FileUploadController : Controller
     {
         [HttpPost]
-        public JsonResult ImageUpload(IFormFile file)
+        public JsonResult FileUpload([FromBody] FilesUpload filesUpload)
         {
             ActionsResult result = new ActionsResult()
             {
                 Id = 0,
                 Message = "Error"
             };
-            if (file != null)
+            if (filesUpload.Files != null)
             {
-                result = ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/ImageUpload", file);
+                result = ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/ImageUpload", filesUpload);
             }
             return Json(new { result });
         }
