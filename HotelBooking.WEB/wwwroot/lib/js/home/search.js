@@ -75,7 +75,7 @@ showSelections = function () {
                 </div>
             </div>`
         )
-        if (!searchResult.roomSearchResults[i].roomTypeSearchResults)
+        if (!searchResult.roomSearchResults[i].roomTypeSearchResults.length)
             $(`#room${i}`).append('<div class="text-danger">Xin lỗi, chúng tôi đã hết phòng để chứa đủ số lượng người này!</div>')
         else
             for (let j = 0; j < searchResult.roomSearchResults[i].roomTypeSearchResults.length; j++) {
@@ -103,7 +103,7 @@ showSelections = function () {
                                 <img class="my-auto" src="${roomTypes[k].image}">
                             </div>
                             <div class="col-md-7">
-                                <a href="/Rooms/Details/${roomTypes[k].roomTypeId}" target="_blank"><h4 class="text-warning">${roomTypes[k].name} <span class="text-danger" id="room-available-${i + 1}-${roomTypes[k].roomTypeId}"></span></h4></a>
+                                <a href="/Rooms/Details/${roomTypes[k].roomTypeId}" target="_blank"><h4 class="text-warning">${roomTypes[k].name} ${(j == 0) ? '<span class="badge badge-success">Giá tốt nhất</span>' : ''} <span class="text-danger" id="room-available-${i + 1}-${roomTypes[k].roomTypeId}"></span></h4></a>
                                 <p>${roomTypes[k].description}</p>
                                 <p class="text-dark">Tiện nghi: ${facilities}</p>
                                 ${roomPriceStr}
