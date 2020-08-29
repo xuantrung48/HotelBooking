@@ -5,7 +5,7 @@ $(document).ready(function () {
 })
 
 digitGrouping = function (price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + '₫';
 }
 
 roomType.init = function () {

@@ -1,8 +1,4 @@
-﻿digitGrouping = function (price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-}
-
-showRoomTypes = function () {
+﻿showRoomTypes = function () {
     $.ajax({
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
@@ -22,7 +18,7 @@ showRoomTypes = function () {
                                 <div class="home__room__item set-bg" style="background-image:url('${data.result[i].image}')">
                                     <div class="home__room__title roomInfo">
                                         <h4>${data.result[i].name}</h4>
-                                        <p class="text-warning" id="price${data.result[i].roomTypeId}">${digitGrouping(data.result[i].defaultPrice)}₫<span>/đêm</span></p>
+                                        <p class="text-warning" id="price${data.result[i].roomTypeId}">${digitGrouping(data.result[i].defaultPrice)}<span>/đêm</span></p>
                                     </div>
                                     <a href="/" class="roomInfo">Đặt ngay</a>
                                 </div>
@@ -33,7 +29,7 @@ showRoomTypes = function () {
                             if (data.result[i].roomTypeId == roomTypePromotions.result[k].roomTypeId) {
                                 $(`#price${data.result[i].roomTypeId}`).empty();
                                 $(`#price${data.result[i].roomTypeId}`).append(
-                                    `<small><del class="text-danger">${digitGrouping(data.result[i].defaultPrice)}₫</del></small> ${digitGrouping(data.result[i].defaultPrice * (1 - roomTypePromotions.result[k].discountRates))}₫/đêm`
+                                    `<small><del class="text-danger">${digitGrouping(data.result[i].defaultPrice)}</del></small> ${digitGrouping(data.result[i].defaultPrice * (1 - roomTypePromotions.result[k].discountRates))}/đêm`
                                 )
                             }
                         }
