@@ -11,8 +11,10 @@ ASP.NET Core RESTFul API
 SQL server 2019
 ## DataBase
 https://github.com/xuantrung48/HotelBooking/tree/development/DataBase
-## Store Procedures
-https://github.com/xuantrung48/HotelBooking/tree/development/HotelBooking.DAL/Stored%20Procedures
+### Store Procedures
+https://github.com/xuantrung48/HotelBooking/blob/development/DataBase/store-procedures.sql
+### Diagram
+![image](https://raw.githubusercontent.com/xuantrung48/HotelBooking/development/DataBase/Diagram.png)
 ## Templates
 Homepage: [Hiroto](https://colorlib.com/wp/template/hiroto/)
 
