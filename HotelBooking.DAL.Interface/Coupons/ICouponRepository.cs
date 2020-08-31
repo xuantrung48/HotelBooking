@@ -14,5 +14,7 @@ namespace HotelBooking.DAL.Interface.Coupons
         Task<Coupon> GetById(int id);
 
         Task<ActionsResult> Delete(int id);
+
+        Task<CouponSearchResult> Search(string couponCode);
     }
 }

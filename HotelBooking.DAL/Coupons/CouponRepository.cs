@@ -39,5 +39,12 @@ namespace HotelBooking.DAL.Coupons
             parameters.Add("@EndDate", coupon.EndDate);
             return await SqlMapper.QueryFirstOrDefaultAsync<ActionsResult>(cnn: conn, sql: "Coupon_Save", param: parameters, commandType: CommandType.StoredProcedure);
         }
+
+        public async Task<CouponSearchResult> Search(string couponCode)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@CouponCode", couponCode);
+            return await SqlMapper.QueryFirstOrDefaultAsync<CouponSearchResult>(cnn: conn, sql: "Coupon_Search", param: parameters, commandType: CommandType.StoredProcedure);
+        }
     }
 }

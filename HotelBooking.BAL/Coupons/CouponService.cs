@@ -35,5 +35,10 @@ namespace HotelBooking.BAL.Coupons
         {
             return await couponRepository.Save(coupon);
         }
+
+        public async Task<CouponSearchResult> Search(string couponCode)
+        {
+            return await couponRepository.Search(couponCode);
+        }
     }
 }

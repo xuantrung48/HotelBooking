@@ -44,5 +44,12 @@ namespace HotelBooking.API.Controllers
         {
             return await couponService.Delete(id);
         }
+
+        [HttpGet]
+        [Route("api/coupon/search/{couponCode}")]
+        public async Task<CouponSearchResult> Search(string couponCode)
+        {
+            return await couponService.Search(couponCode);
+        }
     }
 }

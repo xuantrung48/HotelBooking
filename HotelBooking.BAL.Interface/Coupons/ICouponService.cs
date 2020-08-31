@@ -14,5 +14,7 @@ namespace HotelBooking.BAL.Interface.Coupons
         Task<ActionsResult> Save(Coupon coupon);
 
         Task<ActionsResult> Delete(int id);
+
+        Task<CouponSearchResult> Search(string couponCode);
     }
 }
