@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Thông Tin Đặt Phòng";
+}
+<div class="container mb-5">
+    <div class="text-center my-3">
+        <h2>@ViewData["Title"]</h2>
+    </div>
+    <div class="">
+        <div class="form">
+            <div class="p-3">
+                <div class="row">
+                    <div id="checkInDate" class="col-lg-4 col-md-6"></div>
+                    <div id="checkOutDate" class="col-lg-4 col-md-6"></div>
+                    <div id="totalPeople" class="col-lg-4 col-md-6"></div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="container">
+                        <h2>Thông tin đặt phòng</h2>
+                        <hr />
+                        <div class="container" id="tbRoomBookingCreate">
+                        </div>
+                        <div class="container">
+                            <div class="container">
+                                <hr />
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <h4 class="my-5">Tổng tiền phòng: <span class="text-danger" id="TotalRoomPrice"></span></h4>
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <h2>Dịch vụ</h2>
+                        <hr />
+                        <div class="container" id="tbService">
+                        </div>
+                        <div class="container">
+                            <div class="container">
+                                <hr />
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <h4 class="my-5">Tổng tiền dịch vụ: <span class="text-danger" id="TotalServicePrice"></span></h4>
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container">
+                        <h2>Thông tin khách hàng</h2>
+                        <hr />
+                        <div class="container my-3">
+                            <input type="number" id="CustomerId" name="CustomerId" value="0" class="form-control" hidden>
+                            <div class="row form-group">
+                                <div class="col-md-3 col-sm-12 my-auto">
+                                    <h5>Tên khách hàng</h5>
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" id="Name" name="Name" class="form-control" data-rule-required="true" placeholder="Nhập tên khách hàng">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-3 col-sm-12 my-auto">
+                                    <h5>Số điện thoại</h5>
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" id="PhoneNumber" name="PhoneNumber" class="form-control" data-rule-required="true" placeholder="Nhập số điện thoại">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-3 col-sm-12 my-auto">
+                                    <h5>Địa chỉ email</h5>
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" id="Email" name="Email" class="form-control" data-rule-required="true" placeholder="Nhập địa chỉ email">
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <h2>Thông tin khuyến mãi</h2>
+                        <hr />
+                        <div class="container my-3">
+                            <div class="row form-group">
+
+                                <div class="col-md-3 col-sm-12 my-auto">
+                                    <h5>Mã giảm giá</h5>
+                                </div>
+                                <input type="number" id="CouponId" name="CouponId" class="form-control" hidden>
+                                <div class="col-7">
+                                    <input type="text" id="CouponCode" name="CouponCode" class="form-control" data-rule-required="true" placeholder="Nhập mã giảm giá">
+                                </div>
+                                <div class="col-2">
+                                    <a href="javascript:;" class="btn btn-success" onclick="checkCouponCode()">Áp dụng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-4">
+                    <h4 class="my-5">Tổng tiền: <span class="text-danger" id="TotalAmountBooking"></span></h4>
+                    <a class="btn btn-success bg-warning" style="width:150px;" href="javascript:void(0);" onclick="confirm()"><h4>Đặt Phòng</h4></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/lib/bootbox/bootbox.min.js"></script>
+    <script src="~/lib/js/home/search.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#TotalRoomPrice').text(digitGrouping(JSON.parse(localStorage.getItem('TotalAmount'))));
+            $('#TotalServicePrice').text((0) + '₫');
+            showRoomTypeDetails();
+            showService();
+        });
+    </script>
+}

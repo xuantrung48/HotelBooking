@@ -46,10 +46,10 @@ namespace HotelBooking.API.Controllers
         }
 
         [HttpGet]
-        [Route("api/coupon/search/{couponCode}")]
-        public async Task<CouponSearchResult> Search(string couponCode)
+        [Route("api/coupon/search/{id}")]
+        public async Task<CouponSearchResult> Search(string id)
         {
-            return await couponService.Search(couponCode);
+            return await couponService.Search(id);
         }
     }
 }

@@ -3,6 +3,11 @@ var searchRequest = JSON.parse(localStorage.getItem('searchRequest'));
 var roomSelected = [];
 var roomTypes;
 var searchResult = {};
+var coupon = {};
+var totalAmount = 0;
+var totalAmoutRoom = JSON.parse(localStorage.getItem('TotalAmount'));
+var totalAmountBooking = totalAmoutRoom;
+var serviceDetails = [];
 
 $(document).ready(function () {
     bookingRoom.init();
@@ -124,7 +129,6 @@ showSelections = function () {
 }
 
 getRoomsValue = function () {
-    var totalAmount = 0;
     roomSelected.length = 0;
     for (let i = 0; i < roomTypes.length; i++) {
         var minRemain = roomTypes[i].minRemain;
@@ -168,6 +172,264 @@ bookRoom = function () {
             allRoomSelected = false;
             break;
         }
-    if (allRoomSelected)
-        console.log(bookingRoomRequest);
+    if (allRoomSelected) {
+        createBookingObj();
+        localStorage.setItem('TotalAmount', totalAmount);
+        location.assign("/Search/BookingDetails");
+    }
 }
+
+confirm = function () {
+    var bookingObj = {};
+    var customerObj = {};
+    customerObj = addCustomer();
+    bookingObj = JSON.parse(localStorage.getItem('CreateBooking'));
+    bookingObj.BookingCustomer = customerObj;
+    bookingObj.CustomerId = customerObj.CustomerId;
+    bookingObj.CouponId = parseInt($('#CouponId').val());
+    bookingObj.bookingServiceDetails = serviceDetails;
+    console.log(bookingObj);
+    $.ajax({
+        url: `/BookingsManager/Save/`,
+        method: "POST",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(bookingObj),
+        success: function (data) {
+            bootbox.alert({
+                message: data.result.message,
+                callback: function () {
+                    location.assign("/Home/Index");
+                }
+            })
+        }
+    }).done(function () {
+
+    });
+}
+
+showRoomTypeDetails = function () {
+    var roomTypeDetails = JSON.parse(localStorage.getItem('CreateBooking')).bookingRoomDetails;
+    $.each(roomTypeDetails, function (i, v) {
+        $.ajax({
+            beforeSend: function () {
+                $('.ajax-loader').css("visibility", "visible");
+            },
+
+            url: `/RoomTypesManager/Get/${v.RoomTypeId}`,
+            method: "GET",
+            dataType: "json",
+            success: function (data) {
+                $('#tbRoomBookingCreate').append(
+                    `<div class="my-3">
+                            <div class="row form-group ">
+                                <div class="col-md-5 col-sm-12 my-auto">
+                                    <h4>${data.result.name}</h4>
+                                </div>
+                                <div class="col-md-5 col-sm-12 text-center">
+                                    <h4>Số lượng: ${v.RoomQuantity}</h4>
+                                </div>
+                            </div>
+                        </div>`
+                );
+            },
+
+            complete: function () {
+                $('.ajax-loader').css("visibility", "hidden");
+            }
+        });
+    });
+}
+
+showService = function () {
+    $('#tbService').empty();
+    $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
+        url: "/ServicesManager/GetAll",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            $.each(data.result, function (i, v) {
+                $('#tbService').append(
+                    `<div class="my-3">
+                        <div class="row form-group">
+                            <div class="col-md-3 col-sm-12 my-auto">
+                                <h5>${v.serviceName}</h5>
+                            </div>
+                            <div class="col-md-9 col-sm-12">
+                                <div class="col-3 col-sm-12 my-1">
+                                    <h5>Giá dịch vụ: ${digitGrouping(v.price)}</h5>
+                                </div>
+                                <div class="col-9 col-sm-12 my-1">
+                                    <input type="number" id="ServiceQuantity${v.serviceId}" name="ServiceQuantity" onchange ="changeServiceQuantity(${v.price} ,${v.serviceId})" placeholder="Số lượng" class="form-control" />
+                                    <input type="hidden" id="ServicePrice${v.serviceId}" value="0"/> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+                );
+            });
+            displayTotalAmountBooking(totalAmountBooking, "#TotalAmountBooking");
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
+        }
+    });
+}
+
+changeServiceQuantity = function (p, i) {
+    var quantity = parseInt($(`#ServiceQuantity${i}`).val());
+    if (Number.isNaN(quantity)) {
+        var money = 0 * parseInt(p);
+        $(`#ServicePrice${i}`).val(parseInt(money));
+        calculateTotalServiceMoney();
+    } else {
+        var money = quantity * parseInt(p);
+        $(`#ServicePrice${i}`).val(parseInt(money));
+        calculateTotalServiceMoney();
+    }
+}
+
+calculateTotalServiceMoney = function () {
+    $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
+        url: "/ServicesManager/GetAll",
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            var totalServiceMoney = 0;
+            serviceDetails = [];
+            $.each(data.result, function (i, v) {
+                totalServiceMoney += parseInt($(`#ServicePrice${v.serviceId}`).val());
+
+                var serviceQuantity = parseInt($(`#ServiceQuantity${v.serviceId}`).val());
+                if (!Number.isNaN(serviceQuantity)) {
+                    var serviceDetail = {};
+                    serviceDetail.ServiceId = v.serviceId;
+                    serviceDetail.ServiceQuantity = serviceQuantity;
+                    serviceDetail.BookingId = 0;
+                    serviceDetails.push(serviceDetail);
+                }
+            });
+            console.log(serviceDetails);
+
+            totalAmountBooking = totalServiceMoney + totalAmoutRoom;
+            displayTotalAmountBooking(totalAmountBooking, "#TotalAmountBooking");
+            $('#TotalServicePrice').text((digitGrouping(totalServiceMoney)));
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
+        }
+    });
+}
+
+reset = function () {
+    $('#Name').val('');
+    $('#CustomerId').val(0);
+    $('#PhoneNumber').val('');
+    $('#Email').val('');
+}
+
+groupRoomType = function () {
+    var roomDetails = new Array();
+    var i = 0;
+    var j = 0;
+    while (i < roomSelected.length) {
+        var roomDetail = {};
+        roomDetail.RoomTypeId = roomSelected[i];
+        roomDetail.RoomQuantity = 1;
+        for (j = i + 1; j < roomSelected.length; j++) {
+            if (roomSelected[i] == roomSelected[j]) {
+                roomDetail.RoomQuantity++;
+                i = j;
+                continue;
+            }
+        }
+        roomDetails.push(roomDetail);
+        i++
+    }
+    return roomDetails;
+}
+
+groupPeople = function () {
+    return JSON.parse(localStorage.getItem('numofPeople'));
+}
+
+addCustomer = function () {
+    var customerObj = {}
+    customerObj.Name = $('#Name').val().trim();
+    customerObj.PhoneNumber = $('#PhoneNumber').val().trim();
+    customerObj.Email = $('#Email').val().trim();
+    customerObj.CustomerId = parseInt($('#CustomerId').val());
+    return customerObj;
+}
+
+checkCouponCode = function () {
+    var couponCode;
+    couponCode = $('#CouponCode').val().toUpperCase();
+    $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
+        url: `/CouponsManager/Search/${couponCode}`,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            $('#CouponCode').val(couponCode.toUpperCase());
+            bootbox.alert({
+                message: data.result.message,
+                callback: function () {
+                    if (data.result.couponId > 0) {
+                        $('#CouponId').val(data.result.couponId);
+                        totalAmoutRoom = JSON.parse(localStorage.getItem('TotalAmount')) * (1 - data.result.reduction);
+                        displayTotalAmountBooking(totalAmoutRoom, "#TotalRoomPrice");
+                        calculateTotalServiceMoney();
+                    }
+
+                }
+            })
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
+        }
+    });
+}
+
+addCouponCode = function (id) {
+    $.ajax({
+        beforeSend: function () {
+            $('.ajax-loader').css("visibility", "visible");
+        },
+        url: `/CouponsManager/Get/${id}`,
+        method: "GET",
+        dataType: "json",
+        success: function (data) {
+            coupon = data.result;
+            console.log(coupon);
+        },
+        complete: function () {
+            $('.ajax-loader').css("visibility", "hidden");
+        }
+    });
+}
+
+createBookingObj = function () {
+    var roomDetails = groupRoomType();
+    var bookingObj = {};
+    bookingObj.NumberofChildren = groupPeople().children;
+    bookingObj.NumberofAdults = groupPeople().adults;
+    bookingObj.CheckinDate = new Date(searchRequest.CheckInDate);
+    bookingObj.CheckoutDate = new Date(searchRequest.CheckOutDate);
+    bookingObj.bookingRoomDetails = roomDetails;
+    bookingObj.BookingId = 0;
+    localStorage.setItem('CreateBooking', JSON.stringify(bookingObj));
+}
+
+displayTotalAmountBooking = function (amount, id) {
+    $(id).text(digitGrouping(amount))
+}
+

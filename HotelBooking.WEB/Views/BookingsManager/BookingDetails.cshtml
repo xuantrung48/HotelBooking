@@ -344,6 +344,7 @@
                 bookingObj.bookingServiceDetails = serviceDetails;
                 bookingObj.bookingRoomDetails = roomDetails
                 bookingObj.BookingCustomer = customerObj;
+                console.log(bookingObj);
                 if (bookingObj.BookingId != 0) {
                     $.ajax({
                         url: `/BookingServiceDetails/DeleteByBookingId/${bookingObj.BookingId}`,
@@ -363,8 +364,11 @@
                     contentType: "application/json",
                     data: JSON.stringify(bookingObj),
                     success: function (data) {
-                        bootbox.alert(data.result.message, function () {
-                            location.assign(`/Booking`);
+                        bootbox.alert({
+                            message: data.result.message,
+                            callback: function () {
+                                location.assign(`/BookingsManager`);
+                            }
                         });
                         booking.drawTable();
                     }
