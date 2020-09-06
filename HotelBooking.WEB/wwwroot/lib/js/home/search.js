@@ -130,6 +130,7 @@ showSelections = function () {
 
 getRoomsValue = function () {
     roomSelected.length = 0;
+    totalAmount = 0;
     for (let i = 0; i < roomTypes.length; i++) {
         var minRemain = roomTypes[i].minRemain;
         for (let j = 0; j < searchResult.roomSearchResults.length; j++)
@@ -180,32 +181,34 @@ bookRoom = function () {
 }
 
 confirm = function () {
-    var bookingObj = {};
-    var customerObj = {};
-    customerObj = addCustomer();
-    bookingObj = JSON.parse(localStorage.getItem('CreateBooking'));
-    bookingObj.BookingCustomer = customerObj;
-    bookingObj.CustomerId = customerObj.CustomerId;
-    bookingObj.CouponId = parseInt($('#CouponId').val());
-    bookingObj.bookingServiceDetails = serviceDetails;
-    console.log(bookingObj);
-    $.ajax({
-        url: `/BookingsManager/Save/`,
-        method: "POST",
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(bookingObj),
-        success: function (data) {
-            bootbox.alert({
-                message: data.result.message,
-                callback: function () {
-                    location.assign("/Home/Index");
-                }
-            })
-        }
-    }).done(function () {
+    if ($('#form').valid()) {
+        var bookingObj = {};
+        var customerObj = {};
+        customerObj = addCustomer();
+        bookingObj = JSON.parse(localStorage.getItem('CreateBooking'));
+        bookingObj.BookingCustomer = customerObj;
+        bookingObj.CustomerId = customerObj.CustomerId;
+        bookingObj.CouponId = parseInt($('#CouponId').val());
+        bookingObj.bookingServiceDetails = serviceDetails;
+        console.log(bookingObj);
+        $.ajax({
+            url: `/BookingsManager/Save/`,
+            method: "POST",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(bookingObj),
+            success: function (data) {
+                bootbox.alert({
+                    message: data.result.message,
+                    callback: function () {
+                        location.assign("/Home/Index");
+                    }
+                })
+            }
+        }).done(function () {
 
-    });
+        });
+    }
 }
 
 showRoomTypeDetails = function () {
@@ -433,3 +436,53 @@ displayTotalAmountBooking = function (amount, id) {
     $(id).text(digitGrouping(amount))
 }
 
+validation = function () {
+    $.validator.addMethod(
+        "regex",
+        function (value, element, regexp) {
+            return this.optional(element) || regexp.test(value.trim());
+        },
+        "Please check your input."
+    );
+    jQuery.validator.addMethod("greaterThan",
+        function (value, element, params) {
+            if (!/Invalid|NaN/.test(new Date(value))) {
+                return new Date(value) > new Date($(params[0]).val());
+            }
+            return isNaN(value) && isNaN($(params[0]).val()) || (Number(value) > Number($(params[0]).val()));
+        },
+        'Must be greater than {1}.');
+    //$('#Name').val(`${$('#Name').val().trim()}`);
+    $('#form').validate({
+        rules: {
+            Name: {
+                required: true,
+                regex: /^[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]+(([',. -][a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ ])?[a-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵA-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴ]*)*$/
+            },
+            PhoneNumber: {
+                required: true,
+                regex: /^\(?(0|[3|5|7|8|9])+([0-9]{8})$/,
+
+            },
+            Email: {
+                required: true,
+                regex: /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/
+            }
+        },
+        messages: {
+            Name: {
+                required: "Bạn phải nhập tên khách hàng",
+                regex: "Tên khách hàng không chứa chữ số và kí tự đặc biệt"
+            },
+            PhoneNumber: {
+                required: "Bạn phải nhập số điện thoại",
+                regex: "Số điện thoại không hợp lệ",
+                range: "Số điện thoại không quá 10 số"
+            },
+            Email: {
+                required: "Bạn phải nhập địa chỉ email",
+                regex: "Địa chỉ email không hợp lệ"
+            }
+        }
+    })
+}
