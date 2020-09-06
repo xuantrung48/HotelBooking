@@ -197,7 +197,6 @@ confirm = function () {
     bookingObj.BookingCustomer = customerObj;
     bookingObj.CustomerId = customerObj.CustomerId;
     bookingObj.CouponId = parseInt($('#CouponId').val());
-    //checkServiceDetails();
     bookingObj.bookingServiceDetails = serviceDetails;
     console.log(bookingObj);
     $.ajax({
@@ -218,7 +217,6 @@ confirm = function () {
 
     });
 }
-
 
 showRoomTypeDetails = function () {
     var roomTypeDetails = JSON.parse(localStorage.getItem('CreateBooking')).bookingRoomDetails;
@@ -339,36 +337,6 @@ calculateTotalServiceMoney = function () {
         }
     });
 }
-
-//checkServiceDetails = function () {
-//    $.ajax({
-//        beforeSend: function () {
-//            $('.ajax-loader').css("visibility", "visible");
-//        },
-//        url: "/ServicesManager/GetAll",
-//        method: "GET",
-//        dataType: "json",
-//        success: function (data) {
-//            $.each(data.result, function (i, v) {
-//                var serviceQuantity = parseInt($(`#ServiceQuantity${v.serviceId}`).val());
-//                if (!Number.isNaN(serviceQuantity)) {
-//                    var serviceDetail = {};
-//                    serviceDetail.ServiceId = v.serviceId;
-//                    serviceDetail.ServiceQuantity = serviceQuantity;
-//                    serviceDetail.BookingId = 0;
-//                    serviceDetails.push(serviceDetail);
-//                }
-//            });
-//            console.log(serviceDetails);
-//        },
-//        complete: function () {
-//            $('.ajax-loader').css("visibility", "hidden");
-//        }
-//    }).done(function ()
-//    {
-
-//    });
-//}
 
 reset = function () {
     $('#Name').val('');
