@@ -302,6 +302,7 @@ changeServiceQuantity = function (p, i) {
         $(`#ServicePrice${i}`).val(parseInt(money));
         calculateTotalServiceMoney();
     }
+    //asdasd
 }
 
 calculateTotalServiceMoney = function () {
