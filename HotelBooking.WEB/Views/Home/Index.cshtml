@@ -11,29 +11,31 @@
                     <h5>Dịch vụ chuyên nghiệp</h5>
                 </div>
                 <form action="#" class="filter__form">
-                    <div class="filter__form__item">
-                        <p>Nhận phòng</p>
-                        <div class="filter__form__datepicker">
-                            <span class="icon_calendar"></span>
-                            <input type="text" class="datepicker_pop check__in">
-                            <i class="arrow_carrot-down"></i>
+                    <div class="row">
+                        <div class="filter__form__item">
+                            <p>Nhận phòng</p>
+                            <div class="filter__form__datepicker">
+                                <span class="icon_calendar"></span>
+                                <input type="text" class="datepicker_pop check__in">
+                                <i class="arrow_carrot-down"></i>
+                            </div>
                         </div>
-                    </div>
-                    <div class="filter__form__item">
-                        <p>Trả phòng</p>
-                        <div class="filter__form__datepicker">
-                            <span class="icon_calendar"></span>
-                            <input type="text" class="datepicker_pop check__out">
-                            <i class="arrow_carrot-down"></i>
+                        <div class="filter__form__item">
+                            <p>Trả phòng</p>
+                            <div class="filter__form__datepicker">
+                                <span class="icon_calendar"></span>
+                                <input type="text" class="datepicker_pop check__out">
+                                <i class="arrow_carrot-down"></i>
+                            </div>
                         </div>
-                    </div>
-                    <div class="filter__form__item filter__form__item--select">
-                        <p><span id="NumberOfRooms"></span> phòng <span id="totalPeople"></span></p>
-                        <div class="filter__form__input dropdown row mx-auto">
-                            <input type="button" class="col-1 bg-dark text-light" value="  -" id="minusRoom">
-                            <input type="number" readonly value="1" step="1" min="1" id="numberOfRooms" class="col-5" inputmode="numeric" />
-                            <input type="button" class="col-1 bg-dark text-light" value="  +" id="addRoom">
-                            <div class="dropdown-content" id="selectRooms">
+                        <div class="filter__form__item filter__form__item--select">
+                            <p><span id="NumberOfRooms"></span> phòng <span id="totalPeople"></span></p>
+                            <div class="filter__form__input dropdown row mx-auto">
+                                <input type="button" class="col-1 bg-dark text-light" value="  -" id="minusRoom">
+                                <input type="number" readonly value="1" step="1" min="1" id="numberOfRooms" class="col-5" inputmode="numeric" />
+                                <input type="button" class="col-1 bg-dark text-light" value="  +" id="addRoom">
+                                <div class="dropdown-content" id="selectRooms">
+                                </div>
                             </div>
                         </div>
                     </div>

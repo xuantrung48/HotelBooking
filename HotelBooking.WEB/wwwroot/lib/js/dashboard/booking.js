@@ -264,6 +264,16 @@ booking.delete = function (id, name) {
                     dataType: "json",
                     success: function (data) {
                         bootbox.alert(data.result.message);
+                        $.ajax({
+                            url: `/BookingServiceDetails/DeleteByBookingId/${id}`,
+                            method: "GET",
+                            dataType: "json"
+                        });
+                        $.ajax({
+                            url: `/BookingRoomDetails/DeleteByBookingId/${id}`,
+                            method: "GET",
+                            dataType: "json"
+                        });
                         booking.drawTable();
                     },
                     complete: function () {

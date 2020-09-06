@@ -38,5 +38,10 @@ namespace HotelBooking.WEB.Controllers
             result = ApiHelper<ActionsResult>.HttpPostAsync($"{Helper.ApiUrl}api/coupon/save", model);
             return Json(new { result });
         }
+        public JsonResult Search(string id)
+        {
+            CouponSearchResult result = ApiHelper<CouponSearchResult>.HttpGetAsync($"{Helper.ApiUrl}api/coupon/search/{id}");
+            return Json(new { result });
+        }
     }
 }

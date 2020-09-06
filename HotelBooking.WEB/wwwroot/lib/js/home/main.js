@@ -151,6 +151,7 @@ changePeople = function () {
         children += parseInt($(`#children${i + 1}`).val());
     };
     $('#totalPeople').text(`(${adults} người lớn, ${children} trẻ em)`);
+    localStorage.setItem('numofPeople', JSON.stringify({ 'adults': adults,'children': children}));
 }
 
 minusAdults = function (room) {

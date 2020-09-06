@@ -74,7 +74,7 @@ service.drawTable = function () {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: "/Service/GetAll",
+        url: "/ServicesManager/GetAll",
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -123,7 +123,7 @@ service.get = function (id) {
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
         },
-        url: `/Service/GetWithImages/${id}`,
+        url: `/ServicesManager/GetWithImages/${id}`,
         method: "GET",
         dataType: "json",
         success: function (data) {
@@ -162,7 +162,7 @@ service.save = function () {
             beforeSend: function () {
                 $('#modal-loader').css("visibility", "visible");
             },
-            url: `/Service/Save/`,
+            url: `/ServicesManager/Save/`,
             method: "POST",
             dataType: "json",
             contentType: "application/json",
@@ -197,7 +197,7 @@ service.delete = function (id, name) {
                     beforeSend: function () {
                         $('.ajax-loader').css("visibility", "visible");
                     },
-                    url: `/Service/Delete/${id}`,
+                    url: `/ServicesManager/Delete/${id}`,
                     method: "GET",
                     dataType: "json",
                     success: function (data) {
