@@ -1,5 +1,5 @@
 ﻿digitGrouping = function (price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + '₫';
 }
 
 showRoomTypes = function () {
@@ -26,7 +26,7 @@ showRoomTypes = function () {
                                     <img src="${data.result[i].image}" alt="${data.result[i].name}" width="100%" height="auto">
                                     <div class="carousel-caption">
                                         <h3><a href="/Rooms/Details/${data.result[i].roomTypeId}">${data.result[i].name}</a></h3>
-                                        <p class="text-warning" id="price${data.result[i].roomTypeId}">${digitGrouping(data.result[i].defaultPrice)}₫<span>/đêm</span></p>
+                                        <p class="text-warning" id="price${data.result[i].roomTypeId}">${digitGrouping(data.result[i].defaultPrice)}<span>/đêm</span></p>
                                         <a href="#bookroom">Đặt ngay</a>
                                     </div>
                                 </div>`
@@ -40,7 +40,7 @@ showRoomTypes = function () {
                             <img src="${data.result[i].image}" alt="${data.result[i].name}" width="100%" height="auto">
                             <div class="carousel-caption">
                                 <h3><a href="/Rooms/Details/${data.result[i].roomTypeId}">${data.result[i].name}</a></h3>
-                                <p class="text-warning" id="price${data.result[i].roomTypeId}">${digitGrouping(data.result[i].defaultPrice)}₫<span>/đêm</span></p>
+                                <p class="text-warning" id="price${data.result[i].roomTypeId}">${digitGrouping(data.result[i].defaultPrice)}<span>/đêm</span></p>
                                 <a href="#bookroom">Đặt ngay</a>
                             </div>
                         </div>`
@@ -50,7 +50,7 @@ showRoomTypes = function () {
                             if (data.result[i].roomTypeId == roomTypePromotions.result[k].roomTypeId) {
                                 $(`#price${data.result[i].roomTypeId}`).empty();
                                 $(`#price${data.result[i].roomTypeId}`).append(
-                                    `<small><del class="text-danger">${digitGrouping(data.result[i].defaultPrice)}₫</del></small> ${digitGrouping(data.result[i].defaultPrice * (1 - roomTypePromotions.result[k].discountRates))}₫/đêm`
+                                    `<small><del class="text-danger">${digitGrouping(data.result[i].defaultPrice)}</del></small> ${digitGrouping(data.result[i].defaultPrice * (1 - roomTypePromotions.result[k].discountRates))}/đêm`
                                 )
                             }
                         }
@@ -80,7 +80,7 @@ showRoomTypes = function () {
                             <img src="${data.result[i].image}" alt="${data.result[i].serviceName}" width="100%" height="auto">
                             <div class="carousel-caption">
                                 <h3 class="text-success">${data.result[i].serviceName}</h3>
-                                <p class="text-warning"">${digitGrouping(data.result[i].price)}₫<span></span></p>
+                                <p class="text-warning"">${digitGrouping(data.result[i].price)}<span></span></p>
                             </div>
                         </div>`
                     );
@@ -93,7 +93,7 @@ showRoomTypes = function () {
                             <img src="${data.result[i].image}" alt="${data.result[i].serviceName}" width="100%" height="auto">
                             <div class="carousel-caption">
                                 <h3 class="text-success">${data.result[i].serviceName}</h3>
-                                <p class="text-warning">${digitGrouping(data.result[i].price)}₫<span></span></p>
+                                <p class="text-warning">${digitGrouping(data.result[i].price)}<span></span></p>
                             </div>
                         </div>`
                     );

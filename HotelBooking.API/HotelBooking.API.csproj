@@ -6,6 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200809125611_InitUserDb.cs" />
+    <Compile Remove="Migrations\20200809125611_InitUserDb.Designer.cs" />
+    <Compile Remove="Migrations\20200810044820_AddNameToUserTable.cs" />
+    <Compile Remove="Migrations\20200810044820_AddNameToUserTable.Designer.cs" />
+    <Compile Remove="Migrations\20200828103316_UpdateUsersTable.cs" />
+    <Compile Remove="Migrations\20200828103316_UpdateUsersTable.Designer.cs" />
+    <Compile Remove="Migrations\20200828103817_UpdateUsersTable.cs" />
+    <Compile Remove="Migrations\20200828103817_UpdateUsersTable.Designer.cs" />
+    <Compile Remove="Migrations\20200828104744_InitDb.cs" />
+    <Compile Remove="Migrations\20200828104744_InitDb.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.6" />
@@ -25,12 +38,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\rooms\" />
-    <Folder Include="wwwroot\images\users\" />
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 

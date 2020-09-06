@@ -30,6 +30,7 @@ using HotelBooking.DAL.Interface.Supports;
 using HotelBooking.DAL.Promotions;
 using HotelBooking.DAL.Supports;
 using HotelBooking.Domain;
+using HotelBooking.Domain.User;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

@@ -4,7 +4,7 @@ $(document).ready(function () {
     service.init();
 })
 digitGrouping = function (price) {
-    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + '₫';
 }
 service.init = function () {
     service.drawTable();
@@ -83,7 +83,7 @@ service.drawTable = function () {
                     `<tr>
                         <td>${v.serviceId}</td>
                         <td>${v.serviceName}</td>
-                        <td>${digitGrouping(v.price)}&#8363;</td>
+                        <td>${digitGrouping(v.price)}</td>
                         <td>
                             <a href="javascripts:;" class="btn btn-primary"
                                        onclick="service.get(${v.serviceId})"><i class="fas fa-edit"></i></a> 

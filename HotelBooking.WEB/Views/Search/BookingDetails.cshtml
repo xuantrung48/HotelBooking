@@ -113,7 +113,7 @@
     <script src="~/lib/js/home/search.js"></script>
     <script>
         $(document).ready(function () {
-            $('#TotalRoomPrice').text(digitGrouping(JSON.parse(localStorage.getItem('TotalAmount'))) + '₫');
+            $('#TotalRoomPrice').text(digitGrouping(JSON.parse(localStorage.getItem('TotalAmount'))));
             $('#TotalServicePrice').text((0) + '₫');
             showRoomTypeDetails();
             showService();

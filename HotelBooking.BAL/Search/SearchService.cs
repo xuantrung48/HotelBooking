@@ -73,8 +73,8 @@ namespace HotelBooking.BAL.Search
                         MinRemain = roomTypeSearchResult.MinRemain,
                         RoomPriceSearchResults = prices
                     });
-                    roomSearchResult.RoomTypeSearchResults = rooms;
                 }
+                roomSearchResult.RoomTypeSearchResults = rooms.OrderBy(roomType => roomType.RoomPriceSearchResults.Sum(price => price.Price));
                 roomSearchResults.Add(roomSearchResult);
             }
 

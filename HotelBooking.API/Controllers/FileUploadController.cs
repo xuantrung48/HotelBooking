@@ -1,28 +1,31 @@
-﻿using HotelBooking.Domain.Response;
+﻿using HotelBooking.Domain;
+using HotelBooking.Domain.Response;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HotelBooking.API.Controllers
 {
     [ApiController]
-    public class ImageUploadController : Controller
+    public class FileUploadController : ControllerBase
     {
         public readonly IWebHostEnvironment webHostEnvironment;
 
-        public ImageUploadController(IWebHostEnvironment webHostEnvironment)
+        public FileUploadController(IWebHostEnvironment webHostEnvironment)
         {
             this.webHostEnvironment = webHostEnvironment;
         }
 
         [HttpPost]
         [Route("api/[controller]")]
-        public async Task<ActionsResult> Post(IFormFile file)
+        public async Task<List<ActionsResult>> Post([FromForm] FilesUpload filesUpload)
         {
-            if (file != null)
+            var result = new List<ActionsResult>();
+            if (filesUpload.Files.Count() > 0)
             {
                 try
                 {
@@ -30,35 +33,39 @@ namespace HotelBooking.API.Controllers
                     {
                         Directory.CreateDirectory(webHostEnvironment.WebRootPath + "\\images\\");
                     }
-                    var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-                    await using (FileStream fileStream = System.IO.File.Create(webHostEnvironment.WebRootPath + "\\images\\" + fileName))
+                    foreach (var file in filesUpload.Files)
                     {
-                        file.CopyTo(fileStream);
-                        fileStream.Flush();
-                        return new ActionsResult()
+                        var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+                        await using (FileStream fileStream = System.IO.File.Create(webHostEnvironment.WebRootPath + "\\images\\" + fileName))
                         {
-                            Id = 1,
-                            Message = fileName
-                        };
+                            file.CopyTo(fileStream);
+                            fileStream.Flush();
+                            result.Add(new ActionsResult()
+                            {
+                                Id = 1,
+                                Message = fileName
+                            });
+                        }
                     }
                 }
                 catch (Exception e)
                 {
-                    return new ActionsResult()
+                    result.Add(new ActionsResult()
                     {
                         Id = 0,
                         Message = e.Message.ToString()
-                    };
+                    });
                 }
             }
             else
             {
-                return new ActionsResult()
+                result.Add(new ActionsResult()
                 {
                     Id = 0,
-                    Message = "Failed"
-                };
+                    Message = "Error"
+                });
             }
+            return result;
         }
     }
 }
