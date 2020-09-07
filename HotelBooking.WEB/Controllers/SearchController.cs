@@ -23,5 +23,10 @@ namespace HotelBooking.WEB.Controllers
         //    var result = (from
         //    return Json(new { result });
         //}
+        public IActionResult BookingDetails()
+        {
+            
+            return View();
+        }
     }
 }
