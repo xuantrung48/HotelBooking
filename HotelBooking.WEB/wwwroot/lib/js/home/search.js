@@ -190,6 +190,8 @@ confirm = function () {
         bookingObj.CustomerId = customerObj.CustomerId;
         bookingObj.CouponId = parseInt($('#CouponId').val());
         bookingObj.bookingServiceDetails = serviceDetails;
+        //bookingObj.NumberofAdults = ;
+        //bookingObj.NumberofChildren = ;
         console.log(bookingObj);
         $.ajax({
             url: `/BookingsManager/Save/`,
@@ -282,6 +284,7 @@ showService = function () {
     });
 }
 
+
 changeServiceQuantity = function (p, i) {
     var quantity = parseInt($(`#ServiceQuantity${i}`).val());
     if (Number.isNaN(quantity)) {
@@ -289,13 +292,23 @@ changeServiceQuantity = function (p, i) {
         $(`#ServicePrice${i}`).val(parseInt(money));
         calculateTotalServiceMoney();
     } else {
-        var money = quantity * parseInt(p);
-        $(`#ServicePrice${i}`).val(parseInt(money));
-        calculateTotalServiceMoney();
+        if (quantity < 0) {
+            var money = 0 * parseInt(p);
+            $(`#ServicePrice${i}`).val(parseInt(money));
+            calculateTotalServiceMoney();
+        } else {
+            var money = quantity * parseInt(p);
+            $(`#ServicePrice${i}`).val(parseInt(money));
+            calculateTotalServiceMoney();
+        }
+        //var money = quantity * parseInt(p);
+        //    $(`#ServicePrice${i}`).val(parseInt(money));
+        //    calculateTotalServiceMoney();
     }
 }
 
 calculateTotalServiceMoney = function () {
+
     $.ajax({
         beforeSend: function () {
             $('.ajax-loader').css("visibility", "visible");
@@ -308,18 +321,17 @@ calculateTotalServiceMoney = function () {
             serviceDetails = [];
             $.each(data.result, function (i, v) {
                 totalServiceMoney += parseInt($(`#ServicePrice${v.serviceId}`).val());
-
-                var serviceQuantity = parseInt($(`#ServiceQuantity${v.serviceId}`).val());
-                if (!Number.isNaN(serviceQuantity)) {
-                    var serviceDetail = {};
-                    serviceDetail.ServiceId = v.serviceId;
-                    serviceDetail.ServiceQuantity = serviceQuantity;
-                    serviceDetail.BookingId = 0;
-                    serviceDetails.push(serviceDetail);
+                if ($('#formService').valid()) {
+                    var serviceQuantity = parseInt($(`#ServiceQuantity${v.serviceId}`).val());
+                    if (!Number.isNaN(serviceQuantity)) {
+                        var serviceDetail = {};
+                        serviceDetail.ServiceId = v.serviceId;
+                        serviceDetail.ServiceQuantity = serviceQuantity;
+                        serviceDetail.BookingId = 0;
+                        serviceDetails.push(serviceDetail);
+                    }
                 }
             });
-            console.log(serviceDetails);
-
             totalAmountBooking = totalServiceMoney + totalAmoutRoom;
             displayTotalAmountBooking(totalAmountBooking, "#TotalAmountBooking");
             $('#TotalServicePrice').text((digitGrouping(totalServiceMoney)));
@@ -467,6 +479,9 @@ validation = function () {
             Email: {
                 required: true,
                 regex: /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/
+            },
+            ServiceQuantity: {
+                min: 0
             }
         },
         messages: {
@@ -482,7 +497,22 @@ validation = function () {
             Email: {
                 required: "Bạn phải nhập địa chỉ email",
                 regex: "Địa chỉ email không hợp lệ"
+            },
+            ServiceQuantity: {
+                min: "Bạn phải nhập số lớn hơn 0"
             }
         }
-    })
+    });
+    $('#formService').validate({
+        rules: {
+            ServiceQuantity: {
+                min: 1
+            }
+        },
+        messages: {
+            ServiceQuantity: {
+                min: "Bạn phải nhập số lớn hơn 0"
+            }
+        }
+    });
 }
