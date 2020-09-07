@@ -284,32 +284,7 @@ booking.delete = function (id, name) {
         }
     });
 }
-//booking.addNewRoomType = function () {
-//    $('#RoomTypeDetails').append(
-//        `
-//            <div class="row mb-3">
-//                        <div class="col-9">
-//                            <select id="" class="custom-select">
-//                                <option value="">Select a roomtype</option>
-//                                @if (listRoomtype != null)
-//                                {
-//                                    foreach (var item in listRoomtype)
-//                                    {
-//                                        <option value="@item.RoomTypeId">@item.Name</option>
-//                                    }
-//                                }
-//                            </select>
-//                        </div>
-//                        <div class="col-2">
-//                            <input type="number" name="name" value="" class="form-control" />
-//                        </div>
-//                        <div class="col-1">
-//                            <a href="javascripts:;" class="btn btn-danger"><i class="fas fa-minus"></i></a>
-//                        </div>
-//            </div>
-//        `
-//    );
-//}
+
 dateToDMY = function (date) {
     date = new Date(date);
     var d = date.getDate();
